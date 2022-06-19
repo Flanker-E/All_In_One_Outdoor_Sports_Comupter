@@ -1,9 +1,10 @@
 // #include <lvgl.h>
 // #include "FS.h"
-#include <lv_demos.h>
+// #include <lv_demos.h>
 // #include <TFT_eSPI.h>
 #include "Port/Display.h"
-// #include "App/App.h"
+#include "HAL/HAL.h"
+#include "App/App.h"
 // #include "TouchScreen.h"
 /*If you want to use the LVGL examples,
   make sure to install the lv_examples Arduino library
@@ -26,13 +27,13 @@
 void setup()
 {
   //  File f = SPIFFS.open(CALIBRATION_FILE, "r");
-    Serial.begin( 115200 ); /* prepare for possible serial debug */
+    // Serial.begin( 115200 ); /* prepare for possible serial debug */
 
-    String LVGL_Arduino = "Hello Arduino! ";
-    LVGL_Arduino += String('V') + lv_version_major() + "." + lv_version_minor() + "." + lv_version_patch();
+    // String LVGL_Arduino = "Hello Arduino! ";
+    // LVGL_Arduino += String('V') + lv_version_major() + "." + lv_version_minor() + "." + lv_version_patch();
 
-    Serial.println( LVGL_Arduino );
-    Serial.println( "I am LVGL_Arduino" );
+    // Serial.println( LVGL_Arduino );
+    // Serial.println( "I am LVGL_Arduino" );
 
 
 
@@ -46,10 +47,13 @@ void setup()
        make sure to include it as written above.
     lv_example_btn_1();
    */
+    HAL::Init();
+    Serial.println( "HAL Init" );
     Port_Init();
+    Serial.println( "Port Init" );
     // uncomment one of these demos
-    lv_demo_widgets();            // OK
-    
+    // lv_demo_widgets();            // OK
+    // Serial.println( "Demo Init" );
     // lv_demo_benchmark();          // OK
     // lv_demo_keypad_encoder();     // works, but I haven't an encoder
     // lv_demo_music();              // NOK
@@ -65,13 +69,14 @@ void setup()
     //     configMAX_PRIORITIES - 1,
     //     // NULL);
     //     &handleTaskLvgl);
-    // App_Init();
+    App_Init();
+
     Serial.println( "Setup done" );
 }
 
 void loop()
 {
-    xTaskNotifyGive(handleTaskLvgl);
+    // xTaskNotifyGive(handleTaskLvgl);
     // lv_timer_handler(); /* let the GUI do its work */
     // lv_tick_inc(5);
     delay( 20 );

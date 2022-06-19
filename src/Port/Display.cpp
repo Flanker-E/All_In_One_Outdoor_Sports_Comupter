@@ -82,21 +82,21 @@ void touch_calibrate()
 }
 
 /* Display flushing */
-void my_disp_flush( lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *color_p )
-{
-    uint32_t w = ( area->x2 - area->x1 + 1 );
-    uint32_t h = ( area->y2 - area->y1 + 1 );
+// void my_disp_flush( lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *color_p )
+// {
+//     uint32_t w = ( area->x2 - area->x1 + 1 );
+//     uint32_t h = ( area->y2 - area->y1 + 1 );
 
-    tft.startWrite();
-    tft.setAddrWindow( area->x1, area->y1, w, h );
-    tft.pushColors( ( uint16_t * )&color_p->full, w * h, true );
-    tft.endWrite();
+//     tft.startWrite();
+//     tft.setAddrWindow( area->x1, area->y1, w, h );
+//     tft.pushColors( ( uint16_t * )&color_p->full, w * h, true );
+//     tft.endWrite();
 
-    lv_disp_flush_ready( disp );
-}
+//     lv_disp_flush_ready( disp );
+// }
 
 /*Read the touchpad*/
-void my_touchpad_read( lv_indev_drv_t * indev_driver, lv_indev_data_t * data )
+static void my_touchpad_read( lv_indev_drv_t * indev_driver, lv_indev_data_t * data )
 {
     uint16_t touchX, touchY;
 
@@ -116,7 +116,7 @@ void my_touchpad_read( lv_indev_drv_t * indev_driver, lv_indev_data_t * data )
 
     }
 }
-
+lv_indev_t* touch_indev;
 void Port_Init(){
 
 
@@ -125,26 +125,32 @@ void Port_Init(){
     tft.fillScreen(TFT_BLACK);
 
     lv_init();
-    // lv_port_disp_init(&tft);
 
-    /*Set the touchscreen calibration data,
+     /*Set the touchscreen calibration data,
      the actual data for your display can be aquired using
      the Generic -> Touch_calibrate example from the TFT_eSPI library*/
     touch_calibrate();
+    Serial.println( "calib" );
+
     uint16_t calData[5] = { 275, 3620, 264, 3532, 1 };
     tft.setTouch( calData );
 
-    lv_disp_draw_buf_init( &draw_buf, buf, NULL, screenWidth * 100 );
 
-    /*Initialize the display*/
-    static lv_disp_drv_t disp_drv;
-    lv_disp_drv_init( &disp_drv );
-    /*Change the following line to your display resolution*/
-    disp_drv.hor_res = screenWidth;
-    disp_drv.ver_res = screenHeight;
-    disp_drv.flush_cb = my_disp_flush;
-    disp_drv.draw_buf = &draw_buf;
-    lv_disp_drv_register( &disp_drv );
+    lv_port_disp_init(&tft);
+   
+    // lv_disp_draw_buf_init( &draw_buf, buf, NULL, screenWidth * 80 );
+
+    // /*Initialize the display*/
+    // static lv_disp_drv_t disp_drv;
+    // lv_disp_drv_init( &disp_drv );
+    // /*Change the following line to your display resolution*/
+    // disp_drv.hor_res = screenWidth;
+    // disp_drv.ver_res = screenHeight;
+    // disp_drv.flush_cb = my_disp_flush;
+    // disp_drv.draw_buf = &draw_buf;
+    // lv_disp_drv_register( &disp_drv );
+
+     Serial.println( "buff" );
 
     // lv_port_indev_init();
     
@@ -153,9 +159,9 @@ void Port_Init(){
     lv_indev_drv_init( &indev_drv );
     indev_drv.type = LV_INDEV_TYPE_POINTER;
     indev_drv.read_cb = my_touchpad_read;
-    lv_indev_drv_register( &indev_drv );
-
-    // lv_fs_if_init();
+    touch_indev = lv_indev_drv_register( &indev_drv );
+    Serial.println( "indev" );
+    lv_fs_if_init();
 
     xTaskCreate(
         TaskLvglUpdate,
@@ -165,4 +171,5 @@ void Port_Init(){
         configMAX_PRIORITIES - 1,
         // NULL);
         &handleTaskLvgl);
+    
 }
