@@ -75,6 +75,7 @@ void SystemInfos::AttachEvent(lv_obj_t* obj)
 {
 	lv_obj_set_user_data(obj, this);
 	lv_obj_add_event_cb(obj, onEvent, LV_EVENT_PRESSED, this);
+	// lv_obj_add_event_cb(obj, onEvent, LV_EVENT_ALL, this);
 }
 
 void SystemInfos::Update()
@@ -131,12 +132,12 @@ void SystemInfos::onEvent(lv_event_t* event)
 	lv_obj_t* obj = lv_event_get_target(event);
 	lv_event_code_t code = lv_event_get_code(event);
 	auto* instance = (SystemInfos*)lv_obj_get_user_data(obj);
-
+	Serial.println("onevent sysinfo");
 	if (code == LV_EVENT_PRESSED)
 	{
 		if (lv_obj_has_state(obj, LV_STATE_FOCUSED))
 		{
-			instance->Manager->Push("Pages/Scene3D");
+			instance->Manager->Push("Pages/SystemInfos");
 		}
 	}
 
