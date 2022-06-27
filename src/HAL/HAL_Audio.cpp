@@ -14,6 +14,7 @@ static void Tone_Callback(uint32_t freq, uint16_t volume)
 void HAL::Audio_Init()
 {
     player.SetCallback(Tone_Callback);
+    Buzz_Tone(1000, 1000);
 }
 
 void HAL::Audio_Update()

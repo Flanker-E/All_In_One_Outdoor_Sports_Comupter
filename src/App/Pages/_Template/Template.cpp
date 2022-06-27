@@ -98,10 +98,10 @@ void Template::onEvent(lv_event_t* event)
 		//  Serial.println("Push temp");
 		if (lv_obj_has_state(obj, LV_STATE_FOCUSED))
 		{
-			// instance->Manager->Push("Pages/Startup");
-			// Serial.println("Push startup");
-			instance->Manager->Pop();
-			Serial.println("temp Pop");
+			instance->Manager->Push("Pages/SystemInfos");
+			Serial.println("Push sysinfo");
+			// instance->Manager->Pop();
+			// Serial.println("temp Pop");
 		}
 	}
 }

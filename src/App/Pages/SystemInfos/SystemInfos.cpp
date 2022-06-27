@@ -20,6 +20,7 @@ void SystemInfos::onCustomAttrConfig()
 
 void SystemInfos::onViewLoad()
 {
+	Serial.println("sysinfo init");
 	Model.Init();
 	View.Create(root);
 	AttachEvent(root);
@@ -29,6 +30,7 @@ void SystemInfos::onViewLoad()
 	AttachEvent(View.ui.imu.icon);
 	AttachEvent(View.ui.battery.icon);
 	AttachEvent(View.ui.storage.icon);
+	Serial.println("sysinfo init done");
 }
 
 void SystemInfos::onViewDidLoad()
@@ -40,7 +42,7 @@ void SystemInfos::onViewWillAppear()
 {
 	// lv_indev_set_group(lv_get_indev(LV_INDEV_TYPE_ENCODER), View.ui.group);
 	// lv_indev_set_group(encoder_indev, View.ui.group);
-	lv_indev_set_group(touch_indev, View.ui.group);
+	// lv_indev_set_group(touch_indev, View.ui.group);
 	StatusBar::SetStyle(StatusBar::STYLE_BLACK);
 
 	timer = lv_timer_create(onTimerUpdate, 100, this);
@@ -80,6 +82,7 @@ void SystemInfos::AttachEvent(lv_obj_t* obj)
 
 void SystemInfos::Update()
 {
+	Serial.println("update");
 	char buf[64];
 
 	/* Joints */
@@ -93,13 +96,7 @@ void SystemInfos::Update()
 	/* IMU */
 	Model.GetIMUInfo(buf, sizeof(buf));
 	View.SetIMU(buf);
-
-	/* Power */
-	int usage;
-	float voltage;
-	Model.GetBatteryInfo(&usage, &voltage, buf, sizeof(buf));
-	View.SetBattery(usage, voltage, buf);
-
+	Serial.println("update");
 	/* Storage */
 	bool detect;
 	Model.GetStorageInfo(&detect, buf, sizeof(buf));
@@ -108,6 +105,17 @@ void SystemInfos::Update()
 		buf,
 		VERSION_FILESYSTEM
 	);
+	Serial.println("update");
+		/* Power */
+	int usage;
+	float voltage;
+	// usage=2;voltage=3.7;
+	// Serial.printf("usage%d,voltage%f,state%s\n",usage,voltage,buf);
+	Model.GetBatteryInfo(&usage, &voltage, buf, sizeof(buf));
+	// Serial.printf("usage%d,voltage%f,state%s\n",usage,voltage,buf);
+	
+	// View.SetBattery(50, 3.70, buf);
+	Serial.println("update");
 
 	/* System */
 	View.SetSystem(
@@ -118,6 +126,7 @@ void SystemInfos::Update()
 		VERSION_COMPILER,
 		VERSION_BUILD_TIME
 	);
+	Serial.println("update done");
 }
 
 void SystemInfos::onTimerUpdate(lv_timer_t* timer)
@@ -137,7 +146,7 @@ void SystemInfos::onEvent(lv_event_t* event)
 	{
 		if (lv_obj_has_state(obj, LV_STATE_FOCUSED))
 		{
-			instance->Manager->Push("Pages/SystemInfos");
+			instance->Manager->Push("Pages/Scene3D");
 		}
 	}
 

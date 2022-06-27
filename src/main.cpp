@@ -5,6 +5,8 @@
 #include "Port/Display.h"
 #include "HAL/HAL.h"
 #include "App/App.h"
+
+
 // #include "TouchScreen.h"
 /*If you want to use the LVGL examples,
   make sure to install the lv_examples Arduino library
@@ -47,7 +49,7 @@ void setup()
        make sure to include it as written above.
     lv_example_btn_1();
    */
-    HAL::Init();
+    HAL::HAL_Init();
     Serial.println( "HAL Init" );
     Port_Init();
     Serial.println( "Port Init" );
@@ -76,6 +78,7 @@ void setup()
 
 void loop()
 {
+  HAL::HAL_Update();
     // xTaskNotifyGive(handleTaskLvgl);
     // lv_timer_handler(); /* let the GUI do its work */
     // lv_tick_inc(5);

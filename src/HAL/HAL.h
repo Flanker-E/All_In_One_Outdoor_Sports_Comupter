@@ -7,11 +7,12 @@
 #include "App/Configs/Config.h"
 #include "CommonMacro.h"
 // #include "FreeRTOS.h"
+#define HAVE_PERI 0
 
 namespace HAL
 {
-    void Init();
-    void Update();
+    void HAL_Init();
+    void HAL_Update();
 
 /* Backlight */
     void Backlight_Init();
@@ -32,6 +33,7 @@ namespace HAL
     void SD_Update();
     bool SD_GetReady();
     float SD_GetCardSizeMB();
+    const char* SD_GetTypeName();
     typedef void(* SD_CallbackFunction_t)(bool insert);
     void SD_SetEventCallback(SD_CallbackFunction_t callback);
 

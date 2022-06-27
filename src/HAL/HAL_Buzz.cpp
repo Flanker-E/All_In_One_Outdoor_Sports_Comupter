@@ -3,7 +3,7 @@
 static bool IsEnable = true;
 static int32_t duration = 0;
 static uint32_t freq = 0;
-
+#if HAVE_PERI==1
 static void BuzzerThread(void* argument)
 {
     for (;;)
@@ -58,3 +58,29 @@ void HAL::Buzz_Tone(uint32_t _freq, int32_t _duration)
         duration = _duration;
     }
 }
+
+#else
+
+void HAL::Buzz_init()
+{
+    
+}
+
+void HAL::Buzz_SetEnable(bool en)
+{
+    IsEnable = en;
+}
+
+void HAL::Buzz_Tone(uint32_t freq, int32_t duration)
+{
+    if(!IsEnable)
+        return;
+    
+    if(duration >= 0)
+    {
+    }
+    else
+    {
+    }
+}
+#endif

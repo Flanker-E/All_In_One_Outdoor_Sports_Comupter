@@ -4,7 +4,7 @@ using namespace Page;
 
 #define ITEM_HEIGHT_MIN   100
 #define ITEM_PAD          ((LV_VER_RES - ITEM_HEIGHT_MIN) / 2)
-extern lv_indev_t* touch_indev;
+extern lv_indev_t* encoder_indev;
 void SystemInfosView::Create(lv_obj_t* root)
 {
 	lv_obj_remove_style_all(root);
@@ -118,8 +118,8 @@ void SystemInfosView::Group_Init()
 {
 	ui.group = lv_group_create();
 	lv_group_set_focus_cb(ui.group, onFocus);
+	//lv_indev_set_group(encoder_indev, ui.group);
 	// lv_indev_set_group(lv_get_indev(LV_INDEV_TYPE_ENCODER), ui.group);
-	lv_indev_set_group(touch_indev, ui.group);
 
 	lv_group_add_obj(ui.group, ui.joints.icon);
 	lv_group_add_obj(ui.group, ui.pose6d.icon);

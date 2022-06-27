@@ -1,7 +1,7 @@
 #include "HAL/HAL.h"
 #include "SPI.h"
 #include "SD.h"
-
+#if HAVE_PERI==1
 bool HAL::SD_Init()
 {
     pinMode(CONFIG_SD_DET_PIN, INPUT);
@@ -65,3 +65,40 @@ void HAL::SD_Update()
 {
 
 }
+#else
+
+bool HAL::SD_Init()
+{
+    return true;
+}
+
+bool HAL::SD_GetReady()
+{
+    return true;
+}
+
+float HAL::SD_GetCardSizeMB()
+{
+    return 32 * 1024;
+}
+
+const char* HAL::SD_GetTypeName()
+{
+    return "SDHC";
+}
+
+static void SD_Check(bool isInsert)
+{
+   
+}
+
+void HAL::SD_SetEventCallback(SD_CallbackFunction_t callback)
+{
+    
+}
+
+void HAL::SD_Update()
+{
+    
+}
+#endif
