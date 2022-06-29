@@ -27,6 +27,7 @@ void HAL::HAL_Init()
     HAL::Backlight_Init();
     HAL::Encoder_Init();
     HAL::Buzz_init();
+    HAL::GPS_Init();
     HAL::Audio_Init();
     HAL::SD_Init();
     HAL::I2C_Init(true);
@@ -60,12 +61,14 @@ void HAL::HAL_Init()
         LV_LOG_WARN("lv_port_disp_init malloc failed!\n");
     Buzz_init();
     Audio_Init();
+    GPS_Init();
 }
 
 void HAL::HAL_Update()
 {
     IMU_Update();
     Audio_Update();
+    MAG_Update();
     // Encoder_Update();
 }
 #endif

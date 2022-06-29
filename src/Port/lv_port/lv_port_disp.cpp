@@ -65,7 +65,7 @@ void lv_port_disp_init(SCREEN_CLASS* scr)
     /*Initialize the display*/
     lv_disp_drv_init(&disp_drv);
     disp_drv.hor_res = DISP_HOR_RES;
-    disp_drv.ver_res = DISP_VER_RES;
+    disp_drv.ver_res = DISP_VER_RES; 
     disp_drv.flush_cb = disp_flush_cb;
     disp_drv.wait_cb = disp_wait_cb;
     disp_drv.draw_buf = &disp_buf;

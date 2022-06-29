@@ -28,8 +28,9 @@
 #include "TileSystem/TileSystem.h"
 
 #define MAP_CONV_DIR_PATH_MAX 16
+#define MAP_CONV_EXT_NAME_MAX 8
 
-class MapConv : public Microsoft_MapPoint::TileSystem
+class MapConv
 {
 public:
     typedef struct
@@ -56,6 +57,12 @@ public:
     static void SetDirPath(const char* path)
     {
         strncpy(dirPath, path, sizeof(dirPath));
+        dirPath[sizeof(dirPath) - 1] = '\0';
+    }
+    static void SetExtName(const char* name)
+    {
+        strncpy(extName, name, sizeof(extName));
+        extName[sizeof(extName) - 1] = '\0';
     }
 
     static void SetCoordTransformEnable(bool en)
@@ -89,15 +96,20 @@ public:
         double longitude, double latitude,
         int32_t* mapX, int32_t* mapY
     );
+    void ConvertMapLevelPos(
+        int32_t* destX, int32_t* destY,
+        int32_t srcX, int32_t srcY, int srcLevel
+    );
 
 protected:
     struct
     {
         int16_t level;
-        uint16_t tileSize;  
+        uint16_t tileSize;
     } priv;
 
     static char dirPath[MAP_CONV_DIR_PATH_MAX];
+    static char extName[MAP_CONV_EXT_NAME_MAX];
     static int16_t levelMin;
     static int16_t levelMax;
     static bool coordTransformEnable;

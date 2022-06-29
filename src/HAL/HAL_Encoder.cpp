@@ -1,6 +1,7 @@
 #include "HAL/HAL.h"
 #include "App/Utils/ButtonEvent/ButtonEvent.h"
-#include "App/Accounts/Account_Master.h"
+// #include "App/Accounts/Account_Master.h"
+#include "App/Common/DataProc/DataProc.h"
 
 static ButtonEvent EncoderPush(5000);
 
@@ -80,7 +81,7 @@ void HAL::Encoder_Init()
     EncoderPush.EventAttach(Encoder_PushHandler);
 
 
-    actEncoder = new Account("Encoder", AccountSystem::Broker(), sizeof(int16_t), nullptr);
+    actEncoder = new Account("Encoder", DataProc::Center(), sizeof(int16_t), nullptr);
 
 }
 

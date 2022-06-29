@@ -52,6 +52,7 @@ void setup()
     HAL::HAL_Init();
     Serial.println( "HAL Init" );
     Port_Init();
+    // Serial.printf( "maintest:%d\n",test );
     Serial.println( "Port Init" );
     // uncomment one of these demos
     // lv_demo_widgets();            // OK

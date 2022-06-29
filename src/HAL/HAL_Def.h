@@ -19,22 +19,84 @@ typedef struct
     uint16_t millisecond;
 } Clock_Info_t;
 
-/* IMU */
+/* GPS */
 typedef struct
 {
-    float ax;
-    float ay;
-    float az;
-    float gx;
-    float gy;
-    float gz;
-    float mx;
-    float my;
-    float mz;
-    float roll;
-    float yaw;
-    float pitch;
+    double longitude;
+    double latitude;
+    float altitude;
+    float course;
+    float speed;
+    int16_t satellites;
+    bool isVaild;
+    Clock_Info_t clock;
+} GPS_Info_t;
+
+/* MAG */
+typedef struct
+{
+    int16_t x;
+    int16_t y;
+    int16_t z;
+} MAG_Info_t;
+
+
+/* IMU */
+// typedef struct
+// {
+//     float ax;
+//     float ay;
+//     float az;
+//     float gx;
+//     float gy;
+//     float gz;
+//     float mx;
+//     float my;
+//     float mz;
+//     float roll;
+//     float yaw;
+//     float pitch;
+// } IMU_Info_t;
+typedef struct
+{
+    int16_t ax;
+    int16_t ay;
+    int16_t az;
+    int16_t gx;
+    int16_t gy;
+    int16_t gz;
+    int16_t steps;
 } IMU_Info_t;
+
+/* SportStatus */
+typedef struct
+{
+    uint32_t lastTick;
+
+    float weight;
+
+    float speedKph;
+    float speedMaxKph;
+    float speedAvgKph;
+
+    union
+    {
+        uint32_t totalTimeUINT32[2];
+        uint64_t totalTime;
+    };
+
+    float totalDistance;
+
+    union
+    {
+        uint32_t singleTimeUINT32[2];
+        uint64_t singleTime;
+    };
+
+    float singleDistance;
+    float singleCalorie;
+    
+} SportStatus_Info_t;
 
 /* Power */
 typedef struct

@@ -1,6 +1,6 @@
 #include "Template.h"
 // #include <stdint.h>
-#include <Arduino.h>
+//#include <Arduino.h>
 using namespace Page;
 
 Template::Template()
@@ -93,13 +93,13 @@ void Template::onEvent(lv_event_t* event)
 	// Serial.println("OnEvent template");
 	if (code == LV_EVENT_PRESSED)
 	{
-		Serial.println("OnEvent template pressed");
+		//Serial.println("OnEvent template pressed");
 		// instance->Manager->Push("Pages/Template");
 		//  Serial.println("Push temp");
 		if (lv_obj_has_state(obj, LV_STATE_FOCUSED))
 		{
 			instance->Manager->Push("Pages/SystemInfos");
-			Serial.println("Push sysinfo");
+			//Serial.println("Push sysinfo");
 			// instance->Manager->Pop();
 			// Serial.println("temp Pop");
 		}

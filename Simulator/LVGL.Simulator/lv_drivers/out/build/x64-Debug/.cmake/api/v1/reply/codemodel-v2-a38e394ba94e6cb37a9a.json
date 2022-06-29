@@ -1,0 +1,60 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12.4"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "lv_drivers",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "lv_drivers::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-lv_drivers-Debug-7c4a786123f6ebe22679.json",
+					"name" : "lv_drivers",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/Flanker/Personal/22暑假/X-TRACK-main/Software/X-Track/Simulator/LVGL.Simulator/lv_drivers/out/build/x64-Debug",
+		"source" : "C:/Users/Flanker/Personal/22暑假/X-TRACK-main/Software/X-Track/Simulator/LVGL.Simulator/lv_drivers"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 2
+	}
+}

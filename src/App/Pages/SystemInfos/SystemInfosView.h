@@ -23,24 +23,42 @@ public:
 
     struct
     {
-        item_t joints;
-        item_t pose6d;
-        item_t system;
+        item_t sport;
+        item_t gps;
+        item_t mag;
         item_t imu;
+        item_t rtc;
         item_t battery;
         item_t storage;
-        lv_group_t* group;
+        item_t system;
     } ui;
 
 public:
-    void SetJoints(
-        const char* info
+    void SetSport(
+        float trip,
+        const char* time,
+        float maxSpd
     );
-    void SetPose6D(
-        const char* info
+    void SetGPS(
+        float lat,
+        float lng,
+        float alt,
+        const char* utc,
+        float course,
+        float speed
+    );
+    void SetMAG(
+        float dir,
+        int x,
+        int y,
+        int z
     );
     void SetIMU(
+        int step,
         const char* info
+    );
+    void SetRTC(
+        const char* dateTime
     );
     void SetBattery(
         int usage,
@@ -50,6 +68,7 @@ public:
     void SetStorage(
         const char* detect,
         const char* size,
+        const char* type,
         const char* version
     );
     void SetSystem(

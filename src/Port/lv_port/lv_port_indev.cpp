@@ -10,6 +10,7 @@
  *      INCLUDES
  *********************/
 #include "lvgl.h"
+#include "../Display.h"
 #include "HAL/HAL.h"
 
 /*********************
@@ -32,7 +33,8 @@ static void encoder_read(lv_indev_drv_t* indev_drv, lv_indev_data_t* data);
  **********************/
 
 lv_indev_t* encoder_indev;
-
+lv_indev_t* touch_indev;
+// static lv_indev_drv_t indev_drv;
 /**********************
  *      MACROS
  **********************/
@@ -40,23 +42,57 @@ lv_indev_t* encoder_indev;
 /**********************
  *   GLOBAL FUNCTIONS
  **********************/
-static lv_indev_drv_t indev_drv;
+
+/*Read the touchpad*/
+static void my_touchpad_read( lv_indev_drv_t * indev_driver, lv_indev_data_t * data )
+{
+    uint16_t touchX, touchY;
+
+    bool touched = tft.getTouch( &touchX, &touchY);
+
+    if( !touched )
+    {
+        data->state = LV_INDEV_STATE_REL;
+    }
+    else
+    {
+        data->state = LV_INDEV_STATE_PR;
+        Serial.printf("touched:x:%d,y:%d\n",touchX,touchY);
+        /*Set the coordinates*/
+        data->point.x = touchX;
+        data->point.y = touchY;
+
+    }
+}
+
 
 void lv_port_indev_init(void)
 {
-
+    // test=1;
+    static lv_indev_drv_t indev_drv;
+    lv_indev_drv_init( &indev_drv );
+    indev_drv.type = LV_INDEV_TYPE_POINTER;
+    indev_drv.read_cb = my_touchpad_read;
+    touch_indev = lv_indev_drv_register( &indev_drv );
+    Serial.println( "indev" );
+    lv_group_t* group = lv_group_create();
+    lv_indev_set_group(touch_indev, group);
+    lv_group_set_default(group);
+    // Serial.printf( "indevtest:%d\n",test );
     /*------------------
      * Encoder
      * -----------------*/
 
     /*Initialize your encoder if you have*/
-    encoder_init();
+    // encoder_init();
 
     /*Register a encoder input device*/
-    lv_indev_drv_init(&indev_drv);
-    indev_drv.type = LV_INDEV_TYPE_POINTER;
-    indev_drv.read_cb = encoder_read;
-    encoder_indev = lv_indev_drv_register(&indev_drv);
+    // lv_indev_drv_init(&indev_drv);
+    // indev_drv.type = LV_INDEV_TYPE_POINTER;
+    // indev_drv.read_cb = encoder_read;
+    // encoder_indev = lv_indev_drv_register(&indev_drv);
+
+
 
     /* Later you should create group(s) with `lv_group_t * group = lv_group_create()`,
      * add objects to the group with `lv_group_add_obj(group, obj)`

@@ -8,9 +8,11 @@
 
 // #include "TFT_eSPI.h"
 typedef TFT_eSPI SCREEN_CLASS;
-static TFT_eSPI tft = TFT_eSPI(); /* TFT instance */
-static lv_indev_drv_t indev_drv;
-
+extern TFT_eSPI tft; /* TFT instance */
+// TFT_eSPI tft = TFT_eSPI();
+// int test=0;
+// static lv_indev_drv_t indev_drv;
+extern lv_indev_t* touch_indev;
 // static const uint16_t screenWidth  = 320;
 // static const uint16_t screenHeight = 240;
 

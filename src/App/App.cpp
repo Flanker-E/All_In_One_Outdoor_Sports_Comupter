@@ -20,30 +20,49 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-#include "App.h"
-#include "HAL/HAL.h"
-#include "Utils/PageManager/PageManager.h"
-#include "Accounts/Account_Master.h"
-#include "Resources/ResourcePool.h"
+//#include "App.h"
+//#include "HAL/HAL.h"
+//#include "Utils/PageManager/PageManager.h"
+//#include "Accounts/Account_Master.h"
+////#include "Common/DataProc/DataProc.h"
+//#include "Resources/ResourcePool.h"
+//#include "Pages/AppFactory.h"
+//#include "Pages/StatusBar/StatusBar.h"
+#include "Configs/Config.h"
+#include "Common/DataProc/DataProc.h"
+#include "Resource/ResourcePool.h"
 #include "Pages/AppFactory.h"
 #include "Pages/StatusBar/StatusBar.h"
+#include "Utils/PageManager/PageManager.h"
+#include "App.h"
 
 void App_Init()
 {
     static AppFactory factory;
     static PageManager manager(&factory);
 
-    Accounts_Init();
-    Resource.Init();
-    Serial.println( "account resource done" );
+    //Accounts_Init();
+    DataProc_Init();
+    //Resource.Init();
+    lv_obj_t* scr = lv_scr_act();
+    lv_obj_remove_style_all(scr);
+    lv_obj_clear_flag(scr, LV_OBJ_FLAG_SCROLLABLE);
+    lv_disp_set_bg_color(lv_disp_get_default(), lv_color_black());
+
+    ResourcePool::Init();
+    // Serial.println( "account resource done" );
     /*----------------------- Pages Init -----------------------*/
-    StatusBar::Init(lv_layer_top());
+    //StatusBar::Init(lv_layer_top());
 
-    manager.Install("Template", "Pages/Template");
+    Page::StatusBar_Create(lv_layer_top());
+
+    manager.Install("Template",    "Pages/_Template");
+    manager.Install("LiveMap",     "Pages/LiveMap");
+    manager.Install("Dialplate",   "Pages/Dialplate");
     manager.Install("SystemInfos", "Pages/SystemInfos");
-    manager.Install("Startup", "Pages/Startup");
+    manager.Install("Startup",     "Pages/Startup");
 
-    Serial.println( "pages load" );
+    //Serial.println( "pages load" );
     manager.SetGlobalLoadAnimType(PageManager::LOAD_ANIM_OVER_LEFT, 500);
     manager.Push("Pages/Startup");
     Serial.println("Push startup");

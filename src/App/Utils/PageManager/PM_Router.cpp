@@ -62,8 +62,9 @@ PageBase* PageManager::Push(const char* name, const PageBase::Stash_t* stash)
     PM_LOG_INFO("Page(%s) push >> [Screen] (stash = 0x%p)", name, stash);
 
     /* Page switching execution */
+    Serial.println("switch");
     SwitchTo(base, true, stash);
-
+    Serial.println("switched");
     return base;
 }
 
@@ -201,13 +202,13 @@ void PageManager::SwitchTo(PageBase* newNode, bool isPushAct, const PageBase::St
         /* Update the animation configuration according to the current page */
         SwitchAnimTypeUpdate(PageCurrent);
     }
-
+    // Serial.println("stateupsate");
     /* Update the state machine of the previous page */
     StateUpdate(PagePrev);
-
+    // Serial.println("stateupsate");
     /* Update the state machine of the current page */
     StateUpdate(PageCurrent);
-
+    // Serial.println("stateupsate");
     /* Move the layer, move the new page to the front */
     if (AnimState.IsPushing)
     {

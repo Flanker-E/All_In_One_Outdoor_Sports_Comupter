@@ -25,7 +25,10 @@
 #include "lvgl.h"
 #include <algorithm>
 
-#define JSON_BUFFER_SIZE 1024
+#define USE_STATIC_JSON_DOC        1
+#if USE_STATIC_JSON_DOC
+#  define STATIC_JSON_DOC_BUF_SIZE 2048
+#endif
 
 #define VALUE_TO_DOC(type)\
 do{\
@@ -58,15 +61,15 @@ public:
 
     uint8_t read()
     {
-        uint8_t data;
+        uint8_t data = 0;
         readBytes(&data, 1);
         return data;
     }
 
     size_t readBytes(void* buffer, size_t length)
     {
-        uint32_t br;
-        lv_fs_read(&file, buffer, length, &br);
+        uint32_t br = 0;
+        lv_fs_read(&file, buffer, (uint32_t)length, &br);
         return br;
     }
 
@@ -77,8 +80,8 @@ public:
 
     size_t write(const uint8_t* s, size_t n)
     {
-        uint32_t bw;
-        lv_fs_write(&file, s, n, &bw);
+        uint32_t bw = 0;
+        lv_fs_write(&file, s, (uint32_t)n, &bw);
         return bw;
     }
 
@@ -92,9 +95,10 @@ private:
     lv_fs_file_t file;
 };
 
-StorageService::StorageService(const char* filepath)
+StorageService::StorageService(const char* filePath, uint32_t bufferSize)
 {
-    FilePath = filepath;
+    FilePath = filePath;
+    BufferSize = bufferSize;
 }
 
 StorageService::~StorageService()
@@ -146,20 +150,25 @@ bool StorageService::Remove(const char* key)
 bool StorageService::LoadFile()
 {
     FileWrapper file(FilePath, LV_FS_MODE_RD);
+    bool retval = true;
 
     if (!file)
     {
-        LV_LOG_USER("Failed to open file: %s", FilePath);
+        LV_LOG_ERROR("Failed to open file: %s", FilePath);
         return false;
     }
 
-    StaticJsonDocument<JSON_BUFFER_SIZE> doc;
+#if USE_STATIC_JSON_DOC
+    StaticJsonDocument<STATIC_JSON_DOC_BUF_SIZE> doc;
+#else
+    DynamicJsonDocument doc(BufferSize);
+#endif
 
     // Deserialize the JSON document
     DeserializationError error = deserializeJson(doc, file);
     if (error)
     {
-        LV_LOG_USER("Failed to read file: %s", FilePath);
+        LV_LOG_ERROR("Failed to read file: %s", FilePath);
         return false;
     }
 
@@ -168,7 +177,8 @@ bool StorageService::LoadFile()
     {
         if (!doc.containsKey(iter->key))
         {
-            LV_LOG_USER("NOT contains key: %s, use default value", iter->key);
+            LV_LOG_WARN("NOT contains key: %s, use default value", iter->key);
+            retval = false;
             continue;
         }
 
@@ -194,32 +204,42 @@ bool StorageService::LoadFile()
             const char* str = doc[iter->key];
             if (str)
             {
-                strncpy((char*)iter->value, str, iter->size);
+                char* value = (char*)iter->value;
+                strncpy(value, str, iter->size);
+                value[iter->size - 1] = '\0';
             }
             break;
         }
         default:
+            LV_LOG_ERROR("Unknow type: %d", iter->type);
             break;
         }
     }
 
-    return true;
+    return retval;
 }
 
-bool StorageService::SaveFile()
+bool StorageService::SaveFile(const char* backupPath)
 {
+    const char* path = backupPath ? backupPath : FilePath;
+
     // Open file for writing
-    FileWrapper file(FilePath, LV_FS_MODE_WR | LV_FS_MODE_RD);
+    FileWrapper file(path, LV_FS_MODE_WR | LV_FS_MODE_RD);
     if (!file)
     {
-        LV_LOG_USER("Failed to open file");
+        LV_LOG_ERROR("Failed to open file");
         return false;
     }
 
     // Allocate a temporary JsonDocument
     // Don't forget to change the capacity to match your requirements.
     // Use https://arduinojson.org/assistant to compute the capacity.
-    StaticJsonDocument<JSON_BUFFER_SIZE> doc;
+
+#if USE_STATIC_JSON_DOC
+    StaticJsonDocument<STATIC_JSON_DOC_BUF_SIZE> doc;
+#else
+    DynamicJsonDocument doc(BufferSize);
+#endif
 
     // Set the values in the document
     for (auto iter : NodePool)
@@ -247,14 +267,15 @@ bool StorageService::SaveFile()
             break;
         }
         default:
+            LV_LOG_ERROR("Unknow type: %d", iter->type);
             break;
         }
     }
 
     // Serialize JSON to file
-    if (serializeJsonPretty(doc, file) == 0)
+    if (!serializeJsonPretty(doc, file))
     {
-        LV_LOG_USER("Failed to write to file");
+        LV_LOG_ERROR("Failed to write to file");
         return false;
     }
 

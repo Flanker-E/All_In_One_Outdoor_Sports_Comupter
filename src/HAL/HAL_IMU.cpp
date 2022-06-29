@@ -1,15 +1,35 @@
 #include "HAL/HAL.h"
-#include "MPU9250.h"
-#include "App/Accounts/Account_Master.h"
+// #include "MPU9250.h"
+// #include "App/Accounts/Account_Master.h"
+#include "App/Common/DataProc/DataProc.h"
 
-static MPU9250 mpu;
+// static MPU9250 mpu;
+static HAL::CommitFunc_t CommitFunc = nullptr;
+static void* UserData = nullptr;
+// bool HAL::IMU_Init()
+// {
+//     if (!mpu.setup(0x68))
+//     {
+//         Serial.println("MPU connection failed.");
+//     }
+// }
 
-void HAL::IMU_Init()
+bool HAL::IMU_Init()
 {
-    if (!mpu.setup(0x68))
-    {
-        Serial.println("MPU connection failed.");
-    }
+    Serial.print("IMU: init...");
+
+    // bool success = imu.Init();
+    bool success = false;
+
+    Serial.println(success ? "success" : "failed");
+
+    return success;
+}
+
+void HAL::IMU_SetCommitCallback(CommitFunc_t func, void* userData)
+{
+    CommitFunc = func;
+    UserData = userData;
 }
 #if HAVE_PERI==1
 void HAL::IMU_Update()
@@ -32,19 +52,61 @@ void HAL::IMU_Update()
 
     AccountSystem::IMU_Commit(&imuInfo);
 }
-#else
+
+
 void HAL::IMU_Update()
 {
+    IMU_Info_t imuInfo;
+    // imu.GetMotion6(
+    //     &imuInfo.ax, &imuInfo.ay, &imuInfo.az,
+    //     &imuInfo.gx, &imuInfo.gy, &imuInfo.gz
+    // );
+
+    imuInfo.ax = 0;
+    imuInfo.ay = 0;
+    imuInfo.az = 0;
+    imuInfo.gx = 0;
+    imuInfo.gy = 0;
+    imuInfo.gz = 0;
+
+//    Serial.printf(
+//        "ax = %d, ay = %d, az = %d, gx = %d, gy = %d, gz = %d\r\n",
+//        imuInfo.ax, imuInfo.ay, imuInfo.az, imuInfo.gx, imuInfo.gy, imuInfo.gz
+//    );
+
+    // imuInfo.steps = imu.GetCurrentStep();
+    imuInfo.steps = 0;
+
+    if(CommitFunc)
+    {
+        CommitFunc(&imuInfo, UserData);
+    }
+}
+
+#else
+
+void HAL::IMU_Update()
+{
+    static int16_t steps;
+    steps++;
+    if (steps > 9999)
+    {
+        steps = 0;
+    }
+
     IMU_Info_t imu;
+    imu.steps = steps;
+
     imu.ax = rand() % 1000 - 500;
     imu.ay = rand() % 1000 - 500;
     imu.az = rand() % 1000 - 500;
     imu.gx = rand() % 1000 - 500;
     imu.gy = rand() % 1000 - 500;
     imu.gz = rand() % 1000 - 500;
-    imu.roll = rand() % 1000 - 500;
-    imu.yaw = rand() % 1000 - 500;
-    imu.pitch = rand() % 1000 - 500;
-    AccountSystem::IMU_Commit(&imu);
+
+    if (CommitFunc)
+    {
+        CommitFunc(&imu, UserData);
+    }
 }
 #endif

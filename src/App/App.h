@@ -22,13 +22,16 @@
  */
 #ifndef __APP_H
 #define __APP_H
-
-#define ACCOUNT_SEND_NOTIFY_CMD(ACT, CMD)\
-do{\
-    AccountSystem::ACT##_Info_t info;\
+    /*AccountSystem::ACT##_Info_t info;\
     memset(&info, 0, sizeof(info));\
     info.cmd = AccountSystem::CMD;\
-    AccountSystem::Broker()->AccountMaster.Notify(#ACT, &info, sizeof(info));\
+    AccountSystem::Broker()->AccountMaster.Notify(#ACT, &info, sizeof(info));\*/
+#define ACCOUNT_SEND_NOTIFY_CMD(ACT, CMD)\
+do{\
+    DataProc::ACT##_Info_t info; \
+    DATA_PROC_INIT_STRUCT(info); \
+    info.cmd = DataProc::CMD; \
+    DataProc::Center()->AccountMain.Notify(#ACT, &info, sizeof(info)); \
 }while(0)
 
 #ifdef ARDUINO

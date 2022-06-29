@@ -40,8 +40,11 @@ void PageManager::StateUpdate(PageBase* base)
         break;
 
     case PageBase::PAGE_STATE_LOAD:
+        // Serial.println("stateloadex");
         base->priv.State = StateLoadExecute(base);
+        // Serial.println("stateloadex");
         StateUpdate(base);
+        // Serial.println("stateupdate");
         break;
 
     case PageBase::PAGE_STATE_WILL_APPEAR:

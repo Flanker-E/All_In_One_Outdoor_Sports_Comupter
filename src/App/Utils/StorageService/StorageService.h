@@ -39,12 +39,12 @@ public:
     } DataType_t;
 
 public:
-    StorageService(const char* filepath);
+    StorageService(const char* filePath, uint32_t bufferSize = 1024);
     ~StorageService();
 
     bool Add(const char* key, void* value, uint16_t size, DataType_t type);
     bool Remove(const char* key);
-    bool SaveFile();
+    bool SaveFile(const char* backupPath = nullptr);
     bool LoadFile();
 
 private:
@@ -59,9 +59,10 @@ private:
 private:
     const char* FilePath;
     std::vector<Node_t*> NodePool;
+    uint32_t BufferSize;
 
 private:
-    Node_t* SearchNode(const char* key);
+    Node_t* SearchNode(const char* key);    
 };
 
 #endif

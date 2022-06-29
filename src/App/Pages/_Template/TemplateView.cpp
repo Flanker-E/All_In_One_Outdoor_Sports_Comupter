@@ -2,7 +2,7 @@
 
 using namespace Page;
 // extern lv_indev_t* encoder_indev;
-extern lv_indev_t* touch_indev;
+//extern lv_indev_t* touch_indev;
 void TemplateView::Create(lv_obj_t* root)
 {
 	lv_obj_t* label = lv_label_create(root);
@@ -20,7 +20,7 @@ void TemplateView::Create(lv_obj_t* root)
 	ui.labelTick = label;
 
 	lv_obj_t* img = lv_img_create(root);
-	lv_img_set_src(img, Resource.GetImage("arm"));
+	lv_img_set_src(img, ResourcePool::GetImage("arm"));
 	lv_obj_center(img);
 	ui.canvas = img;
 
@@ -28,7 +28,7 @@ void TemplateView::Create(lv_obj_t* root)
 	// lv_indev_set_group(lv_get_indev(LV_INDEV_TYPE_ENCODER), ui.group);
 
 	// lv_indev_set_group(encoder_indev, ui.group);
-	lv_indev_set_group(touch_indev, ui.group);
+	//lv_indev_set_group(touch_indev, ui.group);
 
 	lv_group_add_obj(ui.group, ui.canvas);
 	lv_group_add_obj(ui.group, ui.labelTitle);

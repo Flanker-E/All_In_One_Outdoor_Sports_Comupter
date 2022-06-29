@@ -47,6 +47,11 @@ void touch_calibrate()
   if (calDataOK && !REPEAT_CAL) {
     // calibration data valid
     tft.setTouch(calData);
+    Serial.printf("Calibration data:");
+    for(auto num:calData){
+      Serial.printf("%d,",num);
+    }
+    Serial.printf("\n");
     Serial.println("Calibration data valid!");
   } else {
     // data not valid so recalibrate
@@ -96,27 +101,28 @@ void touch_calibrate()
 // }
 
 /*Read the touchpad*/
-static void my_touchpad_read( lv_indev_drv_t * indev_driver, lv_indev_data_t * data )
-{
-    uint16_t touchX, touchY;
+// static void my_touchpad_read( lv_indev_drv_t * indev_driver, lv_indev_data_t * data )
+// {
+//     uint16_t touchX, touchY;
 
-    bool touched = tft.getTouch( &touchX, &touchY);
+//     bool touched = tft.getTouch( &touchX, &touchY);
 
-    if( !touched )
-    {
-        data->state = LV_INDEV_STATE_REL;
-    }
-    else
-    {
-        data->state = LV_INDEV_STATE_PR;
+//     if( !touched )
+//     {
+//         data->state = LV_INDEV_STATE_REL;
+//     }
+//     else
+//     {
+//         data->state = LV_INDEV_STATE_PR;
 
-        /*Set the coordinates*/
-        data->point.x = touchX;
-        data->point.y = touchY;
+//         /*Set the coordinates*/
+//         data->point.x = touchX;
+//         data->point.y = touchY;
 
-    }
-}
-lv_indev_t* touch_indev;
+//     }
+// }
+// lv_indev_t* touch_indev;
+TFT_eSPI tft = TFT_eSPI();
 void Port_Init(){
 
 
@@ -132,7 +138,7 @@ void Port_Init(){
     touch_calibrate();
     Serial.println( "calib" );
 
-    uint16_t calData[5] = { 275, 3620, 264, 3532, 1 };
+    uint16_t calData[5] = { 275, 3620, 264, 3532, 0x01 };
     tft.setTouch( calData );
 
 
@@ -150,17 +156,21 @@ void Port_Init(){
     // disp_drv.draw_buf = &draw_buf;
     // lv_disp_drv_register( &disp_drv );
 
-     Serial.println( "buff" );
+    //  Serial.println( "buff" );
 
-    // lv_port_indev_init();
+    lv_port_indev_init();
     
     /*Initialize the (dummy) input device driver*/
-    static lv_indev_drv_t indev_drv;
-    lv_indev_drv_init( &indev_drv );
-    indev_drv.type = LV_INDEV_TYPE_POINTER;
-    indev_drv.read_cb = my_touchpad_read;
-    touch_indev = lv_indev_drv_register( &indev_drv );
-    Serial.println( "indev" );
+    // static lv_indev_drv_t indev_drv;
+    // lv_indev_drv_init( &indev_drv );
+    // indev_drv.type = LV_INDEV_TYPE_POINTER;
+    // indev_drv.read_cb = my_touchpad_read;
+    // touch_indev = lv_indev_drv_register( &indev_drv );
+    // Serial.println( "indev" );
+    // lv_group_t* group = lv_group_create();
+    // lv_indev_set_group(touch_indev, group);
+    // lv_group_set_default(group);
+    // Serial.printf( "displaytest:%d\n",test );
     lv_fs_if_init();
 
     xTaskCreate(

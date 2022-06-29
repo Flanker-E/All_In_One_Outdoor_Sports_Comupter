@@ -11,6 +11,9 @@
 
 namespace HAL
 {
+
+    typedef bool (*CommitFunc_t)(void* info, void* userData);
+
     void HAL_Init();
     void HAL_Update();
 
@@ -25,8 +28,14 @@ namespace HAL
     void I2C_Init(bool startScan);
 
 /* IMU */
-    void IMU_Init();
+    bool IMU_Init();
+    void IMU_SetCommitCallback(CommitFunc_t func, void* userData);
     void IMU_Update();
+
+/* MAG */
+    bool MAG_Init();
+    void MAG_SetCommitCallback(CommitFunc_t func, void* userData);
+    void MAG_Update();
 
 /* SD */
     bool SD_Init();
@@ -51,6 +60,19 @@ namespace HAL
     void Power_GetInfo(Power_Info_t* info);
     typedef void(* Power_CallbackFunction_t)(void);
     void Power_SetEventCallback(Power_CallbackFunction_t callback);
+
+/* Clock */
+    void Clock_Init();
+    void Clock_GetInfo(Clock_Info_t* info);
+    void Clock_SetInfo(const Clock_Info_t* info);
+    const char* Clock_GetWeekString(uint8_t week);
+
+/* GPS */
+    void GPS_Init();
+    void GPS_Update();
+    bool GPS_GetInfo(GPS_Info_t* info);
+    bool GPS_LocationIsValid();
+    double GPS_GetDistanceOffset(GPS_Info_t* info, double preLong, double preLat);
 
 /* Buzzer */
     void Buzz_init();
