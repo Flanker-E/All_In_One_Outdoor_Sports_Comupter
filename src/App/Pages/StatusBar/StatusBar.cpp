@@ -104,7 +104,7 @@ static lv_obj_t* StatusBar_RecAnimLabelCreate(lv_obj_t* par)
     static lv_style_t style_label;
     lv_style_init(&style_label);
     lv_style_set_text_color(&style_label, lv_color_white());
-    lv_style_set_text_font(&style_label, ResourcePool::GetFont("bahnschrift_13"));
+    lv_style_set_text_font(&style_label, ResourcePool::GetFont("barlow_semiconre_17"));
 
     lv_obj_t* alabel = lv_anim_label_create(par);
     lv_obj_set_size(alabel, 50, STATUS_BAR_HEIGHT - 4);
@@ -271,7 +271,7 @@ lv_obj_t* Page::StatusBar_Create(lv_obj_t* par)
     static lv_style_t style_label;
     lv_style_init(&style_label);
     lv_style_set_text_color(&style_label, lv_color_white());
-    lv_style_set_text_font(&style_label, ResourcePool::GetFont("bahnschrift_17"));
+    lv_style_set_text_font(&style_label, ResourcePool::GetFont("barlow_semiconre_17"));
 
     /* satellite */
     lv_obj_t* img = lv_img_create(cont);

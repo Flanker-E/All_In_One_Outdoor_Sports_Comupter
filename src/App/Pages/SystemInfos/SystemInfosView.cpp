@@ -179,7 +179,7 @@ void SystemInfosView::Style_Init()
     lv_style_set_width(&style.icon, 220);
     lv_style_set_bg_color(&style.icon, lv_color_black());
     lv_style_set_bg_opa(&style.icon, LV_OPA_COVER);
-    lv_style_set_text_font(&style.icon, ResourcePool::GetFont("bahnschrift_17"));
+    lv_style_set_text_font(&style.icon, ResourcePool::GetFont("barlow_semiconre_17"));
     lv_style_set_text_color(&style.icon, lv_color_white());
 
     lv_style_init(&style.focus);
@@ -207,11 +207,11 @@ void SystemInfosView::Style_Init()
     lv_style_set_transition(&style.icon, &trans);
 
     lv_style_init(&style.info);
-    lv_style_set_text_font(&style.info, ResourcePool::GetFont("bahnschrift_13"));
+    lv_style_set_text_font(&style.info, ResourcePool::GetFont("barlow_semiconre_17"));
     lv_style_set_text_color(&style.info, lv_color_hex(0x999999));
 
     lv_style_init(&style.data);
-    lv_style_set_text_font(&style.data, ResourcePool::GetFont("bahnschrift_13"));
+    lv_style_set_text_font(&style.data, ResourcePool::GetFont("barlow_semiconre_17"));
     lv_style_set_text_color(&style.data, lv_color_white());
 }
 

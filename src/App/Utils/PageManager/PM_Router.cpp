@@ -62,9 +62,9 @@ PageBase* PageManager::Push(const char* name, const PageBase::Stash_t* stash)
     PM_LOG_INFO("Page(%s) push >> [Screen] (stash = 0x%p)", name, stash);
 
     /* Page switching execution */
-    Serial.println("switch");
+    PM_LOG_DEBUG_LN("switch");
     SwitchTo(base, true, stash);
-    Serial.println("switched");
+    PM_LOG_DEBUG_LN("switched");
     return base;
 }
 

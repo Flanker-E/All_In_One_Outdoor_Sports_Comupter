@@ -55,27 +55,42 @@ void DialplateView::TopInfo_Create(lv_obj_t* par)
 {
     lv_obj_t* cont = lv_obj_create(par);
     lv_obj_remove_style_all(cont);
-    lv_obj_set_size(cont, LV_HOR_RES, 142);
+    lv_obj_set_size(cont, 254, 254);// LV_HOR_RES, LV_HOR_RES);// 7.0 / 12 * LV_VER_RES);
 
     lv_obj_set_style_bg_opa(cont, LV_OPA_COVER, 0);
     lv_obj_set_style_bg_color(cont, lv_color_hex(0x333333), 0);
 
-    lv_obj_set_style_radius(cont, 27, 0);
-    lv_obj_set_y(cont, -36);
+    lv_obj_set_style_radius(cont, 254/2, 0);
+    lv_obj_align(cont, LV_ALIGN_TOP_MID, 0, -254 / 2 + 25);
+    //lv_obj_set_y(cont, -254/2+25);
     ui.topInfo.cont = cont;
 
+    //subcont form ring
+    lv_obj_t* subcont = lv_obj_create(cont);
+    lv_obj_remove_style_all(subcont);
+    lv_obj_set_size(subcont, 180, 180);// LV_HOR_RES, LV_HOR_RES);// 7.0 / 12 * LV_VER_RES);
+
+    lv_obj_set_style_bg_opa(subcont, LV_OPA_COVER, 0);
+    lv_obj_set_style_bg_color(subcont, lv_color_black(), 0);
+
+    lv_obj_set_style_radius(subcont, 180 / 2, 0);
+    lv_obj_align(subcont, LV_ALIGN_CENTER, 0, 0);
+    //lv_obj_set_y(subcont, -254/2+25);
+    ui.topInfo.subcont = subcont;
+
     lv_obj_t* label = lv_label_create(cont);
-    lv_obj_set_style_text_font(label, ResourcePool::GetFont("bahnschrift_65"), 0);
+    lv_obj_set_style_text_font(label, ResourcePool::GetFont("barlow_conExBoIt_85"), 0);
+    //lv_obj_set_style_text_font(label, &lv_font_montserrat_48, 0);
     lv_obj_set_style_text_color(label, lv_color_white(), 0);
     lv_label_set_text(label, "00");
-    lv_obj_align(label, LV_ALIGN_TOP_MID, 0, 63);
+    lv_obj_align(label, LV_ALIGN_CENTER, 0, 40);
     ui.topInfo.labelSpeed = label;
 
     label = lv_label_create(cont);
-    lv_obj_set_style_text_font(label, ResourcePool::GetFont("bahnschrift_17"), 0);
+    lv_obj_set_style_text_font(label, ResourcePool::GetFont("barlow_conExBoIt_30"), 0);
     lv_obj_set_style_text_color(label, lv_color_white(), 0);
-    lv_label_set_text(label, "km/h");
-    lv_obj_align_to(label, ui.topInfo.labelSpeed, LV_ALIGN_OUT_BOTTOM_MID, 0, 8);
+    lv_label_set_text(label, "KM/H");
+    lv_obj_align_to(label, ui.topInfo.labelSpeed, LV_ALIGN_OUT_BOTTOM_MID, 0, 5);
     ui.topInfo.labelUint = label;
 }
 
@@ -84,8 +99,8 @@ void DialplateView::BottomInfo_Create(lv_obj_t* par)
     lv_obj_t* cont = lv_obj_create(par);
     lv_obj_remove_style_all(cont);
     lv_obj_set_style_bg_color(cont, lv_color_black(), 0);
-    lv_obj_set_size(cont, LV_HOR_RES, 90);
-    lv_obj_align(cont, LV_ALIGN_TOP_MID, 0, 106);
+    lv_obj_set_size(cont, LV_HOR_RES, 2.9/8.0*LV_VER_RES);
+    lv_obj_align(cont, LV_ALIGN_TOP_MID, 0, 5.7 / 12 * LV_VER_RES);
 
     lv_obj_set_flex_flow(cont, LV_FLEX_FLOW_ROW_WRAP);
 
@@ -120,7 +135,7 @@ void DialplateView::SubInfoGrp_Create(lv_obj_t* par, SubInfo_t* info, const char
 {
     lv_obj_t* cont = lv_obj_create(par);
     lv_obj_remove_style_all(cont);
-    lv_obj_set_size(cont, 93, 39);
+    lv_obj_set_size(cont, 93, 50);
 
     lv_obj_set_flex_flow(cont, LV_FLEX_FLOW_COLUMN);
     lv_obj_set_flex_align(
@@ -131,12 +146,12 @@ void DialplateView::SubInfoGrp_Create(lv_obj_t* par, SubInfo_t* info, const char
     );
 
     lv_obj_t* label = lv_label_create(cont);
-    lv_obj_set_style_text_font(label, ResourcePool::GetFont("bahnschrift_17"), 0);
+    lv_obj_set_style_text_font(label, ResourcePool::GetFont("barlow_conExBoIt_23"), 0);
     lv_obj_set_style_text_color(label, lv_color_white(), 0);
     info->lableValue = label;
 
     label = lv_label_create(cont);
-    lv_obj_set_style_text_font(label, ResourcePool::GetFont("bahnschrift_13"), 0);
+    lv_obj_set_style_text_font(label, ResourcePool::GetFont("barlow_conExBoIt_17"), 0);
     lv_obj_set_style_text_color(label, lv_color_hex(0xb3b3b3), 0);
     lv_label_set_text(label, unitText);
     info->lableUnit = label;

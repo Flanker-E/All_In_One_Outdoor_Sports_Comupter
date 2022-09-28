@@ -2081,6 +2081,24 @@
     <ClCompile Include="lib\WString\WString.cpp">
       <Filter>lib\WString</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\App\Resource\Font\font_bahnschrift_80.c">
+      <Filter>App\Resource\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\App\Resource\Font\font_barlow_conExBoIt_17.c">
+      <Filter>App\Resource\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\App\Resource\Font\font_barlow_conExBoIt_23.c">
+      <Filter>App\Resource\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\App\Resource\Font\font_barlow_conExBoIt_30.c">
+      <Filter>App\Resource\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\App\Resource\Font\font_barlow_conExBoIt_85.c">
+      <Filter>App\Resource\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\App\Resource\Font\font_barlow_semiconre_17.c">
+      <Filter>App\Resource\Font</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="lvgl\.github\ISSUE_TEMPLATE\bug-report.md">

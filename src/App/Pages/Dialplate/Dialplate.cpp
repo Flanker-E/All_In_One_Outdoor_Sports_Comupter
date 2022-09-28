@@ -1,4 +1,5 @@
 #include "Dialplate.h"
+#include "../../Utils/PageManager/PM_Log.h"
 #ifdef ARDUINO
 #  include "Arduino.h"
 #endif
@@ -30,7 +31,7 @@ void Dialplate::onViewLoad()
     AttachEvent(View.ui.btnCont.btnMap);
     AttachEvent(View.ui.btnCont.btnRec);
     AttachEvent(View.ui.btnCont.btnMenu);
-    Serial.println("Init done");
+    PM_LOG_DEBUG_LN("Init done");
 }
 
 void Dialplate::onViewDidLoad()
@@ -140,13 +141,13 @@ void Dialplate::onBtnClicked(lv_obj_t* btn)
     if (btn == View.ui.btnCont.btnMap)
     {
         Manager->Push("Pages/LiveMap");
-        Serial.println("livemap");
+        PM_LOG_DEBUG_LN("livemap");
         
     }
     else if (btn == View.ui.btnCont.btnMenu)
     {
         Manager->Push("Pages/SystemInfos");
-        Serial.println("sysinfo");
+        PM_LOG_DEBUG_LN("sysinfo");
     }
 }
 
@@ -232,7 +233,7 @@ void Dialplate::onEvent(lv_event_t* event)
     // Serial.println("onevent");
     if (code == LV_EVENT_PRESSED)
 	{
-		Serial.println("pressed");
+        PM_LOG_DEBUG_LN("pressed");
 	}
     if (code == LV_EVENT_SHORT_CLICKED)
     {

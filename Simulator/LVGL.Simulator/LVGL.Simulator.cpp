@@ -34,7 +34,7 @@
 #endif
 
 #define SCREEN_HOR_RES  240
-#define SCREEN_VER_RES  240
+#define SCREEN_VER_RES  320
 
 int main()
 {

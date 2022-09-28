@@ -127,7 +127,7 @@ void Port_Init(){
 
 
     tft.begin();          /* TFT init */
-    tft.setRotation( 3 ); /* Landscape orientation, flipped */
+    tft.setRotation( 2 ); /* Landscape orientation, flipped */
     tft.fillScreen(TFT_BLACK);
 
     lv_init();
@@ -138,7 +138,7 @@ void Port_Init(){
     touch_calibrate();
     Serial.println( "calib" );
 
-    uint16_t calData[5] = { 275, 3620, 264, 3532, 0x01 };
+    uint16_t calData[5] = { 275, 3620, 264, 3532, 0x02 };//1:0x01,tftrotate2:0x02,3:0x07
     tft.setTouch( calData );
 
 

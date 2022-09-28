@@ -34,6 +34,7 @@
 #include "Pages/AppFactory.h"
 #include "Pages/StatusBar/StatusBar.h"
 #include "Utils/PageManager/PageManager.h"
+#include "Utils/PageManager/PM_Log.h"
 #include "App.h"
 
 void App_Init()
@@ -65,11 +66,11 @@ void App_Init()
     //Serial.println( "pages load" );
     manager.SetGlobalLoadAnimType(PageManager::LOAD_ANIM_OVER_LEFT, 500);
     manager.Push("Pages/Startup");
-    Serial.println("Push startup");
+    PM_LOG_DEBUG_LN("Push startup");
     
     ACCOUNT_SEND_NOTIFY_CMD(Storage, STORAGE_CMD_LOAD);
     ACCOUNT_SEND_NOTIFY_CMD(SysConfig, SYSCONFIG_CMD_LOAD);
-    Serial.println( "send done" );
+    PM_LOG_DEBUG_LN( "send done" );
     INIT_DONE();
 }
 

@@ -325,6 +325,12 @@
     <ClCompile Include="..\..\src\App\Resource\Font\font_bahnschrift_17.c" />
     <ClCompile Include="..\..\src\App\Resource\Font\font_bahnschrift_32.c" />
     <ClCompile Include="..\..\src\App\Resource\Font\font_bahnschrift_65.c" />
+    <ClCompile Include="..\..\src\App\Resource\Font\font_bahnschrift_80.c" />
+    <ClCompile Include="..\..\src\App\Resource\Font\font_barlow_conExBoIt_17.c" />
+    <ClCompile Include="..\..\src\App\Resource\Font\font_barlow_conExBoIt_23.c" />
+    <ClCompile Include="..\..\src\App\Resource\Font\font_barlow_conExBoIt_30.c" />
+    <ClCompile Include="..\..\src\App\Resource\Font\font_barlow_conExBoIt_85.c" />
+    <ClCompile Include="..\..\src\App\Resource\Font\font_barlow_semiconre_17.c" />
     <ClCompile Include="..\..\src\App\Resource\Image\img_src_alarm.c" />
     <ClCompile Include="..\..\src\App\Resource\Image\img_src_battery.c" />
     <ClCompile Include="..\..\src\App\Resource\Image\img_src_battery_info.c" />

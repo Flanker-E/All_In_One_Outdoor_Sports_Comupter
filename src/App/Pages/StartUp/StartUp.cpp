@@ -1,5 +1,5 @@
 #include "Startup.h"
-
+#include "../../Utils/PageManager/PM_Log.h"
 using namespace Page;
 
 Startup::Startup()
@@ -64,7 +64,7 @@ void Startup::onTimer(lv_timer_t* timer)
     Startup* instance = (Startup*)timer->user_data;
 
     instance->Manager->Push("Pages/Dialplate");
-    Serial.println("Push Dial");
+    PM_LOG_DEBUG_LN("Push Dial");
 }
 
 void Startup::onEvent(lv_event_t* event)
