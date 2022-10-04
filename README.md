@@ -4,3 +4,4 @@
 20220626 sysinfo works. battery label update error.  
 20220629 X-track pages, simulator, touchpad problem.  
 20220928 sync using new machine.  
+20221004 update hardware design.  
