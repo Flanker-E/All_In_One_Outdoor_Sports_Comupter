@@ -1,0 +1,9 @@
+Added Component: Designator=CT1(FPC0.5-WT-6P)
+Add component. Clean all parameters for all variants
+Added Pin To Net: NetName=VCC_3V3 Pin=CT1-1
+Added Pin To Net: NetName=CPT_RST Pin=CT1-2
+Added Pin To Net: NetName=CPT_EINT Pin=CT1-3
+Added Pin To Net: NetName=CPT_SDA Pin=CT1-4
+Added Pin To Net: NetName=CPT_SCL Pin=CT1-5
+Added Pin To Net: NetName=GND Pin=CT1-6
+Added Member To Class: ClassName=Main Member=Component CT1 CTP

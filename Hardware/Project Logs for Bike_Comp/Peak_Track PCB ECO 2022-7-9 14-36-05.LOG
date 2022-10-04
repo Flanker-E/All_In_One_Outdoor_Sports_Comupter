@@ -1,0 +1,13 @@
+Added Component: Designator=TP1(TP)
+Add component. Clean all parameters for all variants
+Added Component: Designator=TP2(TP)
+Add component. Clean all parameters for all variants
+Added Component: Designator=TP3(TP)
+Add component. Clean all parameters for all variants
+Added Pin To Net: NetName=VCC_3V3 Pin=TP1-0
+Added Pin To Net: NetName=VBAT_IN Pin=TP2-0
+Added Pin To Net: NetName=GND Pin=TP3-0
+Added Member To Class: ClassName=Main Member=Component TP1 TP
+Added Member To Class: ClassName=Main Member=Component TP2 TP
+Added Member To Class: ClassName=Main Member=Component TP3 TP
+Added Room: Name=Main

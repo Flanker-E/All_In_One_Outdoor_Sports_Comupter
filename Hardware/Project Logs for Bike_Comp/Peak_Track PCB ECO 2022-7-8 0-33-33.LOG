@@ -1,0 +1,32 @@
+Removed Pin From Net: NetName=EC_B Pin=S2-3
+Removed Pin From Net: NetName=EC_A Pin=S2-4
+Removed Member From Class: ClassName=Main Member=S2
+Added Component: Designator=CB1(DEBUG_B)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Switch; 2 Leads"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "SPST-2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "24-Mar-1999"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Added Component: Designator=CB2(DEBUG_A)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Switch; 2 Leads"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "SPST-2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "24-Mar-1999"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=EC_A Pin=CB1-2
+Added Pin To Net: NetName=EC_B Pin=CB2-2
+Added Pin To Net: NetName=NetCB1_1 Pin=CB1-1
+Added Pin To Net: NetName=NetCB1_1 Pin=R19-1
+Added Net: Name=NetCB1_1
+Added Pin To Net: NetName=NetCB2_1 Pin=CB2-1
+Added Pin To Net: NetName=NetCB2_1 Pin=R20-1
+Added Net: Name=NetCB2_1
+Added Member To Class: ClassName=Main Member=Component A1 RAINSUN
+Added Member To Class: ClassName=Main Member=Component CB1 Circuit Breaker
+Added Member To Class: ClassName=Main Member=Component CB2 Circuit Breaker
+Added Member To Class: ClassName=Main Member=Component SW1 Rotary Encoder
+Added Room: Name=Main

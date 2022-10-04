@@ -1,0 +1,10 @@
+Added Component: Designator=TP1(TP_SMD)
+Add component. Clean all parameters for all variants
+Added Component: Designator=TP2(TP_SMD)
+Add component. Clean all parameters for all variants
+Added Component: Designator=TP3(TP_SMD)
+Add component. Clean all parameters for all variants
+Added Member To Class: ClassName=Main Member=Component TP1 TP
+Added Member To Class: ClassName=Main Member=Component TP2 TP
+Added Member To Class: ClassName=Main Member=Component TP3 TP
+Added Room: Name=Main

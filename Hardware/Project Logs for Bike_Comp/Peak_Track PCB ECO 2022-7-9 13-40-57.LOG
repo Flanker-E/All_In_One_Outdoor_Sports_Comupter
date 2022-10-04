@@ -1,0 +1,8 @@
+Added Component: Designator=AT1(PCBComponent_1)
+Add component. Clean all parameters for all variants
+Added Pin To Net: NetName=VCC_3V3 Pin=AT1-1
+Added Pin To Net: NetName=GND Pin=AT1-2
+Added Pin To Net: NetName=GPS_TX Pin=AT1-3
+Added Pin To Net: NetName=GPIO19 Pin=AT1-4
+Added Member To Class: ClassName=Main Member=Component AT1 ATGM336H Module
+Added Room: Name=Main

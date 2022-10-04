@@ -1,0 +1,4 @@
+Change Net Name : Old Net Name=USB-PWR-DM New Net Name=USB-PWR-D_N
+Change Net Name : Old Net Name=USB-PWR-DP New Net Name=USB-PWR-D_P
+Added Differential Pair: Name=USB-PWR-D
+Added Room: Name=Main

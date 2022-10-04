@@ -1,0 +1,6 @@
+Removed Pin From Net: NetName=GND Pin=P2-2
+Removed Pin From Net: NetName=GND Pin=P2-3
+Change Component Footprint: Designator=S3 Old Footprint=SW 3*6*4.3-S-W New Footprint=SW DIP-3*6*5
+Change Component Footprint: Designator=S4 Old Footprint=SW 3*6*4.3-S-W New Footprint=SW DIP-3*6*5
+Change Component Footprint: Designator=S5 Old Footprint=SW 3*6*4.3-S-W New Footprint=SW DIP-3*6*5
+Added Room: Name=Main

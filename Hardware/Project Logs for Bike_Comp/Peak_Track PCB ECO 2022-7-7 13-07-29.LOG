@@ -1,0 +1,6 @@
+Removed Pin From Net: NetName=VCC_3V3 Pin=CT1-1
+Removed Pin From Net: NetName=GND Pin=CT1-6
+Change Component DesignItemId : Designator=A1 Old DesignItemId= New DesignItemId=ANT-Rainsun-AP5120
+Added Pin To Net: NetName=GND Pin=CT1-1
+Added Pin To Net: NetName=VCC_3V3 Pin=CT1-6
+Added Room: Name=Main
