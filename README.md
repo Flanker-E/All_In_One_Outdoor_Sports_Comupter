@@ -7,10 +7,10 @@
 20221004 update hardware design.  
 
 # How to get simulator work on Windows
-Download Visual Studio. 
-Install module: C++ desktop(click on MSVC -VS 2019) and .NET desktop. 
-Open the .sln file and run. 
-Then the simulator should can work. 
+Download Visual Studio.  
+Install module: C++ desktop(click on MSVC -VS 2019) and .NET desktop.  
+Open the .sln file and run.  
+Then the simulator should can work.  
 
 # How to get simulator work on MacOS
 todo 
