@@ -8,9 +8,11 @@
 20221004 update hardware design.  
 
 ## How to get simulator work on Windows
-Download Visual Studio.  
-Install module: C++ desktop(click on MSVC -VS 2019) and .NET desktop.  
-Open the .sln file and run.  
+Clone project.  
+Open project with Vscode, wait for PlatformIO to configure the project.  
+Download Visual Studio 2019.(can't work with 2022)  
+Install module: C++ desktop(click on MSVC v142-VS 2019) and .NET desktop.  
+Open the .sln file, select x86 Debug and run.  
 Then the simulator should can work.  
 
 configure lv_conf.h  
