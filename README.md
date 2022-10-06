@@ -7,16 +7,10 @@
 20220928 sync using new machine.  
 20221004 update hardware design.  
 
-## How to get simulator work on Windows
-Clone project.  
+## Firmware compile using PIO
 Open project with Vscode, wait for PlatformIO to configure the project.  
-Download Visual Studio 2019.(can't work with 2022)  
-Install module: C++ desktop(click on MSVC v142-VS 2019) and .NET desktop.  
-Open the .sln file, select x86 Debug and run.  
-Then the simulator should can work.  
-
-configure lv_conf.h  
-copy from lv_conf_template.h and change name  
+### configure lvgl/lv_conf.h  
+copy from lv_conf_template.h and change name to lv_conf.h  
 line 15 change to -> #if 1 
 line 52 change to -> #define LV_MEM_SIZE (38U * 1024U)          /*[bytes]*/  
 line 88 change to -> #define LV_TICK_CUSTOM 1  
@@ -30,5 +24,20 @@ line 351 change to -> #define LV_USE_FONT_COMPRESSED 1
 line 526 change to -> #define LV_USE_THEME_BASIC 0  
 line 529 change to -> #define LV_USE_THEME_MONO 0  
 
+### configure TFT_eSPI/User_Setup.h  
+comment line 168-170  
+uncomment line 205-210 and 223  
+
+
+## How to get simulator work on Windows
+Clone project.  
+Open project with Vscode, wait for PlatformIO to configure the project.  
+Download Visual Studio 2019.(can't work with 2022)  
+Install module: C++ desktop(click on MSVC v142-VS 2019) and .NET desktop.  
+Open the .sln file, select x86 Debug and run.  
+Then the simulator should can work.  
+
+
 ## How to get simulator work on MacOS
 todo 
+some basic function don't work under Mac c++ env.
