@@ -1,5 +1,3 @@
-// #include <lvgl.h>
-// #include "FS.h"
 // #include <lv_demos.h>
 // #include <TFT_eSPI.h>
 #include "Port/Display.h"
