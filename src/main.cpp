@@ -1,6 +1,6 @@
 // #include <lvgl.h>
 // #include "FS.h"
-#include <lv_demos.h>
+#include <demos/lv_demos.h>
 // #include <TFT_eSPI.h>
 #include "Port/Display.h"
 // #include "App/App.h"
@@ -23,6 +23,7 @@
 //         delay(5);
 //     }
 // }
+#define LV_USE_DEMO_WIDGETS
 void setup()
 {
   //  File f = SPIFFS.open(CALIBRATION_FILE, "r");

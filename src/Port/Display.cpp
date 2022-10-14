@@ -121,7 +121,7 @@ void Port_Init(){
 
 
     tft.begin();          /* TFT init */
-    tft.setRotation( 3 ); /* Landscape orientation, flipped */
+    tft.setRotation( 2 ); /* Landscape orientation, flipped */
     tft.fillScreen(TFT_BLACK);
 
     lv_init();
@@ -131,7 +131,7 @@ void Port_Init(){
      the actual data for your display can be aquired using
      the Generic -> Touch_calibrate example from the TFT_eSPI library*/
     touch_calibrate();
-    uint16_t calData[5] = { 275, 3620, 264, 3532, 1 };
+    uint16_t calData[5] = { 275, 3620, 264, 3532, 0x02 };
     tft.setTouch( calData );
 
     lv_disp_draw_buf_init( &draw_buf, buf, NULL, screenWidth * 100 );
@@ -140,8 +140,8 @@ void Port_Init(){
     static lv_disp_drv_t disp_drv;
     lv_disp_drv_init( &disp_drv );
     /*Change the following line to your display resolution*/
-    disp_drv.hor_res = screenWidth;
-    disp_drv.ver_res = screenHeight;
+    disp_drv.hor_res = screenHeight;
+    disp_drv.ver_res = screenWidth ;
     disp_drv.flush_cb = my_disp_flush;
     disp_drv.draw_buf = &draw_buf;
     lv_disp_drv_register( &disp_drv );
