@@ -3,6 +3,13 @@
 #include <demos/lv_demos.h>
 // #include <TFT_eSPI.h>
 #include "Port/Display.h"
+#include "TinyGPSPlus.h"
+// #include "Arduino.h"
+#include "HAL/HAL.h"
+
+#define GPS_SERIAL           Serial1
+#define CONFIG_GPS_TX_PIN           36
+#define CONFIG_GPS_RX_PIN           19
 // #include "App/App.h"
 // #include "TouchScreen.h"
 /*If you want to use the LVGL examples,
@@ -46,25 +53,59 @@ lv_timer_t* timer;
 float trip=0;
 int time1=0;
 
-// lv_obj_t* Data_GPS;
-// lv_obj_t* Data_IMU;
-// lv_obj_t* Data_BLE;
-// lv_obj_t* Data_LCD;
-// lv_obj_t* Data_EInk;
-// lv_obj_t* Data_SD;
+HAL::GPS_Info_t gps_info;
+HAL::IMU_Info_t imu_info;
 
 void onTimerUpdate(lv_timer_t* timer){
-  // lv_label_set_text_fmt(
-  //     Data_GPS,
-  //     "%.2fkm\n%d\n",
-  //     trip+=(float)0.1,
-  //     time1++
-  // );
+    /*
+    "Latitude\n"
+    "Longitude\n"
+    "Altitude\n"
+    "Speed",
+    */
+   Serial.println( "GPS_text_update" );
+   if(gps_info.isVaild)
+        lv_label_set_text_fmt(
+            Data_GPS,
+            "%0.6f\n"
+            "%0.6f\n"
+            "%0.2fm\n"
+            "%0.1fkm/h",
+            gps_info.latitude,
+            gps_info.longitude,
+            gps_info.altitude,
+            gps_info.speed
+            //   trip+=(float)0.1,
+            //   time1++
+        );
+    else{
+        lv_label_set_text_fmt(
+            Data_GPS,
+            "%0.6f\n"
+            "%0.6f\n"
+            "%0.2fm\n"
+            "%0.1fkm/h",
+            (float)0,
+            (float)0,
+            (float)0,
+            (float)0
+        );
+    }
+  Serial.println( "GPS_text_updated" );
+  lv_label_set_text_fmt(
+        Data_IMU,
+        "%.3f\n%.3f\n%.3f\n",
+        imu_info.ax,
+        imu_info.ay,
+        imu_info.az
+        //   trip+=(float)0.1,
+        //   time1++
+    );
 }
 
 void Item_Create(
     lv_obj_t* Info,
-    lv_obj_t* data,
+    lv_obj_t* &data,
     const char* name,
     // const char* img_src,
     const char* infos,
@@ -90,10 +131,19 @@ void Item_Create(
   // lv_obj_add_style(Info1, &style.info, 0);
   lv_obj_align(Info, LV_ALIGN_TOP_LEFT, x_bias, y_bias+15);
   //data
-  data = lv_label_create(scr);
-  lv_label_set_text(data, "-");
-  lv_obj_align(data, LV_ALIGN_TOP_LEFT, x_bias+120, y_bias+15);
+  lv_obj_t* test = lv_label_create(scr);
+  lv_label_set_text(test, "-");
+  lv_obj_align(test, LV_ALIGN_TOP_LEFT, x_bias+120, y_bias+15);
+  data=test;
+  if(Data_GPS == data) {
+        Serial.println( "same" );
+        if(Data_GPS == NULL) {
+        Serial.println( "err in create" );
+        
+        }
+        }
 }
+
 void setup()
 {
   //  File f = SPIFFS.open(CALIBRATION_FILE, "r");
@@ -105,7 +155,12 @@ void setup()
     Serial.println( LVGL_Arduino );
     Serial.println( "I am LVGL_Arduino" );
 
-
+    GPS_SERIAL.begin(9600, SERIAL_8N1, CONFIG_GPS_TX_PIN, CONFIG_GPS_RX_PIN);
+    Serial.print("GPS: TinyGPS++ library v. ");
+    Serial.print(TinyGPSPlus::libraryVersion());
+    Serial.println(" by Mikal Hart");
+    HAL::I2C_Init(true);
+    HAL::IMU_Init();
 
 // #if 0
 //     /* Create simple label */
@@ -137,6 +192,9 @@ void setup()
 //data
 
   /* infos */
+  if(Data_GPS == NULL) {
+        Serial.println( "GPS_beforeerr" );
+        }
   Item_Create(
       Info_GPS,
       Data_GPS,
@@ -148,6 +206,9 @@ void setup()
       20,
       0
   );
+  if(Data_GPS == NULL) {
+        Serial.println( "GPS_aftererr" );
+        }
   Item_Create(
       Info_IMU,
       Data_IMU,
@@ -215,12 +276,6 @@ void setup()
     // // lv_obj_add_style(Info1, &style.info, 0);
     // lv_obj_align(Info_IMU, LV_ALIGN_LEFT_MID, 20, 40);
 
-    // Info3 = lv_label_create(scr);
-    // // lv_label_set_text(Info1, infos);
-    // lv_label_set_text(Info3,"Firmware3\n"
-    //                           "Author3\n");
-    // // lv_obj_add_style(Info1, &style.info, 0);
-    // lv_obj_align(Info3, LV_ALIGN_LEFT_MID, 20, 80);
 
     /* datas */
     // data1 = lv_label_create(scr);
@@ -228,41 +283,9 @@ void setup()
     // // lv_obj_add_style(data1, &style.data, 0);
     // lv_obj_align(data1, LV_ALIGN_CENTER, 60, 0);
 
-    // data2 = lv_label_create(scr);
-    // lv_label_set_text(data2, "-");
-    // // lv_obj_add_style(data1, &style.data, 0);
-    // lv_obj_align(data2, LV_ALIGN_CENTER, 60, 40);
-    // item->labelData = label;
     timer = lv_timer_create(onTimerUpdate, 1000, nullptr);
     lv_timer_ready(timer);
-    // Serial.println( "Before" );
-    // lv_label_set_text_fmt(
-    //   data1,
-    //   "km%d",
-    //   // trip+=0.1,
-    //   15
-    // );
-    // Serial.println( "After" );
-    // lv_obj_t* label1 = lv_label_create(scr);
-    // lv_label_set_long_mode(label1,LV_LABEL_LONG_WRAP);
-    // lv_obj_set_width(label1,160);
-    // lv_label_set_text(label1,"Firmware1\n"
-    //                           "Author1\n");
-    // lv_obj_align(label1,LV_ALIGN_CENTER,75,20);
 
-    // lv_obj_t* label2 = lv_label_create(scr);
-    // lv_label_set_long_mode(label2,LV_LABEL_LONG_WRAP);
-    // lv_obj_set_width(label2,160);
-    // lv_label_set_text(label2,"Firmware2\n"
-    //                         "Author2\n");
-    // lv_obj_align(label2,LV_ALIGN_CENTER,75,0);
-
-
-    // lv_demo_benchmark();          // OK
-    // lv_demo_keypad_encoder();     // works, but I haven't an encoder
-    // lv_demo_music();              // NOK
-    // lv_demo_printer();
-    // lv_demo_stress();             // seems to be OK
 // #endif
 // Update display in parallel thread.
     // xTaskCreate(
@@ -279,9 +302,24 @@ void setup()
 
 void loop()
 {
-    
+    // Serial.println( "GPS_update" );
+    HAL::GPS_Update();
+    HAL::IMU_Update(&imu_info);
+    // Serial.println( "GPS_getinfo" );
+    HAL::GPS_GetInfo(&gps_info);
     xTaskNotifyGive(handleTaskLvgl);
-    
+    // if(Data_GPS == NULL) {
+    //     Serial.println( "GPS_err" );
+    //     }
+    // lv_label_set_text(Data_GPS, "-");
+    // Serial.println( "GPS_test" );
+    // lv_label_set_text_fmt(
+    //         Data_GPS,
+    //         "%.2fkm\n%d\n",
+    //         trip+=(float)0.1,
+    //         time1++
+    //     );
+    // Serial.println( "GPS_test1" );
     // lv_label_set_text_fmt(
     //     data2,
     //     "%0.2fkm\n"
