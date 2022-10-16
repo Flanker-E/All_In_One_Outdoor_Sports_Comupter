@@ -1,4 +1,4 @@
-// #include <lvgl.h>
+#include <lvgl.h>
 // #include "FS.h"
 #include <demos/lv_demos.h>
 // #include <TFT_eSPI.h>
@@ -23,7 +23,77 @@
 //         delay(5);
 //     }
 // }
-#define LV_USE_DEMO_WIDGETS
+// #define LV_USE_DEMO_WIDGETS
+lv_obj_t * cont;
+static lv_obj_t * scr;
+//GPS,IMU,LCD,E-Ink,SD,BLE
+lv_obj_t* Info_GPS;
+lv_obj_t* Info_IMU;
+lv_obj_t* Info_BLE;
+lv_obj_t* Info_LCD;
+lv_obj_t* Info_EInk;
+lv_obj_t* Info_SD;
+//data
+lv_obj_t* Data_GPS;
+lv_obj_t* Data_IMU;
+lv_obj_t* Data_BLE;
+lv_obj_t* Data_LCD;
+lv_obj_t* Data_EInk;
+lv_obj_t* Data_SD;
+
+// lv_style_t red_style;
+lv_timer_t* timer;
+float trip=0;
+int time1=0;
+
+// lv_obj_t* Data_GPS;
+// lv_obj_t* Data_IMU;
+// lv_obj_t* Data_BLE;
+// lv_obj_t* Data_LCD;
+// lv_obj_t* Data_EInk;
+// lv_obj_t* Data_SD;
+
+void onTimerUpdate(lv_timer_t* timer){
+  // lv_label_set_text_fmt(
+  //     Data_GPS,
+  //     "%.2fkm\n%d\n",
+  //     trip+=(float)0.1,
+  //     time1++
+  // );
+}
+
+void Item_Create(
+    lv_obj_t* Info,
+    lv_obj_t* data,
+    const char* name,
+    // const char* img_src,
+    const char* infos,
+    int x_bias,
+    int y_bias
+)
+{
+  //line
+  lv_obj_t* line = lv_line_create(scr);
+  // lv_obj_set_pos(label,);
+  lv_obj_set_size(line, 200, 2);
+  lv_obj_set_style_border_color(line,lv_color_hex(0xff931e),0);
+  lv_obj_set_style_border_side(line, LV_BORDER_SIDE_BOTTOM, 0);
+  lv_obj_set_style_border_width(line, 3, 0);
+  // lv_line_set_points(label, {{0,y_bias},{240,y_bias}}, 2);
+  lv_obj_align(line, LV_ALIGN_TOP_LEFT, x_bias, y_bias+14);
+  //info
+  lv_obj_t* label = lv_label_create(scr);
+  lv_label_set_text(label, name);
+  lv_obj_align(label, LV_ALIGN_TOP_LEFT, x_bias, y_bias);
+  Info = lv_label_create(scr);
+  lv_label_set_text(Info, infos);
+  // lv_obj_add_style(Info1, &style.info, 0);
+  lv_obj_align(Info, LV_ALIGN_TOP_LEFT, x_bias, y_bias+15);
+  //data
+  data = lv_label_create(scr);
+  lv_label_set_text(data, "-");
+  lv_obj_align(data, LV_ALIGN_TOP_LEFT, x_bias+120, y_bias+15);
+}
 void setup()
 {
   //  File f = SPIFFS.open(CALIBRATION_FILE, "r");
@@ -49,8 +119,145 @@ void setup()
    */
     Port_Init();
     // uncomment one of these demos
-    lv_demo_widgets();            // OK
+
+    // lv_demo_widgets();            // OK
+    // my screen
+    scr = lv_scr_act();
+    // lv_style_copy(&red_style,&lv_style_plain_color);
+    // lv_style_init(&red_style);
+    // lv_style_set_bg_color(&red_style, lv_color_hex(0xff931e));
+
+    //display size
+    //font
+    //
+#if LV_USE_THEME_DEFAULT
+    lv_theme_default_init(NULL, lv_palette_main(LV_PALETTE_BLUE), lv_palette_main(LV_PALETTE_RED), LV_THEME_DEFAULT_DARK,
+                          LV_FONT_DEFAULT);
+#endif
+//data
+
+  /* infos */
+  Item_Create(
+      Info_GPS,
+      Data_GPS,
+      "GPS",
+      "Latitude\n"
+      "Longitude\n"
+      "Altitude\n"
+      "Speed",
+      20,
+      0
+  );
+  Item_Create(
+      Info_IMU,
+      Data_IMU,
+      "IMU",
+      "Step\n"
+      "Ax\n"
+      "Ay\n"
+      "Az",
+      20,
+      100
+  );
+  Item_Create(
+      Info_BLE,
+      Data_BLE,
+      "BLE",
+      "Connected\n"
+      "Speed",
+      20,
+      200
+  );
+  Item_Create(
+      Info_LCD,
+      Data_LCD,
+      "LCD",
+      "Selected",
+      20,
+      270
+  );
+  Item_Create(
+      Info_EInk,
+      Data_EInk,
+      "E-Ink",
+      "Selected",
+      20,
+      325
+  );
+  Item_Create(
+      Info_SD,
+      Data_SD,
+      "storage",
+      "Status\n"
+      "Size",
+      20,
+      380
+);
+
+    // Info_GPS = lv_label_create(scr);
+    // lv_label_set_text(Info_GPS,"Firmware1\n"
+    //                           "Author1\n");
+    // // lv_obj_add_style(Info1, &style.info, 0);
+    // lv_obj_align(Info_GPS, LV_ALIGN_LEFT_MID, 20, 0);
+    // // item->labelInfo = label;
     
+    // Info_IMU = lv_label_create(scr);
+    // // lv_label_set_text(Info1, infos);
+    // lv_label_set_text(Info_IMU,"Firmware2\n"
+    //                           "Author2\n");
+    // // lv_obj_add_style(Info1, &style.info, 0);
+    // lv_obj_align(Info_IMU, LV_ALIGN_LEFT_MID, 20, 40);
+
+    // Info_IMU = lv_label_create(scr);
+    // // lv_label_set_text(Info1, infos);
+    // lv_label_set_text(Info_IMU,"Firmware2\n"
+    //                           "Author2\n");
+    // // lv_obj_add_style(Info1, &style.info, 0);
+    // lv_obj_align(Info_IMU, LV_ALIGN_LEFT_MID, 20, 40);
+
+    // Info3 = lv_label_create(scr);
+    // // lv_label_set_text(Info1, infos);
+    // lv_label_set_text(Info3,"Firmware3\n"
+    //                           "Author3\n");
+    // // lv_obj_add_style(Info1, &style.info, 0);
+    // lv_obj_align(Info3, LV_ALIGN_LEFT_MID, 20, 80);
+
+    /* datas */
+    // data1 = lv_label_create(scr);
+    // // lv_label_set_text(data1, "-");
+    // // lv_obj_add_style(data1, &style.data, 0);
+    // lv_obj_align(data1, LV_ALIGN_CENTER, 60, 0);
+
+    // data2 = lv_label_create(scr);
+    // lv_label_set_text(data2, "-");
+    // // lv_obj_add_style(data1, &style.data, 0);
+    // lv_obj_align(data2, LV_ALIGN_CENTER, 60, 40);
+    // item->labelData = label;
+    timer = lv_timer_create(onTimerUpdate, 1000, nullptr);
+    lv_timer_ready(timer);
+    // Serial.println( "Before" );
+    // lv_label_set_text_fmt(
+    //   data1,
+    //   "km%d",
+    //   // trip+=0.1,
+    //   15
+    // );
+    // Serial.println( "After" );
+    // lv_obj_t* label1 = lv_label_create(scr);
+    // lv_label_set_long_mode(label1,LV_LABEL_LONG_WRAP);
+    // lv_obj_set_width(label1,160);
+    // lv_label_set_text(label1,"Firmware1\n"
+    //                           "Author1\n");
+    // lv_obj_align(label1,LV_ALIGN_CENTER,75,20);
+
+    // lv_obj_t* label2 = lv_label_create(scr);
+    // lv_label_set_long_mode(label2,LV_LABEL_LONG_WRAP);
+    // lv_obj_set_width(label2,160);
+    // lv_label_set_text(label2,"Firmware2\n"
+    //                         "Author2\n");
+    // lv_obj_align(label2,LV_ALIGN_CENTER,75,0);
+
+
     // lv_demo_benchmark();          // OK
     // lv_demo_keypad_encoder();     // works, but I haven't an encoder
     // lv_demo_music();              // NOK
@@ -72,7 +279,16 @@ void setup()
 
 void loop()
 {
+    
     xTaskNotifyGive(handleTaskLvgl);
+    
+    // lv_label_set_text_fmt(
+    //     data2,
+    //     "%0.2fkm\n"
+    //     "%s\n",
+    //     trip+=0.01,
+    //     time1++
+    // );
     // lv_timer_handler(); /* let the GUI do its work */
     // lv_tick_inc(5);
     delay( 20 );
