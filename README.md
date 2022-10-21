@@ -16,7 +16,8 @@ line 52 change to -> #define LV_MEM_SIZE (38U * 1024U)          /*[bytes]*/
 line 88 change to -> #define LV_TICK_CUSTOM 1  
 line 114 change to -> #define LV_SHADOW_CACHE_SIZE 50  
 line 174 change to -> #define LV_USE_LOG 1  
-line 210 change to -> #define LV_USE_ASSERT_STYLE         1  
+line 210 change to -> #define LV_USE_ASSERT_STYLE 1  
+line 245 change to -> #define LV_SPRINTF_USE_FLOAT 1  
 line 306 change to -> #define LV_FONT_MONTSERRAT_10 1  
 line 314 change to -> #define LV_FONT_MONTSERRAT_26 1  
 line 348 change to -> #define LV_FONT_FMT_TXT_LARGE 1  
