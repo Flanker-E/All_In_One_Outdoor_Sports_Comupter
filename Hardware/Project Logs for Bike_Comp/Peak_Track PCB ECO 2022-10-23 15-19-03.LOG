@@ -1,0 +1,7 @@
+Removed Pin From Net: NetName=VCC_3V3 Pin=C13-2
+Removed Pin From Net: NetName=VCC_3V3 Pin=C16-2
+Removed Pin From Net: NetName=VCC_3V3 Pin=U5-13
+Added Pin To Net: NetName=V_LCD Pin=C13-2
+Added Pin To Net: NetName=V_IMU Pin=C16-2
+Added Pin To Net: NetName=V_IMU Pin=U5-13
+Added Room: Name=Main

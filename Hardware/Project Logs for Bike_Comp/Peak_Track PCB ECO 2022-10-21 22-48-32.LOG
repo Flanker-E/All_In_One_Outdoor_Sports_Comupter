@@ -1,0 +1,219 @@
+Removed Pin From Net: NetName=VCC_3V3 Pin=AT1-1
+Removed Pin From Net: NetName=VBAT_IN Pin=C7-2
+Removed Pin From Net: NetName=VBAT_IN Pin=C8-2
+Removed Pin From Net: NetName=VUSB Pin=C9-2
+Removed Pin From Net: NetName=VCC_3V3 Pin=C11-2
+Removed Pin From Net: NetName=VCC_3V3 Pin=C12-1
+Removed Pin From Net: NetName=GND Pin=CT1-0
+Removed Pin From Net: NetName=GND Pin=CT1-0
+Removed Pin From Net: NetName=VCC_3V3 Pin=CT1-6
+Removed Pin From Net: NetName=VUSB Pin=D4-1
+Removed Pin From Net: NetName=GND Pin=LC1-0
+Removed Pin From Net: NetName=GND Pin=LC1-0
+Removed Pin From Net: NetName=VCC_3V3 Pin=LC1-2
+Removed Pin From Net: NetName=VCC_3V3 Pin=LC1-7
+Removed Pin From Net: NetName=GND Pin=P2-2
+Removed Pin From Net: NetName=GND Pin=P2-3
+Removed Pin From Net: NetName=GND Pin=P3-0
+Removed Pin From Net: NetName=GND Pin=P3-0
+Removed Pin From Net: NetName=GND Pin=R8-2
+Removed Pin From Net: NetName=CHG_DET Pin=R10-2
+Removed Pin From Net: NetName=CHG_DET Pin=R11-1
+Removed Pin From Net: NetName=VCC_3V3 Pin=R11-2
+Removed Pin From Net: NetName=VCC_3V3 Pin=TP1-1
+Removed Pin From Net: NetName=VBAT_IN Pin=TP2-1
+Removed Pin From Net: NetName=GND Pin=TP3-1
+Removed Pin From Net: NetName=CHG_DET Pin=U3-1
+Removed Pin From Net: NetName=GND Pin=U3-2
+Removed Pin From Net: NetName=VBAT_IN Pin=U3-3
+Removed Pin From Net: NetName=VUSB Pin=U3-4
+Removed Pin From Net: NetName=VCC_3V3 Pin=U5-8
+Removed Member From Class: ClassName=Main Member=U3
+Change Component Footprint: Designator=D4 Old Footprint=LED_0402_RED New Footprint=SMA
+Change Component Comment : Designator=C8 Old Comment=0.1uF New Comment=10uF
+Change Component Comment : Designator=R8 Old Comment=2K New Comment=10K
+Change Component Comment : Designator=D4 Old Comment=color? New Comment=SK34A
+Change component parameters: Designator = "D4" ("D4"); Footprint = "LED_0402_RED"; UniqueID = "\WTBTZIQY" ("\WTBTZIQY")
+Change component parameters (AddParameter): Name = "Arrow Part Number"; Value = "SK34AFL-TP"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Arrow Price/Stock"; Value = "https://www.arrow.com/en/products/sk34afl-tp/micro-commercial-components?region=europe"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet Link"; Value = "https://www.mouser.de/datasheet/2/258/SK32AFL_SK310AFL_DO_221AC_-2492378.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Height"; Value = "1.25mm"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer_Name"; Value = "Micro Commercial Components (MCC)"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer_Part_Number"; Value = "SK34AFL-TP"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser Part Number"; Value = "833-SK34AFL-TP"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser Price/Stock"; Value = "https://www.mouser.co.uk/ProductDetail/Micro-Commercial-Components-MCC/SK34AFL-TP?qs=%2F9jDaHz9Z2hx3laGbsEE%252BA%3D%3D"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser Testing Part Number"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser Testing Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=C17(CAP_0402)
+Add component (AddParameter): Name = "Value"; Value = "0.1u"; VariantName = "[No Variations]"
+Added Component: Designator=C18(CAP_0402)
+Add component (AddParameter): Name = "Value"; Value = "0.1u"; VariantName = "[No Variations]"
+Added Component: Designator=C19(CAP_0402)
+Add component (AddParameter): Name = "Value"; Value = "0.1u"; VariantName = "[No Variations]"
+Added Component: Designator=C20(CAP_0402)
+Add component (AddParameter): Name = "Value"; Value = "0.1u"; VariantName = "[No Variations]"
+Added Component: Designator=D6(SMA)
+Add component (AddParameter): Name = "Arrow Part Number"; Value = "SK34AFL-TP"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Arrow Price/Stock"; Value = "https://www.arrow.com/en/products/sk34afl-tp/micro-commercial-components?region=europe"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet Link"; Value = "https://www.mouser.de/datasheet/2/258/SK32AFL_SK310AFL_DO_221AC_-2492378.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "1.25mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Name"; Value = "Micro Commercial Components (MCC)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "SK34AFL-TP"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Part Number"; Value = "833-SK34AFL-TP"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Price/Stock"; Value = "https://www.mouser.co.uk/ProductDetail/Micro-Commercial-Components-MCC/SK34AFL-TP?qs=%2F9jDaHz9Z2hx3laGbsEE%252BA%3D%3D"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Testing Part Number"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Testing Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=D7(LED_0402_RED)
+Add component (AddParameter): Name = "Type"; Value = "0402"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "color?"; VariantName = "[No Variations]"
+Added Component: Designator=D8(LED_0402_RED)
+Add component (AddParameter): Name = "Type"; Value = "0402"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "color?"; VariantName = "[No Variations]"
+Added Component: Designator=IC1(QFN50P300X300X100-17N-D)
+Add component (AddParameter): Name = "Arrow Part Number"; Value = "BQ24074RGTR"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Arrow Price/Stock"; Value = "https://www.arrow.com/en/products/bq24074rgtr/texas-instruments?region=nac"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet Link"; Value = "http://www.ti.com/lit/ds/symlink/bq24074.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "1mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Name"; Value = "Texas Instruments"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "BQ24074RGTR"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Part Number"; Value = "595-BQ24074RGTR"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Price/Stock"; Value = "https://www.mouser.co.uk/ProductDetail/Texas-Instruments/BQ24074RGTR?qs=ZV%2Fxhq4oszp2Nll7fIx5wg%3D%3D"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Testing Part Number"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Testing Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=P6(PH2.0-W-2P)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Added Component: Designator=Q6(SOT23-3)
+Added Component: Designator=Q7(SOT23-3)
+Added Component: Designator=Q8(SOT23-3)
+Added Component: Designator=R28(RES_0402)
+Add component (AddParameter): Name = "Value"; Value = "22R"; VariantName = "[No Variations]"
+Added Component: Designator=R29(RES_0402)
+Add component (AddParameter): Name = "Value"; Value = "22R"; VariantName = "[No Variations]"
+Added Component: Designator=R30(RES_0402)
+Add component (AddParameter): Name = "Value"; Value = "22R"; VariantName = "[No Variations]"
+Added Component: Designator=R31(RES_0402)
+Add component (AddParameter): Name = "Value"; Value = "22R"; VariantName = "[No Variations]"
+Added Component: Designator=R32(RES_0402)
+Add component (AddParameter): Name = "Value"; Value = "22R"; VariantName = "[No Variations]"
+Added Component: Designator=R33(RES_0402)
+Add component (AddParameter): Name = "Value"; Value = "22R"; VariantName = "[No Variations]"
+Added Component: Designator=R34(RES_0402)
+Add component (AddParameter): Name = "Value"; Value = "22R"; VariantName = "[No Variations]"
+Added Component: Designator=R35(RES_0402)
+Add component (AddParameter): Name = "Value"; Value = "22R"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=VBAT_IN Pin=C9-2
+Added Pin To Net: NetName=GND Pin=C17-1
+Added Pin To Net: NetName=VBAT_IN Pin=C17-2
+Added Pin To Net: NetName=GND Pin=C18-1
+Added Pin To Net: NetName=VBAT Pin=C18-2
+Added Pin To Net: NetName=GND Pin=C19-1
+Added Pin To Net: NetName=VBAT Pin=C19-2
+Added Pin To Net: NetName=GND Pin=C20-1
+Added Pin To Net: NetName=VBAT Pin=C20-2
+Added Pin To Net: NetName=VUSB Pin=D4-2
+Added Pin To Net: NetName=VBAT Pin=D7-1
+Added Pin To Net: NetName=VBAT Pin=D8-1
+Added Pin To Net: NetName=VBAT_IN Pin=IC1-2
+Added Pin To Net: NetName=VBAT_IN Pin=IC1-3
+Added Pin To Net: NetName=VBAT Pin=IC1-5
+Added Pin To Net: NetName=GND Pin=IC1-6
+Added Pin To Net: NetName=GND Pin=IC1-8
+Added Pin To Net: NetName=CHG_DET Pin=IC1-9
+Added Pin To Net: NetName=VBAT Pin=IC1-10
+Added Pin To Net: NetName=VBAT Pin=IC1-11
+Added Pin To Net: NetName=GND Pin=IC1-14
+Added Pin To Net: NetName=GND Pin=IC1-17
+Added Pin To Net: NetName=GND Pin=P6-2
+Added Pin To Net: NetName=VCC_3V3 Pin=Q6-2
+Added Pin To Net: NetName=VCC_3V3 Pin=Q7-2
+Added Pin To Net: NetName=VCC_3V3 Pin=Q8-2
+Added Pin To Net: NetName=GND Pin=R8-1
+Added Pin To Net: NetName=GND Pin=R10-1
+Added Pin To Net: NetName=GND Pin=R11-2
+Added Pin To Net: NetName=VCC_3V3 Pin=R28-2
+Added Pin To Net: NetName=VCC_3V3 Pin=R29-2
+Added Pin To Net: NetName=VCC_3V3 Pin=R30-2
+Added Pin To Net: NetName=GND Pin=R31-1
+Added Pin To Net: NetName=GND Pin=R32-2
+Added Pin To Net: NetName=CHG_DET Pin=R33-1
+Added Pin To Net: NetName=VCC_3V3 Pin=R33-2
+Added Pin To Net: NetName=CHG_DET Pin=R34-2
+Added Pin To Net: NetName=NetD6_2 Pin=D6-2
+Added Pin To Net: NetName=NetD6_2 Pin=P6-1
+Added Net: Name=NetD6_2
+Added Pin To Net: NetName=NetD7_2 Pin=D7-2
+Added Pin To Net: NetName=NetD7_2 Pin=R34-1
+Added Net: Name=NetD7_2
+Added Pin To Net: NetName=NetD8_2 Pin=D8-2
+Added Pin To Net: NetName=NetD8_2 Pin=R35-1
+Added Net: Name=NetD8_2
+Added Pin To Net: NetName=NetIC1_1 Pin=IC1-1
+Added Pin To Net: NetName=NetIC1_1 Pin=R11-1
+Added Net: Name=NetIC1_1
+Added Pin To Net: NetName=NetIC1_4 Pin=IC1-4
+Added Pin To Net: NetName=NetIC1_4 Pin=R32-1
+Added Net: Name=NetIC1_4
+Added Pin To Net: NetName=NetIC1_7 Pin=IC1-7
+Added Pin To Net: NetName=NetIC1_7 Pin=R35-2
+Added Net: Name=NetIC1_7
+Added Pin To Net: NetName=NetIC1_12 Pin=IC1-12
+Added Pin To Net: NetName=NetIC1_12 Pin=R31-2
+Added Net: Name=NetIC1_12
+Added Pin To Net: NetName=NetIC1_15 Pin=IC1-15
+Added Pin To Net: NetName=NetIC1_15 Pin=R8-2
+Added Net: Name=NetIC1_15
+Added Pin To Net: NetName=NetIC1_16 Pin=IC1-16
+Added Pin To Net: NetName=NetIC1_16 Pin=R10-2
+Added Net: Name=NetIC1_16
+Added Pin To Net: NetName=SW_GPS Pin=Q7-1
+Added Pin To Net: NetName=SW_GPS Pin=R29-1
+Added Net: Name=SW_GPS
+Added Pin To Net: NetName=SW_IMU Pin=Q8-1
+Added Pin To Net: NetName=SW_IMU Pin=R30-1
+Added Net: Name=SW_IMU
+Added Pin To Net: NetName=SW_LCD Pin=Q6-1
+Added Pin To Net: NetName=SW_LCD Pin=R28-1
+Added Net: Name=SW_LCD
+Added Pin To Net: NetName=V_GPS Pin=AT1-1
+Added Pin To Net: NetName=V_GPS Pin=Q7-3
+Added Net: Name=V_GPS
+Added Pin To Net: NetName=V_IMU Pin=C12-1
+Added Pin To Net: NetName=V_IMU Pin=Q8-3
+Added Pin To Net: NetName=V_IMU Pin=U5-8
+Added Net: Name=V_IMU
+Added Pin To Net: NetName=V_LCD Pin=C11-2
+Added Pin To Net: NetName=V_LCD Pin=CT1-6
+Added Pin To Net: NetName=V_LCD Pin=LC1-2
+Added Pin To Net: NetName=V_LCD Pin=LC1-7
+Added Pin To Net: NetName=V_LCD Pin=Q6-3
+Added Net: Name=V_LCD
+Added Pin To Net: NetName=VBUS Pin=C7-2
+Added Pin To Net: NetName=VBUS Pin=C8-2
+Added Pin To Net: NetName=VBUS Pin=D4-1
+Added Pin To Net: NetName=VBUS Pin=D6-1
+Added Pin To Net: NetName=VBUS Pin=IC1-13
+Added Net: Name=VBUS
+Added Member To Class: ClassName=Main Member=Component C17 10uF
+Added Member To Class: ClassName=Main Member=Component C18 10uF
+Added Member To Class: ClassName=Main Member=Component C19 10uF
+Added Member To Class: ClassName=Main Member=Component C20 10uF
+Added Member To Class: ClassName=Main Member=Component D6 SK34A
+Added Member To Class: ClassName=Main Member=Component D7 color?
+Added Member To Class: ClassName=Main Member=Component D8 color?
+Added Member To Class: ClassName=Main Member=Component IC1 BQ24074RGTR
+Added Member To Class: ClassName=Main Member=Component P6 SOLAR_CON
+Added Member To Class: ClassName=Main Member=Component Q6 AO3401A
+Added Member To Class: ClassName=Main Member=Component Q7 AO3401A
+Added Member To Class: ClassName=Main Member=Component Q8 AO3401A
+Added Member To Class: ClassName=Main Member=Component R28 100K
+Added Member To Class: ClassName=Main Member=Component R29 100K
+Added Member To Class: ClassName=Main Member=Component R30 100K
+Added Member To Class: ClassName=Main Member=Component R31 1K
+Added Member To Class: ClassName=Main Member=Component R32 10K
+Added Member To Class: ClassName=Main Member=Component R33 10K
+Added Member To Class: ClassName=Main Member=Component R34 10K
+Added Member To Class: ClassName=Main Member=Component R35 10K
+Added Member To Class: ClassName=Main Member=Component USB1 Type-C
+Added Room: Name=Main

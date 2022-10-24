@@ -1,0 +1,7 @@
+Added Component: Designator=TP1(TP_SMD)
+Added Component: Designator=TP2(TP_SMD)
+Added Component: Designator=TP3(TP_SMD)
+Added Member To Class: ClassName=Main Member=Component D4 SK34A
+Added Member To Class: ClassName=Main Member=Component TP1 TP
+Added Member To Class: ClassName=Main Member=Component TP2 TP
+Added Member To Class: ClassName=Main Member=Component TP3 TP

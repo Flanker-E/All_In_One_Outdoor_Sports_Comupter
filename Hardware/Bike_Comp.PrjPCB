@@ -75,6 +75,10 @@ DocumentUniqueId=NDWZNMJK
 Path=..\pcbintlib\*.*
 IncludeSubFolders=1
 
+[SearchPath2]
+Path=C:\Users\Public\Documents\Altium\AD20\Library\*.*
+IncludeSubFolders=1
+
 [Configuration1]
 Name=Sources
 ParameterCount=0
