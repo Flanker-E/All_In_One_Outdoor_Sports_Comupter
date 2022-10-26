@@ -1,0 +1,197 @@
+Removed Pin From Net: NetName=GND Pin=LC1-5
+Added Component: Designator=C21(CAP_0402)
+Add component (AddParameter): Name = "Value"; Value = "0.1u"; VariantName = "[No Variations]"
+Added Component: Designator=C22(CAP_0402)
+Add component (AddParameter): Name = "Value"; Value = "0.1u"; VariantName = "[No Variations]"
+Added Component: Designator=C23(CAP_0402)
+Add component (AddParameter): Name = "Value"; Value = "0.1u"; VariantName = "[No Variations]"
+Added Component: Designator=C24(CAP_0402)
+Add component (AddParameter): Name = "Value"; Value = "0.1u"; VariantName = "[No Variations]"
+Added Component: Designator=C25(CAP_0402)
+Add component (AddParameter): Name = "Value"; Value = "0.1u"; VariantName = "[No Variations]"
+Added Component: Designator=C26(CAP_0402)
+Add component (AddParameter): Name = "Value"; Value = "0.1u"; VariantName = "[No Variations]"
+Added Component: Designator=C27(CAP_0402)
+Add component (AddParameter): Name = "Value"; Value = "0.1u"; VariantName = "[No Variations]"
+Added Component: Designator=C28(CAP_0402)
+Add component (AddParameter): Name = "Value"; Value = "0.1u"; VariantName = "[No Variations]"
+Added Component: Designator=C29(CAP_0402)
+Add component (AddParameter): Name = "Value"; Value = "0.1u"; VariantName = "[No Variations]"
+Added Component: Designator=C30(CAP_0402)
+Add component (AddParameter): Name = "Value"; Value = "0.1u"; VariantName = "[No Variations]"
+Added Component: Designator=C31(CAP_0402)
+Add component (AddParameter): Name = "Value"; Value = "0.1u"; VariantName = "[No Variations]"
+Added Component: Designator=C32(CAP_0402)
+Add component (AddParameter): Name = "Value"; Value = "0.1u"; VariantName = "[No Variations]"
+Added Component: Designator=D9(SOD3716X135N)
+Add component (AddParameter): Name = "Arrow Part Number"; Value = "MBR0530"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Arrow Price/Stock"; Value = "https://www.arrow.com/en/products/mbr0530/on-semiconductor?region=nac"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet Link"; Value = "http://www.onsemi.com/pub/Collateral/MBR0530T1-D.PDF"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "1.35mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Name"; Value = "onsemi"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "MBR0530"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Part Number"; Value = "512-MBR0530"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Price/Stock"; Value = "https://www.mouser.co.uk/ProductDetail/ON-Semiconductor-Fairchild/MBR0530?qs=VOMQJJE%252BBNniwJKcE3T43Q%3D%3D"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Testing Part Number"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Testing Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=D10(SOD3716X135N)
+Add component (AddParameter): Name = "Arrow Part Number"; Value = "MBR0530"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Arrow Price/Stock"; Value = "https://www.arrow.com/en/products/mbr0530/on-semiconductor?region=nac"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet Link"; Value = "http://www.onsemi.com/pub/Collateral/MBR0530T1-D.PDF"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "1.35mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Name"; Value = "onsemi"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "MBR0530"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Part Number"; Value = "512-MBR0530"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Price/Stock"; Value = "https://www.mouser.co.uk/ProductDetail/ON-Semiconductor-Fairchild/MBR0530?qs=VOMQJJE%252BBNniwJKcE3T43Q%3D%3D"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Testing Part Number"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Testing Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=D11(SOD3716X135N)
+Add component (AddParameter): Name = "Arrow Part Number"; Value = "MBR0530"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Arrow Price/Stock"; Value = "https://www.arrow.com/en/products/mbr0530/on-semiconductor?region=nac"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet Link"; Value = "http://www.onsemi.com/pub/Collateral/MBR0530T1-D.PDF"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "1.35mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Name"; Value = "onsemi"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "MBR0530"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Part Number"; Value = "512-MBR0530"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Price/Stock"; Value = "https://www.mouser.co.uk/ProductDetail/ON-Semiconductor-Fairchild/MBR0530?qs=VOMQJJE%252BBNniwJKcE3T43Q%3D%3D"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Testing Part Number"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Testing Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=EINK1(FPC0.5-WT-24P)
+Added Component: Designator=L1(SWPA3015)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Axial Device, Thru-Hole; 2 Leads; 0.9 in Pin Spacing"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "AXIAL-0.9"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "24-Mar-1999"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "68uH"; VariantName = "[No Variations]"
+Added Component: Designator=Q9(SOT65P210X110-3N)
+Add component (AddParameter): Name = "Arrow Part Number"; Value = "SI1308EDL-T1-GE3"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Arrow Price/Stock"; Value = "https://www.arrow.com/en/products/si1308edl-t1-ge3/vishay?region=nac"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet Link"; Value = "https://componentsearchengine.com/Datasheets/1/SI1308EDL-T1-GE3.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "1.1mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Name"; Value = "Vishay"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "Si1308EDL-T1-GE3"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Part Number"; Value = "78-SI1308EDL-T1-GE3"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Price/Stock"; Value = "https://www.mouser.co.uk/ProductDetail/Vishay-Semiconductors/SI1308EDL-T1-GE3?qs=bX1%252BNvsK%2FBramh9tgpOaEw%3D%3D"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Testing Part Number"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Testing Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=R36(RES_0402)
+Add component (AddParameter): Name = "Value"; Value = "22R"; VariantName = "[No Variations]"
+Added Component: Designator=R37(RES_0402)
+Add component (AddParameter): Name = "Value"; Value = "22R"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=C21-1
+Added Pin To Net: NetName=GND Pin=C22-1
+Added Pin To Net: NetName=GND Pin=C23-1
+Added Pin To Net: NetName=VCC_3V3 Pin=C23-2
+Added Pin To Net: NetName=GND Pin=C25-1
+Added Pin To Net: NetName=VCC_3V3 Pin=C25-2
+Added Pin To Net: NetName=GND Pin=C26-1
+Added Pin To Net: NetName=GND Pin=C27-1
+Added Pin To Net: NetName=GND Pin=C28-1
+Added Pin To Net: NetName=GND Pin=C29-1
+Added Pin To Net: NetName=GND Pin=C30-1
+Added Pin To Net: NetName=GND Pin=C31-1
+Added Pin To Net: NetName=GND Pin=C32-1
+Added Pin To Net: NetName=GND Pin=D9-1
+Added Pin To Net: NetName=GND Pin=EINK1-8
+Added Pin To Net: NetName=VCC_3V3 Pin=EINK1-9
+Added Pin To Net: NetName=VCC_3V3 Pin=EINK1-10
+Added Pin To Net: NetName=GPIO23 Pin=EINK1-11
+Added Pin To Net: NetName=GPIO18 Pin=EINK1-12
+Added Pin To Net: NetName=GPIO2 Pin=EINK1-14
+Added Pin To Net: NetName=CPT_RST Pin=EINK1-15
+Added Pin To Net: NetName=VCC_3V3 Pin=L1-1
+Added Pin To Net: NetName=GND Pin=R36-1
+Added Pin To Net: NetName=GND Pin=R37-1
+Added Pin To Net: NetName=BS Pin=EINK1-17
+Added Pin To Net: NetName=BS Pin=U4-32
+Added Net: Name=BS
+Added Pin To Net: NetName=BUSY Pin=EINK1-16
+Added Pin To Net: NetName=BUSY Pin=U4-31
+Added Net: Name=BUSY
+Added Pin To Net: NetName=EINK_CS Pin=EINK1-13
+Added Pin To Net: NetName=EINK_CS Pin=U4-30
+Added Net: Name=EINK_CS
+Added Pin To Net: NetName=GDR Pin=EINK1-23
+Added Pin To Net: NetName=GDR Pin=Q9-1
+Added Pin To Net: NetName=GDR Pin=R36-2
+Added Net: Name=GDR
+Added Pin To Net: NetName=GPIO8 Pin=LC1-5
+Added Pin To Net: NetName=GPIO8 Pin=U4-33
+Added Net: Name=GPIO8
+Added Pin To Net: NetName=GPIO10 Pin=Q6-1
+Added Pin To Net: NetName=GPIO10 Pin=R28-1
+Added Pin To Net: NetName=GPIO10 Pin=U4-29
+Added Net: Name=GPIO10
+Added Pin To Net: NetName=GPIO16 Pin=Q7-1
+Added Pin To Net: NetName=GPIO16 Pin=R29-1
+Added Pin To Net: NetName=GPIO16 Pin=U4-25
+Added Net: Name=GPIO16
+Added Pin To Net: NetName=GPIO17 Pin=Q8-1
+Added Pin To Net: NetName=GPIO17 Pin=R30-1
+Added Pin To Net: NetName=GPIO17 Pin=U4-27
+Added Net: Name=GPIO17
+Added Pin To Net: NetName=NetC21_2 Pin=C21-2
+Added Pin To Net: NetName=NetC21_2 Pin=EINK1-21
+Added Net: Name=NetC21_2
+Added Pin To Net: NetName=NetC22_2 Pin=C22-2
+Added Pin To Net: NetName=NetC22_2 Pin=EINK1-20
+Added Net: Name=NetC22_2
+Added Pin To Net: NetName=NetC24_1 Pin=C24-1
+Added Pin To Net: NetName=NetC24_1 Pin=D9-2
+Added Pin To Net: NetName=NetC24_1 Pin=D10-1
+Added Net: Name=NetC24_1
+Added Pin To Net: NetName=NetC24_2 Pin=C24-2
+Added Pin To Net: NetName=NetC24_2 Pin=D11-2
+Added Pin To Net: NetName=NetC24_2 Pin=L1-2
+Added Pin To Net: NetName=NetC24_2 Pin=Q9-3
+Added Net: Name=NetC24_2
+Added Pin To Net: NetName=NetC26_2 Pin=C26-2
+Added Pin To Net: NetName=NetC26_2 Pin=EINK1-7
+Added Net: Name=NetC26_2
+Added Pin To Net: NetName=NetC27_2 Pin=C27-2
+Added Pin To Net: NetName=NetC27_2 Pin=EINK1-6
+Added Net: Name=NetC27_2
+Added Pin To Net: NetName=NetC28_2 Pin=C28-2
+Added Pin To Net: NetName=NetC28_2 Pin=EINK1-5
+Added Net: Name=NetC28_2
+Added Pin To Net: NetName=NetC30_2 Pin=C30-2
+Added Pin To Net: NetName=NetC30_2 Pin=EINK1-3
+Added Net: Name=NetC30_2
+Added Pin To Net: NetName=NetC32_2 Pin=C32-2
+Added Pin To Net: NetName=NetC32_2 Pin=EINK1-1
+Added Net: Name=NetC32_2
+Added Pin To Net: NetName=PREVGH Pin=C29-2
+Added Pin To Net: NetName=PREVGH Pin=D11-1
+Added Pin To Net: NetName=PREVGH Pin=EINK1-4
+Added Net: Name=PREVGH
+Added Pin To Net: NetName=PREVGL Pin=C31-2
+Added Pin To Net: NetName=PREVGL Pin=D10-2
+Added Pin To Net: NetName=PREVGL Pin=EINK1-2
+Added Net: Name=PREVGL
+Added Pin To Net: NetName=RESE Pin=EINK1-22
+Added Pin To Net: NetName=RESE Pin=Q9-2
+Added Pin To Net: NetName=RESE Pin=R37-2
+Added Net: Name=RESE
+Added Member To Class: ClassName=Main Member=Component C21 1uF
+Added Member To Class: ClassName=Main Member=Component C22 4.7uF
+Added Member To Class: ClassName=Main Member=Component C23 4.7uF
+Added Member To Class: ClassName=Main Member=Component C24 4.7uF
+Added Member To Class: ClassName=Main Member=Component C25 1uF
+Added Member To Class: ClassName=Main Member=Component C26 1uF
+Added Member To Class: ClassName=Main Member=Component C27 1uF
+Added Member To Class: ClassName=Main Member=Component C28 4.7uF
+Added Member To Class: ClassName=Main Member=Component C29 4.7uF
+Added Member To Class: ClassName=Main Member=Component C30 4.7uF
+Added Member To Class: ClassName=Main Member=Component C31 4.7uF
+Added Member To Class: ClassName=Main Member=Component C32 1uF
+Added Member To Class: ClassName=Main Member=Component D9 MBR0530
+Added Member To Class: ClassName=Main Member=Component D10 MBR0530
+Added Member To Class: ClassName=Main Member=Component D11 MBR0530
+Added Member To Class: ClassName=Main Member=Component EINK1 EINK
+Added Member To Class: ClassName=Main Member=Component L1 Inductor Iron
+Added Member To Class: ClassName=Main Member=Component Q9 Si1308EDL-T1-GE3
+Added Member To Class: ClassName=Main Member=Component R36 10K
+Added Member To Class: ClassName=Main Member=Component R37 4R
+Added Room: Name=Main
