@@ -1,0 +1,11 @@
+Removed Pin From Net: NetName=EINK_CS Pin=U4-30
+Removed Pin From Net: NetName=BUSY Pin=U4-31
+Removed Pin From Net: NetName=BS Pin=U4-32
+Added Pin To Net: NetName=EINK_CS Pin=U4-31
+Added Pin To Net: NetName=BUSY Pin=U4-32
+Added Pin To Net: NetName=BS Pin=U4-33
+Added Pin To Net: NetName=GPIO11 Pin=LC1-5
+Added Pin To Net: NetName=GPIO11 Pin=U4-30
+Added Net: Name=GPIO11
+Added Member To Class: ClassName=Main Member=Component LC1 LCD
+Added Room: Name=Main

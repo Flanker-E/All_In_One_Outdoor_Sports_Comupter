@@ -1,0 +1,19 @@
+Removed Pin From Net: NetName=EC_A Pin=CB1-2
+Removed Pin From Net: NetName=EC_B Pin=CB2-2
+Removed Member From Class: ClassName=Main Member=CB1
+Removed Member From Class: ClassName=Main Member=CB2
+Added Component: Designator=R38(RES_0402)
+Add component (AddParameter): Name = "Value"; Value = "22R"; VariantName = "[No Variations]"
+Added Component: Designator=R39(RES_0402)
+Add component (AddParameter): Name = "Value"; Value = "22R"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=EC_A Pin=R38-2
+Added Pin To Net: NetName=EC_B Pin=R39-2
+Added Pin To Net: NetName=NetR19_1 Pin=R19-1
+Added Pin To Net: NetName=NetR19_1 Pin=R38-1
+Added Net: Name=NetR19_1
+Added Pin To Net: NetName=NetR20_1 Pin=R20-1
+Added Pin To Net: NetName=NetR20_1 Pin=R39-1
+Added Net: Name=NetR20_1
+Added Member To Class: ClassName=Main Member=Component R38 0R
+Added Member To Class: ClassName=Main Member=Component R39 0R
+Added Room: Name=Main
