@@ -1,0 +1,60 @@
+Added Component: Designator=TP5(TEST 1.6)
+Added Component: Designator=TP6(TEST 1.6)
+Added Component: Designator=TP7(TEST 1.6)
+Added Component: Designator=TP8(TEST 1.6)
+Added Component: Designator=TP9(TEST 1.6)
+Added Component: Designator=TP10(TEST 1.6)
+Added Component: Designator=TP11(TEST 1.6)
+Added Component: Designator=TP12(TEST 1.6)
+Added Component: Designator=TP13(TEST 1.6)
+Added Component: Designator=TP14(TEST 1.6)
+Added Component: Designator=TP15(TEST 1.6)
+Added Component: Designator=TP16(TEST 1.6)
+Added Component: Designator=TP17(TEST 1.6)
+Added Component: Designator=TP18(TEST 1.6)
+Added Component: Designator=TP19(TEST 1.6)
+Added Component: Designator=TP20(TEST 1.6)
+Added Component: Designator=TP21(TEST 1.6)
+Added Component: Designator=TP22(TEST 1.6)
+Added Component: Designator=TP23(TEST 1.6)
+Added Component: Designator=TP24(TEST 1.6)
+Added Pin To Net: NetName=ESP_EN Pin=TP5-1
+Added Pin To Net: NetName=BAT_DET Pin=TP6-1
+Added Pin To Net: NetName=GPIO21 Pin=TP7-1
+Added Pin To Net: NetName=CHG_DET Pin=TP8-1
+Added Pin To Net: NetName=BOOT Pin=TP9-1
+Added Pin To Net: NetName=USB-PWR-D_P Pin=TP10-1
+Added Pin To Net: NetName=USB-PWR-D_N Pin=TP11-1
+Added Pin To Net: NetName=V_GPS Pin=TP12-1
+Added Pin To Net: NetName=GPIO23 Pin=TP13-1
+Added Pin To Net: NetName=GPIO18 Pin=TP14-1
+Added Pin To Net: NetName=V_IMU Pin=TP15-1
+Added Pin To Net: NetName=CPT_SDA Pin=TP16-1
+Added Pin To Net: NetName=CPT_SCL Pin=TP17-1
+Added Pin To Net: NetName=V_LCD Pin=TP18-1
+Added Pin To Net: NetName=BS Pin=TP19-1
+Added Pin To Net: NetName=BUSY Pin=TP20-1
+Added Pin To Net: NetName=GPIO2 Pin=TP21-1
+Added Pin To Net: NetName=GPIO18 Pin=TP22-1
+Added Pin To Net: NetName=VCC_3V3 Pin=TP23-1
+Added Pin To Net: NetName=GPIO23 Pin=TP24-1
+Added Member To Class: ClassName=Main Member=Component TP5 TP
+Added Member To Class: ClassName=Main Member=Component TP6 TP
+Added Member To Class: ClassName=Main Member=Component TP7 TP
+Added Member To Class: ClassName=Main Member=Component TP8 TP
+Added Member To Class: ClassName=Main Member=Component TP9 TP
+Added Member To Class: ClassName=Main Member=Component TP10 TP
+Added Member To Class: ClassName=Main Member=Component TP11 TP
+Added Member To Class: ClassName=Main Member=Component TP12 TP
+Added Member To Class: ClassName=Main Member=Component TP13 TP
+Added Member To Class: ClassName=Main Member=Component TP14 TP
+Added Member To Class: ClassName=Main Member=Component TP15 TP
+Added Member To Class: ClassName=Main Member=Component TP16 TP
+Added Member To Class: ClassName=Main Member=Component TP17 TP
+Added Member To Class: ClassName=Main Member=Component TP18 TP
+Added Member To Class: ClassName=Main Member=Component TP19 TP
+Added Member To Class: ClassName=Main Member=Component TP20 TP
+Added Member To Class: ClassName=Main Member=Component TP21 TP
+Added Member To Class: ClassName=Main Member=Component TP22 TP
+Added Member To Class: ClassName=Main Member=Component TP23 TP
+Added Member To Class: ClassName=Main Member=Component TP24 TP

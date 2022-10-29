@@ -1,0 +1,4 @@
+Removed Pin From Net: NetName=NetIC1_4 Pin=TP4-0
+Change Component Footprint: Designator=TP4 Old Footprint=TP New Footprint=TEST 2.6
+Added Pin To Net: NetName=NetIC1_4 Pin=TP4-1
+Added Room: Name=Main

@@ -1,0 +1,6 @@
+Added Component: Designator=TP2(TP_SMD)
+Added Component: Designator=TP10(TP_SMD)
+Added Pin To Net: NetName=VCC_3V3 Pin=TP2-1
+Added Pin To Net: NetName=GND Pin=TP10-1
+Added Member To Class: ClassName=Main Member=Component TP2 TP
+Added Member To Class: ClassName=Main Member=Component TP10 TP
