@@ -1,0 +1,30 @@
+Added Component: Designator=TP11(TEST 1)
+Added Component: Designator=TP13(TEST 1)
+Added Component: Designator=TP14(TEST 1)
+Added Component: Designator=TP16(TEST 1)
+Added Component: Designator=TP17(TEST 1)
+Added Component: Designator=TP19(TEST 1)
+Added Component: Designator=TP20(TEST 1)
+Added Component: Designator=TP21(TEST 1)
+Added Component: Designator=TP22(TEST 1)
+Added Component: Designator=TP23(TEST 1)
+Added Pin To Net: NetName=CPT_SDA Pin=TP11-1
+Added Pin To Net: NetName=CPT_SCL Pin=TP13-1
+Added Pin To Net: NetName=CPT_SDA Pin=TP14-1
+Added Pin To Net: NetName=CPT_SCL Pin=TP16-1
+Added Pin To Net: NetName=GPIO23 Pin=TP17-1
+Added Pin To Net: NetName=GPIO18 Pin=TP19-1
+Added Pin To Net: NetName=GPIO11 Pin=TP20-1
+Added Pin To Net: NetName=BS Pin=TP21-1
+Added Pin To Net: NetName=BUSY Pin=TP22-1
+Added Pin To Net: NetName=EINK_CS Pin=TP23-1
+Added Member To Class: ClassName=Main Member=Component TP11 TP
+Added Member To Class: ClassName=Main Member=Component TP13 TP
+Added Member To Class: ClassName=Main Member=Component TP14 TP
+Added Member To Class: ClassName=Main Member=Component TP16 TP
+Added Member To Class: ClassName=Main Member=Component TP17 TP
+Added Member To Class: ClassName=Main Member=Component TP19 TP
+Added Member To Class: ClassName=Main Member=Component TP20 TP
+Added Member To Class: ClassName=Main Member=Component TP21 TP
+Added Member To Class: ClassName=Main Member=Component TP22 TP
+Added Member To Class: ClassName=Main Member=Component TP23 TP

@@ -1,0 +1,4 @@
+Removed Pin From Net: NetName=CPT_SDA Pin=TP11-1
+Removed Pin From Net: NetName=CPT_SCL Pin=TP13-1
+Removed Member From Class: ClassName=Main Member=TP11
+Removed Member From Class: ClassName=Main Member=TP13
