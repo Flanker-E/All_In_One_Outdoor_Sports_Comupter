@@ -1,0 +1,69 @@
+Removed Pin From Net: NetName=GND Pin=CT1-0
+Removed Pin From Net: NetName=GND Pin=CT1-0
+Removed Pin From Net: NetName=GND Pin=LC1-0
+Removed Pin From Net: NetName=GND Pin=LC1-0
+Removed Pin From Net: NetName=GND Pin=P2-2
+Removed Pin From Net: NetName=GND Pin=P2-3
+Removed Pin From Net: NetName=GND Pin=P3-0
+Removed Pin From Net: NetName=GND Pin=P3-0
+Removed Pin From Net: NetName=VBAT_IN Pin=Q1-2
+Removed Pin From Net: NetName=VBAT Pin=Q1-3
+Removed Pin From Net: NetName=GND Pin=Q5-2
+Removed Pin From Net: NetName=VCC_3V3 Pin=Q7-2
+Removed Pin From Net: NetName=VBAT Pin=R2-2
+Removed Pin From Net: NetName=VBAT_IN Pin=R3-1
+Removed Pin From Net: NetName=GND Pin=R24-1
+Removed Pin From Net: NetName=VCC_3V3 Pin=R29-2
+Removed Pin From Net: NetName=CHG_DET Pin=R33-1
+Removed Pin From Net: NetName=VCC_3V3 Pin=R33-2
+Removed Pin From Net: NetName=VBAT Pin=U1-1
+Removed Pin From Net: NetName=VBAT Pin=U1-3
+Removed Pin From Net: NetName=EINK_CS Pin=U4-31
+Removed Pin From Net: NetName=BUSY Pin=U4-32
+Removed Pin From Net: NetName=GND Pin=U5-
+Removed Pin From Net: NetName=VBAT Pin=U6-1
+Removed Member From Class: ClassName=Main Member=Q5
+Removed Member From Class: ClassName=Main Member=Q7
+Removed Member From Class: ClassName=Main Member=R24
+Removed Member From Class: ClassName=Main Member=R29
+Removed Member From Class: ClassName=Main Member=R33
+Removed Member From Class: ClassName=Main Member=TP21
+Removed Member From Class: ClassName=Main Member=U6
+Added Component: Designator=IC2(SOT95P285X140-5N)
+Add component (AddParameter): Name = "Arrow Part Number"; Value = "74LVC1G04W5-7"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Arrow Price/Stock"; Value = "https://www.arrow.com/en/products/74lvc1g04w5-7/diodes-incorporated?region=nac"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet Link"; Value = "https://www.diodes.com/assets/Datasheets/74LVC1G04.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "1.4mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Name"; Value = "Diodes Inc."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "74LVC1G04W5-7"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Part Number"; Value = "621-74LVC1G04W5-7"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Price/Stock"; Value = "https://www.mouser.co.uk/ProductDetail/Diodes-Incorporated/74LVC1G04W5-7?qs=8Dv1RiiPiVJr3C1LRLmsKw%3D%3D"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Testing Part Number"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Testing Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Added Pin To Net: NetName=V_IMU Pin=AT1-1
+Added Pin To Net: NetName=GND Pin=EINK1-17
+Added Pin To Net: NetName=GPIO9 Pin=IC2-2
+Added Pin To Net: NetName=GND Pin=IC2-3
+Added Pin To Net: NetName=EINK_CS Pin=IC2-4
+Added Pin To Net: NetName=VCC_3V3 Pin=IC2-5
+Added Pin To Net: NetName=GPIO9 Pin=LC1-5
+Added Pin To Net: NetName=VBAT Pin=Q1-2
+Added Pin To Net: NetName=VBAT Pin=R3-1
+Added Pin To Net: NetName=V_IMU Pin=TP12-1
+Added Pin To Net: NetName=GPIO9 Pin=TP20-1
+Added Pin To Net: NetName=BUSY Pin=U4-29
+Change Net Name : Old Net Name=V_IMU New Net Name=V_GPS
+Added Pin To Net: NetName=GPIO5 Pin=Q6-1
+Added Pin To Net: NetName=GPIO5 Pin=R28-1
+Added Pin To Net: NetName=GPIO5 Pin=U4-34
+Added Net: Name=GPIO5
+Added Pin To Net: NetName=GPIO25 Pin=Q8-1
+Added Pin To Net: NetName=GPIO25 Pin=R30-1
+Added Pin To Net: NetName=GPIO25 Pin=U4-14
+Added Net: Name=GPIO25
+Added Pin To Net: NetName=VIN Pin=Q1-3
+Added Pin To Net: NetName=VIN Pin=R2-2
+Added Pin To Net: NetName=VIN Pin=U1-1
+Added Pin To Net: NetName=VIN Pin=U1-3
+Added Net: Name=VIN
+Added Member To Class: ClassName=Main Member=Component IC2 74LVC1G04W5-7
