@@ -1,6 +1,6 @@
 #include "HAL/HAL.h"
 
-#if HAVE_PERI==1
+#if HAVE_PERI==0
 /*上一次操作时间(ms)*/
 static uint32_t Power_LastHandleTime = 0;
 
