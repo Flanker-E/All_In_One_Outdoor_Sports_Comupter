@@ -1,0 +1,64 @@
+Removed Pin From Net: NetName=GND Pin=R37-1
+Removed Pin From Net: NetName=RESE Pin=R37-2
+Removed Pin From Net: NetName=NetP5_4 Pin=S2-1
+Removed Pin From Net: NetName=NetP5_1 Pin=S2-2
+Removed Pin From Net: NetName=NetP5_3 Pin=S3-1
+Removed Pin From Net: NetName=NetP5_1 Pin=S3-2
+Removed Pin From Net: NetName=NetP5_2 Pin=S4-1
+Removed Pin From Net: NetName=NetP5_1 Pin=S4-2
+Removed Member From Class: ClassName=Main Member=R37
+Change Component Comment : Designator=Q3 Old Comment=BC847BVC-7 New Comment=EMX1T2R
+Change Component Comment : Designator=D7 Old Comment=color? New Comment=16-213/SDRC/S530-A3/TR8
+Change Component Comment : Designator=D5 Old Comment=color? New Comment=LTST-C281KGKT
+Change Component Comment : Designator=D8 Old Comment=color? New Comment=LTST-C281KGKT
+Change Component Comment : Designator=CT1 Old Comment=CTP New Comment=FPC05006-09200
+Change Component Comment : Designator=EINK1 Old Comment=EINK New Comment=FPC05024-17205
+Change Component Comment : Designator=U4 Old Comment=ESP32_SIP New Comment=ESP32-PICO-D4
+Change Component Comment : Designator=P3 Old Comment=Header 4 New Comment=C191195
+Change Component Comment : Designator=P4 Old Comment=Header 4 New Comment=C191195
+Change Component Comment : Designator=P5 Old Comment=Header 4 New Comment=C191195
+Change Component Comment : Designator=L1 Old Comment=Inductor Iron New Comment=68uH ±20%
+Change Component Comment : Designator=LC1 Old Comment=LCD New Comment=0.5-10P上接
+Change Component Comment : Designator=U1 Old Comment=LP2992 3V3 New Comment=ME6215C33M5G
+Change Component Comment : Designator=P2 Old Comment=Plug New Comment=IPEX-4
+Change Component Comment : Designator=A1 Old Comment=RAINSUN New Comment=AN2051-245
+Change Component Comment : Designator=SW1 Old Comment=Rotary Encoder New Comment=SIQ-02FVS3
+Change Component Comment : Designator=J1 Old Comment=Socket New Comment=IPEX-4
+Change Component Comment : Designator=S1 Old Comment=SW-SPST New Comment=TSA363G25-250B
+Change Component Comment : Designator=TF1 Old Comment=TF New Comment=TF-012D
+Change Component Comment : Designator=USB1 Old Comment=Type-C New Comment=TYPE-611-T3
+Change Component Comment : Designator=D1 Old Comment=二极管-5819W New Comment=B5819W
+Change Component Comment : Designator=D2 Old Comment=二极管-5819W New Comment=B5819W
+Change Component Comment : Designator=D3 Old Comment=二极管-5819W New Comment=B5819W
+Added Component: Designator=R24(RES_0402)
+Add component (AddParameter): Name = "Value"; Value = "22R"; VariantName = "[No Variations]"
+Added Component: Designator=S2(SW SMD-3*6*2.5)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Switch; 2 Leads"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "SPST-2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "24-Mar-1999"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Added Component: Designator=S3(SW SMD-3*6*2.5)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Switch; 2 Leads"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "SPST-2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "24-Mar-1999"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Added Component: Designator=S4(SW SMD-3*6*2.5)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Switch; 2 Leads"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "SPST-2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "24-Mar-1999"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=R24-1
+Added Pin To Net: NetName=RESE Pin=R24-2
+Added Pin To Net: NetName=NetP5_4 Pin=S2-1
+Added Pin To Net: NetName=NetP5_1 Pin=S2-2
+Added Pin To Net: NetName=NetP5_3 Pin=S3-1
+Added Pin To Net: NetName=NetP5_1 Pin=S3-2
+Added Pin To Net: NetName=NetP5_2 Pin=S4-1
+Added Pin To Net: NetName=NetP5_1 Pin=S4-2
+Added Member To Class: ClassName=Main Member=Component R24 0R

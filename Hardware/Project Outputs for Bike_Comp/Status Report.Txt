@@ -1,0 +1,10 @@
+Output: Generates pick and place files
+Type  : Pick Place
+From  : Variant [[No Variations]] of Project [Bike_Comp.PrjPCB]
+   Generated File[Pick Place for Peak_Track.csv]
+
+
+Files Generated   : 1
+Documents Printed : 0
+
+Finished Output Generation At 16:32:31 On 2022/11/1
