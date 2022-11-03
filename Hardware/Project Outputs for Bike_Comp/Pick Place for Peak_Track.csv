@@ -5,18 +5,15 @@ C:\Users\Flanker\Documents\PlatformIO\Projects\ESP32_Bike_Computer\Hardware\Proj
 File Design Information:
 
 Date:       02/11/22
-Time:       14:35
-Revision:   d7c1f62f3cba61bd2ab8fc760c494ec8b2e46da8
+Time:       18:09
+Revision:   1aa6f9334590fa3eb3f694a2ef48ee06e0320e35
 Variant:    No variations
 Units used: mm
 
 "Designator","Comment","Layer","Footprint","Center-X(mm)","Center-Y(mm)","Rotation","Description"
-"SW1","SIQ-02FVS3","TopLayer","SIQ-02FVS3","61.9786","26.4414","270","Rotary Encoder"
-"J2","IPEX-4","TopLayer","COAXIAL/SMD/CON/V/I-PEX/W08-5801","58.4713","5.5118","90","Socket"
-"A2","AN2051-245","TopLayer","ANT-Rainsun-AN5120","61.1632","3.5699","270","footprint: 2051"
-"S4","TSA363G25-250B","TopLayer","SW_SMD-3*6*2.5","41.6012","40.6554","360","Single-Pole, Single-Throw Switch"
-"S3","TSA363G25-250B","TopLayer","SW_SMD-3*6*2.5","31.0481","40.6554","360","Single-Pole, Single-Throw Switch"
-"S2","TSA363G25-250B","TopLayer","SW_SMD-3*6*2.5","20.6748","40.6554","360","Single-Pole, Single-Throw Switch"
+"SW1","SIQ-02FVS3","TopLayer","SIQ-02FVS3","22.9781","44.4272","360","Rotary Encoder"
+"J2","IPEX-4","TopLayer","COAXIAL/SMD/CON/V/I-PEX/W08-5801","4.5372","45.3898","270","Socket"
+"A2","AN2051-245","TopLayer","ANT-Rainsun-AN5120","1.8453","47.3317","90","footprint: 2051"
 "R24","0R","TopLayer","RES_0402","9.2869","15.6304","90","Resistor"
 "IC2","74LVC1G04W5-7","BottomLayer","SOT95P285X140-5N","40.2590","30.9372","90","Integrated Circuit"
 "TP23","TP","BottomLayer","TEST_1","7.6962","23.2918","90",""
@@ -78,15 +75,14 @@ Units used: mm
 "C20","10uF","TopLayer","CAP_0402","22.1488","10.5918","90","Capacitor"
 "C19","10uF","TopLayer","CAP_0402","18.6894","10.1346","360","Capacitor"
 "C18","10uF","TopLayer","CAP_0402","18.6894","11.0488","360","Capacitor"
-"C17","10uF","TopLayer","CAP_0402","15.6231","5.3590","270","Capacitor"
+"C17","10uF","TopLayer","CAP_0402","15.6231","5.5654","270","Capacitor"
 "USB1","TYPE-611-T3","TopLayer","Type-C-TOP","28.8184","3.8100","270","16pin"
 "AT1","ATGM336H Module","TopLayer","PCBComponent_1","46.8884","15.1130","90","ATGM336H Module"
-"P5","C191195","BottomLayer","FPC0.5-WT-4P","14.4819","40.4368","90","Header, 4-Pin"
-"P4","C191195","TopLayer","FPC0.5-WT-4P","61.7513","37.2618","270","Header, 4-Pin"
+"P4","C191195","TopLayer","FPC0.5-WT-4P","12.1577","44.1999","360","Header, 4-Pin"
 "P3","C191195","TopLayer","FPC0.5-WT-4P","20.5779","31.1150","270","Header, 4-Pin"
 "P2","IPEX-4","TopLayer","COAXIAL/SMD/CON/V/I-PEX/W08-5801","23.5869","26.0350","90","Plug"
-"J1","IPEX-4","TopLayer","COAXIAL/SMD/CON/V/I-PEX/W08-5801","58.4713","10.3378","90","Socket"
-"A1","AN2051-245","TopLayer","ANT-Rainsun-AN5120","61.1632","12.3813","90","footprint: 2051"
+"J1","IPEX-4","TopLayer","COAXIAL/SMD/CON/V/I-PEX/W08-5801","4.5372","40.5638","270","Socket"
+"A1","AN2051-245","TopLayer","ANT-Rainsun-AN5120","1.8453","38.5203","270","footprint: 2051"
 "P1","BAT_CON","TopLayer","PH2.0-W-2P","14.1347","3.2766","270","PH2.0-2P-LT"
 "S1","TSA363G25-250B","TopLayer","SW_SMD-3*6*2.5","4.3842","12.6786","270","Single-Pole, Single-Throw Switch"
 "CT1","FPC05006-09200","BottomLayer","FPC0.5-WT-6P","19.8194","27.5375","180","об╫с6p"
@@ -136,7 +132,7 @@ Units used: mm
 "C12","10nF","TopLayer","CAP_0402","34.1376","8.5344","180","Capacitor"
 "C11","0.1uF","BottomLayer","CAP_0402","23.2410","21.5392","90","Capacitor"
 "C10","1uF","TopLayer","CAP_0402","33.4828","23.9014","270","Capacitor"
-"C9","10uF","TopLayer","CAP_0402","16.5100","5.3594","270","Capacitor"
+"C9","10uF","TopLayer","CAP_0402","16.5100","5.5658","270","Capacitor"
 "C8","10uF","TopLayer","CAP_0402","15.9258","1.4478","90","Capacitor"
 "C7","10uF","TopLayer","CAP_0402","16.9330","15.7906","360","Capacitor"
 "C6","0.1uF","TopLayer","CAP_0402","23.9522","32.9438","360","Capacitor"

@@ -1,5 +1,8 @@
 DRC Rules Export File for PCB: C:\Users\Flanker\Documents\PlatformIO\Projects\ESP32_Bike_Computer\Hardware\Peak_Track.PcbDoc
+RuleKind=MinimumAnnularRing|RuleName=MinimumAnnularRing|Scope=Board|Minimum=3.00
 RuleKind=ShortCircuit|RuleName=ShortCircuit|Scope=Board|Allowed=0
-RuleKind=SolderMaskExpansion|RuleName=SolderMaskExpansion|Scope=Board|Minimum=3.00
-RuleKind=Width|RuleName=Width|Scope=Board|Minimum=4.00
-RuleKind=Clearance|RuleName=Clearance|Scope=Board|Minimum=5.00
+RuleKind=SolderMaskExpansion|RuleName=SolderMaskExpansion|Scope=Board|Minimum=4.00
+RuleKind=Width|RuleName=Width|Scope=Board|Minimum=3.50
+RuleKind=Clearance|RuleName=Clearance|Scope=Board|Minimum=7.87
+RuleKind=Clearance|RuleName=Clearance Top Layer|Scope=Board|Minimum=8.00
+RuleKind=Clearance|RuleName=Clearance Bottom Layer|Scope=Board|Minimum=8.00

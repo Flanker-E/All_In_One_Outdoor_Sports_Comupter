@@ -1,10 +1,13 @@
-Output: Generates pick and place files
-Type  : Pick Place
-From  : Variant [[No Variations]] of Project [Bike_Comp.PrjPCB]
-   Generated File[Pick Place for Peak_Track.csv]
+Output: NC Drill Files
+Type  : NC Drill
+From  : Project [Bike_Comp.PrjPCB]
+   Generated File[Peak_Track-RoundHoles.TXT]
+   Generated File[Peak_Track-SlotHoles.TXT]
+   Generated File[Peak_Track.LDP]
+   Generated File[Peak_Track.DRR]
 
 
-Files Generated   : 1
+Files Generated   : 4
 Documents Printed : 0
 
-Finished Output Generation At 14:35:51 On 2022/11/2
+Finished Output Generation At 18:10:47 On 2022/11/2
