@@ -7,6 +7,13 @@
 // #include "Arduino.h"
 #include "HAL/HAL.h"
 
+#include <SPI.h>
+#include "epd2in13_V3.h"
+// Paint lib
+#include "epdpaint.h"
+#include "imagedata.h"
+
+
 #define GPS_SERIAL           Serial1
 #define CONFIG_GPS_TX_PIN           36
 #define CONFIG_GPS_RX_PIN           19
@@ -55,6 +62,11 @@ int time1=0;
 
 HAL::GPS_Info_t gps_info;
 HAL::IMU_Info_t imu_info;
+
+// eink object
+Epd epd;
+unsigned char image[1024];
+Paint paint(image,0,0);
 
 // update the text in certain period using hardware object
 void onTimerUpdate(lv_timer_t* timer){
@@ -180,6 +192,19 @@ void setup()
     // get current display from lvgl.
     scr = lv_scr_act();
 
+    //suspend LCD
+    digitalWrite(TFT_CS,HIGH);
+
+    //Eink init
+    epd.Init(PART);
+    Serial.println("epd PART");
+    epd.Display(IMAGE_DATA);
+
+    epd.Sleep();
+
+    //toggle different screen
+    digitalWrite(CS_PIN,HIGH);
+    digitalWrite(TFT_CS,LOW);
 
     //display size
     //font
