@@ -56,6 +56,7 @@ int time1=0;
 HAL::GPS_Info_t gps_info;
 HAL::IMU_Info_t imu_info;
 
+// update the text in certain period using hardware object
 void onTimerUpdate(lv_timer_t* timer){
     /*
     "Latitude\n"
@@ -103,6 +104,12 @@ void onTimerUpdate(lv_timer_t* timer){
     );
 }
 
+// create item info box using input
+// Info: the information text object
+// data: the data text object
+// name: name of this info box
+// infos: the infomation that displayed in information text object
+// x and y bias: need to be calculated by user.
 void Item_Create(
     lv_obj_t* Info,
     lv_obj_t* &data,
@@ -115,33 +122,33 @@ void Item_Create(
 {
   //line
   lv_obj_t* line = lv_line_create(scr);
-  // lv_obj_set_pos(label,);
   lv_obj_set_size(line, 200, 2);
   lv_obj_set_style_border_color(line,lv_color_hex(0xff931e),0);
   lv_obj_set_style_border_side(line, LV_BORDER_SIDE_BOTTOM, 0);
   lv_obj_set_style_border_width(line, 3, 0);
-  // lv_line_set_points(label, {{0,y_bias},{240,y_bias}}, 2);
   lv_obj_align(line, LV_ALIGN_TOP_LEFT, x_bias, y_bias+14);
-  //info
+
+  //name text 
   lv_obj_t* label = lv_label_create(scr);
   lv_label_set_text(label, name);
   lv_obj_align(label, LV_ALIGN_TOP_LEFT, x_bias, y_bias);
+
+  // info text
   Info = lv_label_create(scr);
   lv_label_set_text(Info, infos);
-  // lv_obj_add_style(Info1, &style.info, 0);
   lv_obj_align(Info, LV_ALIGN_TOP_LEFT, x_bias, y_bias+15);
-  //data
-  lv_obj_t* test = lv_label_create(scr);
-  lv_label_set_text(test, "-");
-  lv_obj_align(test, LV_ALIGN_TOP_LEFT, x_bias+120, y_bias+15);
-  data=test;
-  if(Data_GPS == data) {
-        Serial.println( "same" );
-        if(Data_GPS == NULL) {
-        Serial.println( "err in create" );
+
+  //data text
+  data = lv_label_create(scr);
+  lv_label_set_text(data, "-");
+  lv_obj_align(data, LV_ALIGN_TOP_LEFT, x_bias+120, y_bias+15);
+//   if(Data_GPS == data) {
+//         Serial.println( "same" );
+//         if(Data_GPS == NULL) {
+//         Serial.println( "err in create" );
         
-        }
-        }
+//         }
+//         }
 }
 
 void setup()
@@ -155,32 +162,24 @@ void setup()
     Serial.println( LVGL_Arduino );
     Serial.println( "I am LVGL_Arduino" );
 
+    //GPS init
     GPS_SERIAL.begin(9600, SERIAL_8N1, CONFIG_GPS_TX_PIN, CONFIG_GPS_RX_PIN);
     Serial.print("GPS: TinyGPS++ library v. ");
     Serial.print(TinyGPSPlus::libraryVersion());
     Serial.println(" by Mikal Hart");
+
+    //I2C and IMU init
     HAL::I2C_Init(true);
     HAL::IMU_Init();
+    // HAL::SD_Init();
 
-// #if 0
-//     /* Create simple label */
-//     lv_obj_t *label = lv_label_create( lv_scr_act() );
-//     lv_label_set_text( label, LVGL_Arduino.c_str() );
-//     lv_obj_align( label, LV_ALIGN_CENTER, 0, 0 );
-// #else
-    /* Try an example from the lv_examples Arduino library
-       make sure to include it as written above.
-    lv_example_btn_1();
-   */
+
+
+  //screen init, assign screen object to lvgl
     Port_Init();
-    // uncomment one of these demos
-
-    // lv_demo_widgets();            // OK
-    // my screen
+    // get current display from lvgl.
     scr = lv_scr_act();
-    // lv_style_copy(&red_style,&lv_style_plain_color);
-    // lv_style_init(&red_style);
-    // lv_style_set_bg_color(&red_style, lv_color_hex(0xff931e));
+
 
     //display size
     //font
@@ -191,10 +190,9 @@ void setup()
 #endif
 //data
 
-  /* infos */
-  if(Data_GPS == NULL) {
-        Serial.println( "GPS_beforeerr" );
-        }
+  
+
+    // create information items
   Item_Create(
       Info_GPS,
       Data_GPS,
@@ -206,9 +204,7 @@ void setup()
       20,
       0
   );
-  if(Data_GPS == NULL) {
-        Serial.println( "GPS_aftererr" );
-        }
+
   Item_Create(
       Info_IMU,
       Data_IMU,
@@ -282,7 +278,8 @@ void setup()
     // // lv_label_set_text(data1, "-");
     // // lv_obj_add_style(data1, &style.data, 0);
     // lv_obj_align(data1, LV_ALIGN_CENTER, 60, 0);
-
+    
+    // create timer that update the data text at certain period
     timer = lv_timer_create(onTimerUpdate, 1000, nullptr);
     lv_timer_ready(timer);
 
@@ -301,32 +298,16 @@ void setup()
 }
 
 void loop()
-{
+{   
+    // update data from hardware
     // Serial.println( "GPS_update" );
     HAL::GPS_Update();
     HAL::IMU_Update(&imu_info);
     // Serial.println( "GPS_getinfo" );
     HAL::GPS_GetInfo(&gps_info);
     xTaskNotifyGive(handleTaskLvgl);
-    // if(Data_GPS == NULL) {
-    //     Serial.println( "GPS_err" );
-    //     }
-    // lv_label_set_text(Data_GPS, "-");
-    // Serial.println( "GPS_test" );
-    // lv_label_set_text_fmt(
-    //         Data_GPS,
-    //         "%.2fkm\n%d\n",
-    //         trip+=(float)0.1,
-    //         time1++
-    //     );
-    // Serial.println( "GPS_test1" );
-    // lv_label_set_text_fmt(
-    //     data2,
-    //     "%0.2fkm\n"
-    //     "%s\n",
-    //     trip+=0.01,
-    //     time1++
-    // );
+
+
     // lv_timer_handler(); /* let the GUI do its work */
     // lv_tick_inc(5);
     delay( 20 );
