@@ -6,6 +6,8 @@
 20220629 X-track pages, simulator, touchpad problem.  
 20220928 sync using new machine.  
 20221004 update hardware design.  
+20221102 PCB v2.7 =>Fab  
+20221110 case 3D modeling v1.3
 
 ## Credit to 
 Based on [X-Track](https://github.com/FASTSHIFT/X-TRACK), [Peak](https://github.com/peng-zhihui/Peak) and [Peak-T2](https://gitee.com/forairaaaaa/peak-t2/tree/master/1.Hardware#https://gitee.com/link?target=https%3A%2F%2Foshwhub.com%2Feedadada%2Ffed36bbc19da4527b237982f9cd09f99)
