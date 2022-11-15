@@ -28,7 +28,7 @@
 #include "epdpaint.h"
 
 Paint::Paint(unsigned char* image, int width, int height) {
-    this->rotate = ROTATE_0;
+    this->rotate = ROTATE_270;
     this->image = image;
     /* 1 byte = 8 pixels, so the width should be the multiple of 8 */
     this->width = width % 8 ? width + 8 - (width % 8) : width;

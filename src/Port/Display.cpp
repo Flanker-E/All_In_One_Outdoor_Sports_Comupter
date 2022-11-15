@@ -1,6 +1,22 @@
 #include "Display.h"
-// #include "FS.h"
 
+#include "epd2in13_V3.h"
+#include "epdpaint.h"
+#include "imagedata.h"
+
+#define DISP_VER_RES EPD_WIDTH   //122 x axis of Paint class
+#define DISP_HOR_RES EPD_HEIGHT  //250
+#define MY_DISP_HOR_RES DISP_HOR_RES
+#define MY_DISP_VER_RES DISP_VER_RES
+// #include "FS.h"
+lv_disp_t * disp_lcd;
+lv_disp_t * disp_eink;
+
+lv_obj_t * scr_lcd;
+lv_obj_t * scr_eink;
+
+Epd epdControl;
+Paint einkImg(IMAGE_DATA, EPD_WIDTH, EPD_HEIGHT);
 TaskHandle_t handleTaskLvgl;
 void TaskLvglUpdate(void* parameter)
 {
@@ -93,6 +109,8 @@ void my_disp_flush( lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *colo
     tft.endWrite();
 
     lv_disp_flush_ready( disp );
+
+    // Serial.println("my_disp_flush: all pixel updated");
 }
 
 /*Read the touchpad*/
@@ -115,16 +133,74 @@ void my_touchpad_read( lv_indev_drv_t * indev_driver, lv_indev_data_t * data )
         data->point.y = touchY;
 
     }
+    
+}
+void set_pixel(int32_t x, int32_t y, lv_color_t color_p)
+{
+  int colorToDraw;
+  bool setToBlack = ((color_p.ch.red >= 20) && 
+                    (color_p.ch.green >= 30) && 
+                    (color_p.ch.blue >= 20) );
+  colorToDraw = int(setToBlack);
+  einkImg.DrawPixel(x, y, colorToDraw);
+}
+void my_disp_flush_eink(lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *color_p)
+{
+  int32_t x, y;
+  /*It's a very slow but simple implementation.
+   *`set_pixel` needs to be written by you to a set pixel on the screen*/
+  for (y = area->y1; y <= area->y2; y++)
+  {
+    for (x = area->x1; x <= area->x2; x++)
+    {
+      set_pixel(x, y, *color_p);
+      
+      color_p++;
+    }
+  }
+  if(area->y2>=120)
+    epdControl.Display(einkImg.GetImage());
+  Serial.printf("y1 %d,y2 %d,x1 %d,x2 %d\r\n",area->y1,area->y2,area->x1,area->x2);
+  // Serial.println("my_disp_flush: all pixel updated");
+
+  lv_disp_flush_ready(disp); /* Indicate you are ready with the flushing*/
 }
 
+
+void Port_Init_Eink(){
+  epdControl.Init(FULL);
+  // lv_init();
+
+  //   lv_disp_draw_buf_init( &draw_buf, buf, NULL, screenWidth * 50 );
+
+  // lv_disp_draw_buf_init(&draw_buf, buf1, NULL, DISP_VER_RES * 80); //Initialize the display buffer.
+  static lv_disp_drv_t disp_drv;                                                  //Descriptor of a display driver
+  lv_disp_drv_init(&disp_drv);                                                    //Basic initialization
+  disp_drv.flush_cb = my_disp_flush_eink;                                              //Set your driver function
+  disp_drv.draw_buf = &draw_buf;                                                  //Assign the buffer to the display
+  disp_drv.hor_res = MY_DISP_HOR_RES;                                             //Set the horizontal resolution of the display
+  disp_drv.ver_res = MY_DISP_VER_RES;                                             //Set the vertical resolution of the display
+  // disp_drv.sw_rotate=1;
+  // disp_drv.rotated = LV_DISP_ROT_90;                                          //Set the rotation the display to 90
+  disp_eink=lv_disp_drv_register(&disp_drv);  
+  lv_disp_set_default(disp_eink); 
+  scr_eink = lv_scr_act();                                             //Finally register the driver
+  
+  // lv_example_get_started_1();
+
+  Serial.println("end of set up");
+      
+}
 void Port_Init(){
+    lv_init();
 
-
+    lv_disp_draw_buf_init( &draw_buf, buf, NULL, screenWidth * 50 );
+    Serial.println("test");
     tft.begin();          /* TFT init */
     tft.setRotation( 2 ); /* Landscape orientation, flipped */
     tft.fillScreen(TFT_BLACK);
-
-    lv_init();
+    Serial.println("test");
+    // lv_init();
     // lv_port_disp_init(&tft);
 
     /*Set the touchscreen calibration data,
@@ -134,17 +210,19 @@ void Port_Init(){
     uint16_t calData[5] = { 275, 3620, 264, 3532, 0x02 };
     tft.setTouch( calData );
 
-    lv_disp_draw_buf_init( &draw_buf, buf, NULL, screenWidth * 100 );
+    // lv_disp_draw_buf_init( &draw_buf, buf, NULL, screenWidth * 50 );
 
     /*Initialize the display*/
     static lv_disp_drv_t disp_drv;
     lv_disp_drv_init( &disp_drv );
+    Serial.println("test");
     /*Change the following line to your display resolution*/
     disp_drv.hor_res = screenHeight;
     disp_drv.ver_res = screenWidth ;
     disp_drv.flush_cb = my_disp_flush;
     disp_drv.draw_buf = &draw_buf;
-    lv_disp_drv_register( &disp_drv );
+    disp_lcd=lv_disp_drv_register( &disp_drv );
+    Serial.println("test");
 
     // lv_port_indev_init();
     
@@ -154,10 +232,17 @@ void Port_Init(){
     indev_drv.type = LV_INDEV_TYPE_POINTER;
     indev_drv.read_cb = my_touchpad_read;
     lv_indev_drv_register( &indev_drv );
+    Serial.println("test");
 
+    lv_disp_set_default(disp_lcd);
+    scr_lcd = lv_scr_act();
+    Serial.println("test");
     // lv_fs_if_init();
+    
 
-    xTaskCreate(
+}
+void startFreeRtos(){
+  xTaskCreate(
         TaskLvglUpdate,
         "LvglThread",
         20000,
