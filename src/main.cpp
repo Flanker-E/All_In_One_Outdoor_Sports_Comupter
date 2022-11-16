@@ -277,7 +277,7 @@ void setup()
     startFreeRtos();
     // lv_task_handler();
 
-
+    End_spi_transaction();
     Serial.println("eink set up start");
     //EINK test
     TRANSFER_TO_EINK
