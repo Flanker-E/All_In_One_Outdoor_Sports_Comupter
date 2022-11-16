@@ -18,6 +18,7 @@ lv_obj_t * scr_eink;
 Epd epdControl;
 Paint einkImg(IMAGE_DATA, EPD_WIDTH, EPD_HEIGHT);
 TaskHandle_t handleTaskLvgl;
+extern SPIClass spi;
 void TaskLvglUpdate(void* parameter)
 {
     ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
@@ -109,6 +110,7 @@ void my_disp_flush( lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *colo
     tft.endWrite();
 
     lv_disp_flush_ready( disp );
+    Serial.printf("LCD: y1 %d,y2 %d,x1 %d,x2 %d\r\n",area->y1,area->y2,area->x1,area->x2);
 
     // Serial.println("my_disp_flush: all pixel updated");
 }
@@ -171,13 +173,13 @@ void Port_Init_Eink(){
   epdControl.Init(FULL);
   // lv_init();
 
-  //   lv_disp_draw_buf_init( &draw_buf, buf, NULL, screenWidth * 50 );
+    // lv_disp_draw_buf_init( &draw_buf_eink, buf_eink, NULL, screenWidth * 30 );
 
-  // lv_disp_draw_buf_init(&draw_buf, buf1, NULL, DISP_VER_RES * 80); //Initialize the display buffer.
+  lv_disp_draw_buf_init(&draw_buf_eink, buf_eink, NULL, screenWidth * 30); //Initialize the display buffer.
   static lv_disp_drv_t disp_drv;                                                  //Descriptor of a display driver
   lv_disp_drv_init(&disp_drv);                                                    //Basic initialization
   disp_drv.flush_cb = my_disp_flush_eink;                                              //Set your driver function
-  disp_drv.draw_buf = &draw_buf;                                                  //Assign the buffer to the display
+  disp_drv.draw_buf = &draw_buf_eink;                                                  //Assign the buffer to the display
   disp_drv.hor_res = MY_DISP_HOR_RES;                                             //Set the horizontal resolution of the display
   disp_drv.ver_res = MY_DISP_VER_RES;                                             //Set the vertical resolution of the display
   // disp_drv.sw_rotate=1;
@@ -185,21 +187,31 @@ void Port_Init_Eink(){
   disp_eink=lv_disp_drv_register(&disp_drv);  
   lv_disp_set_default(disp_eink); 
   scr_eink = lv_scr_act();                                             //Finally register the driver
-  
+  // spi.endTransaction();
   // lv_example_get_started_1();
-
+  
   Serial.println("end of set up");
       
 }
+void End_spi_transaction(){
+  spi.endTransaction();
+}
 void Port_Init(){
-    lv_init();
-
-    lv_disp_draw_buf_init( &draw_buf, buf, NULL, screenWidth * 50 );
+    static bool inited=false;
     Serial.println("test");
     tft.begin();          /* TFT init */
     tft.setRotation( 2 ); /* Landscape orientation, flipped */
     tft.fillScreen(TFT_BLACK);
+    if(!inited){
+    lv_init();
+    
+    
     Serial.println("test");
+    // }
+    lv_disp_draw_buf_init( &draw_buf, buf, NULL, screenWidth * 50 );
+    Serial.println("test");
+    
+
     // lv_init();
     // lv_port_disp_init(&tft);
 
@@ -233,9 +245,11 @@ void Port_Init(){
     indev_drv.read_cb = my_touchpad_read;
     lv_indev_drv_register( &indev_drv );
     Serial.println("test");
-
+        scr_lcd = lv_scr_act();
+    }
+    
+    inited=true;
     lv_disp_set_default(disp_lcd);
-    scr_lcd = lv_scr_act();
     Serial.println("test");
     // lv_fs_if_init();
     

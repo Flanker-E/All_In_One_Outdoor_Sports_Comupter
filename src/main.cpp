@@ -17,6 +17,8 @@
 #define GPS_SERIAL           Serial1
 #define CONFIG_GPS_TX_PIN           36
 #define CONFIG_GPS_RX_PIN           19
+#define TRANSFER_TO_EINK  digitalWrite(TFT_CS,HIGH);digitalWrite(CS_PIN,LOW);
+#define TRANSFER_TO_LCD digitalWrite(CS_PIN,HIGH);digitalWrite(TFT_CS,LOW);
 // #include "App/App.h"
 // #include "TouchScreen.h"
 /*If you want to use the LVGL examples,
@@ -106,7 +108,7 @@ void onTimerUpdate(lv_timer_t* timer){
     "Altitude\n"
     "Speed",
     */
-   Serial.println( "GPS_text_update" );
+   Serial.println( "text_update" );
    if(gps_info.isVaild)
         lv_label_set_text_fmt(
             Data_GPS,
@@ -134,7 +136,7 @@ void onTimerUpdate(lv_timer_t* timer){
             (float)0
         );
     }
-  Serial.println( "GPS_text_updated" );
+  
   lv_label_set_text_fmt(
         Data_IMU,
         "%.3f\n%.3f\n%.3f\n",
@@ -144,6 +146,7 @@ void onTimerUpdate(lv_timer_t* timer){
         //   trip+=(float)0.1,
         //   time1++
     );
+    Serial.println( "text_updated" );
 }
 
 // create item info box using input
@@ -238,13 +241,13 @@ void lv_example_get_started_1(void)
       173,
       8
   );
-  Eink_Item_Create(
-      Info_GPS,
-      Data_GPS,
-      "GPS:",
-      173,
-      30
-  );
+//   Eink_Item_Create(
+//       Info_GPS,
+//       Data_GPS,
+//       "GPS:",
+//       173,
+//       30
+//   );
 }
 
 void setup()
@@ -268,26 +271,32 @@ void setup()
     HAL::I2C_Init(true);
     HAL::IMU_Init();
     // HAL::SD_Init();
-    digitalWrite(CS_PIN,HIGH);
+    // digitalWrite(CS_PIN,HIGH);
+    TRANSFER_TO_LCD
     Port_Init();
-    lv_task_handler();
+    startFreeRtos();
+    // lv_task_handler();
 
 
     Serial.println("eink set up start");
     //EINK test
-    digitalWrite(TFT_CS,HIGH);
-    digitalWrite(CS_PIN,LOW);
+    TRANSFER_TO_EINK
     Port_Init_Eink();
     lv_example_get_started_1();
+    delay(1000);
+    End_spi_transaction();
+    
+    Serial.println("start rtos");
+    
     // lv_task_handler();
+    // Serial.println("delay begin");
     //eink test end
-    delay(5000);
+    // delay(5000);
     Serial.println("end of eink set up");
-    digitalWrite(CS_PIN,HIGH);
-    digitalWrite(TFT_CS,LOW);
+    TRANSFER_TO_LCD
     Port_Init();
     lv_disp_set_default(disp_lcd);
-    startFreeRtos();
+    
   //screen init, assign screen object to lvgl
     // Port_Init();
     // get current display from lvgl.
