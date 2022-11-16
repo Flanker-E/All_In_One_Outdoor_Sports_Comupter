@@ -14,7 +14,7 @@ lv_disp_t * disp_eink;
 
 lv_obj_t * scr_lcd;
 lv_obj_t * scr_eink;
-
+volatile bool spi_started=false;
 Epd epdControl;
 Paint einkImg(IMAGE_DATA, EPD_WIDTH, EPD_HEIGHT);
 TaskHandle_t handleTaskLvgl;
@@ -170,48 +170,68 @@ void my_disp_flush_eink(lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *
 
 
 void Port_Init_Eink(){
+  static bool inited=false;
+  if(!inited){
   epdControl.Init(FULL);
   // lv_init();
 
-    // lv_disp_draw_buf_init( &draw_buf_eink, buf_eink, NULL, screenWidth * 30 );
+    lv_disp_draw_buf_init( &draw_buf, buf, NULL, screenWidth * 50 );
 
-  lv_disp_draw_buf_init(&draw_buf_eink, buf_eink, NULL, screenWidth * 30); //Initialize the display buffer.
+  // lv_disp_draw_buf_init(&draw_buf_eink, buf_eink, NULL, screenWidth * 30); //Initialize the display buffer.
   static lv_disp_drv_t disp_drv;                                                  //Descriptor of a display driver
   lv_disp_drv_init(&disp_drv);                                                    //Basic initialization
   disp_drv.flush_cb = my_disp_flush_eink;                                              //Set your driver function
-  disp_drv.draw_buf = &draw_buf_eink;                                                  //Assign the buffer to the display
+  // disp_drv.draw_buf = &draw_buf_eink;                                                  //Assign the buffer to the display
+  disp_drv.draw_buf = &draw_buf;                                                  //Assign the buffer to the display
   disp_drv.hor_res = MY_DISP_HOR_RES;                                             //Set the horizontal resolution of the display
   disp_drv.ver_res = MY_DISP_VER_RES;                                             //Set the vertical resolution of the display
   // disp_drv.sw_rotate=1;
   // disp_drv.rotated = LV_DISP_ROT_90;                                          //Set the rotation the display to 90
   disp_eink=lv_disp_drv_register(&disp_drv);  
-  lv_disp_set_default(disp_eink); 
-  scr_eink = lv_scr_act();                                             //Finally register the driver
+  scr_eink = lv_scr_act(); 
+  }
+  inited=true;
+  // lv_disp_set_default(disp_eink); 
+                                              //Finally register the driver
   // spi.endTransaction();
-  // lv_example_get_started_1();
+  // Eink_info_init();
   
-  Serial.println("end of set up");
+  Serial.println("end of Eink set up");
       
 }
+
 void End_spi_transaction(){
   spi.endTransaction();
 }
+void To_LCD_Port(){
+  if(spi_started)
+    End_spi_transaction();
+  TRANSFER_TO_LCD
+  Port_Init();
+  lv_disp_set_default(disp_lcd);
+}
+void To_Eink_Port(){
+  if(spi_started)
+    End_spi_transaction();
+  TRANSFER_TO_EINK
+  Port_Init_Eink();
+  lv_disp_set_default(disp_eink);
+}
+
 void Port_Init(){
     static bool inited=false;
-    Serial.println("test");
+    // Serial.println("test");
     tft.begin();          /* TFT init */
+    spi_started=true;
     tft.setRotation( 2 ); /* Landscape orientation, flipped */
     tft.fillScreen(TFT_BLACK);
+
     if(!inited){
     lv_init();
-    
-    
-    Serial.println("test");
+
     // }
     lv_disp_draw_buf_init( &draw_buf, buf, NULL, screenWidth * 50 );
-    Serial.println("test");
     
-
     // lv_init();
     // lv_port_disp_init(&tft);
 
@@ -227,14 +247,13 @@ void Port_Init(){
     /*Initialize the display*/
     static lv_disp_drv_t disp_drv;
     lv_disp_drv_init( &disp_drv );
-    Serial.println("test");
+    // Serial.println("test");
     /*Change the following line to your display resolution*/
     disp_drv.hor_res = screenHeight;
     disp_drv.ver_res = screenWidth ;
     disp_drv.flush_cb = my_disp_flush;
     disp_drv.draw_buf = &draw_buf;
     disp_lcd=lv_disp_drv_register( &disp_drv );
-    Serial.println("test");
 
     // lv_port_indev_init();
     
@@ -244,16 +263,15 @@ void Port_Init(){
     indev_drv.type = LV_INDEV_TYPE_POINTER;
     indev_drv.read_cb = my_touchpad_read;
     lv_indev_drv_register( &indev_drv );
-    Serial.println("test");
+    // Serial.println("test");
         scr_lcd = lv_scr_act();
     }
     
     inited=true;
-    lv_disp_set_default(disp_lcd);
-    Serial.println("test");
+    // lv_disp_set_default(disp_lcd);
+    Serial.println("End of LCD set up");
     // lv_fs_if_init();
     
-
 }
 void startFreeRtos(){
   xTaskCreate(

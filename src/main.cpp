@@ -210,7 +210,7 @@ void Eink_Item_Create(
   lv_obj_align(data, LV_ALIGN_TOP_LEFT, x_bias+60, y_bias);
 
 }
-void lv_example_get_started_1(void)
+void Eink_info_init(void)
 {
   Eink_Item_Create(
       Info_North,
@@ -272,30 +272,33 @@ void setup()
     HAL::IMU_Init();
     // HAL::SD_Init();
     // digitalWrite(CS_PIN,HIGH);
-    TRANSFER_TO_LCD
-    Port_Init();
+    // TRANSFER_TO_LCD
+    // Port_Init();
+    To_LCD_Port();
     startFreeRtos();
     // lv_task_handler();
 
-    End_spi_transaction();
+    // End_spi_transaction();
     Serial.println("eink set up start");
     //EINK test
-    TRANSFER_TO_EINK
-    Port_Init_Eink();
-    lv_example_get_started_1();
+    // TRANSFER_TO_EINK
+    // Port_Init_Eink();
+    To_Eink_Port();
+    Eink_info_init();
     delay(1000);
-    End_spi_transaction();
+    // End_spi_transaction();
     
-    Serial.println("start rtos");
+    // Serial.println("start rtos");
     
     // lv_task_handler();
     // Serial.println("delay begin");
     //eink test end
     // delay(5000);
     Serial.println("end of eink set up");
-    TRANSFER_TO_LCD
-    Port_Init();
-    lv_disp_set_default(disp_lcd);
+    // TRANSFER_TO_LCD
+    // Port_Init();
+    To_LCD_Port();
+    // lv_disp_set_default(disp_lcd);
     
   //screen init, assign screen object to lvgl
     // Port_Init();
