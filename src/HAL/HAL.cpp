@@ -53,7 +53,12 @@ void HAL::HAL_Init()
     Serial.println(VERSION_FIRMWARE_NAME);
     Serial.println("Version: " VERSION_SOFTWARE);
     Serial.println("Author: " VERSION_AUTHOR_NAME);
-
+    Power_Init();
+    pinMode(CONFIG_SCREEN_BLK_PIN,OUTPUT);
+    digitalWrite(CONFIG_SCREEN_BLK_PIN,HIGH); 
+    pinMode(5,OUTPUT);
+    digitalWrite(5,LOW); 
+    Encoder_Init();
     // Move the malloc process to Init() to make sure that the largest heap can be used for this buffer.
     // lv_disp_buf_p = static_cast<lv_color_t*>(malloc(DISP_BUF_SIZE * sizeof(lv_color_t)));
     lv_disp_buf_p = (lv_color_t*)malloc(DISP_BUF_SIZE * sizeof(lv_color_t));
@@ -62,6 +67,8 @@ void HAL::HAL_Init()
     Buzz_init();
     Audio_Init();
     GPS_Init();
+    
+    // Backlight_Init();
 }
 
 void HAL::HAL_Update()

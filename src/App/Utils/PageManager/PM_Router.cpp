@@ -97,8 +97,8 @@ PageBase* PageManager::Pop()
         top->priv.IsCached = false;
     }
 
-    PM_LOG_INFO("Page(%s) pop << [Screen]  (stash = 0x%p)", top->Name, stash);
-
+    // PM_LOG_INFO("Page(%s) pop << [Screen]  (stash = 0x%p)", top->Name, stash);
+    PM_LOG_INFO("Page(%s) pop << [Screen]  (stash = 0x%p)", top->Name);
     /* Page popup */
     PageStack.pop();
 

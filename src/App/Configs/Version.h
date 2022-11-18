@@ -24,10 +24,10 @@
 #define __VERSION_H
 
 /* Firmware Version */
-#define VERSION_FIRMWARE_NAME   "X-TRACK"
+#define VERSION_FIRMWARE_NAME   "M-TRACK"
 #define VERSION_SOFTWARE        "v1.0"
-#define VERSION_HARDWARE        "v1.1"
-#define VERSION_AUTHOR_NAME     "PZH"
+#define VERSION_HARDWARE        "v2.7"
+#define VERSION_AUTHOR_NAME     "YZW"
 #define VERSION_PROJECT_LINK    "https://github.com/FASTSHIFT/X-TRACK"
 
 /* Number to string macro */

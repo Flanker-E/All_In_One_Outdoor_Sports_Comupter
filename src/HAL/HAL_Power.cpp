@@ -41,12 +41,12 @@ void HAL::Power_Init()
     pinMode(CONFIG_POWER_EN_PIN, OUTPUT);
     digitalWrite(CONFIG_POWER_EN_PIN, LOW);
     // Try to connect to BLE device while waiting for boot
-    uint64_t time = millis();
-    while (millis() - time < 1000)
-    {
-        HAL::BT_Update();
-        delay(100);
-    }
+    // uint64_t time = millis();
+    // while (millis() - time < 1000)
+    // {
+    //     HAL::BT_Update();
+    //     delay(100);
+    // }
     digitalWrite(CONFIG_POWER_EN_PIN, HIGH);
     Serial.println("Power: ON");
 

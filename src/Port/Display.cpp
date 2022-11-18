@@ -13,7 +13,7 @@ void TaskLvglUpdate(void* parameter)
         delay(5);
     }
 }
-
+#ifdef TOUCH_CS
 void touch_calibrate()
 {
   uint16_t calData[5];
@@ -85,7 +85,7 @@ void touch_calibrate()
     }
   }
 }
-
+#endif
 /* Display flushing */
 // void my_disp_flush( lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *color_p )
 // {
@@ -127,7 +127,7 @@ void Port_Init(){
 
 
     tft.begin();          /* TFT init */
-    tft.setRotation( 2 ); /* Landscape orientation, flipped */
+    tft.setRotation( 3 ); /* Landscape orientation, flipped */
     tft.fillScreen(TFT_BLACK);
 
     lv_init();
@@ -135,11 +135,13 @@ void Port_Init(){
      /*Set the touchscreen calibration data,
      the actual data for your display can be aquired using
      the Generic -> Touch_calibrate example from the TFT_eSPI library*/
+    #ifdef TOUCH_CS
     touch_calibrate();
     Serial.println( "calib" );
 
     uint16_t calData[5] = { 275, 3620, 264, 3532, 0x02 };//1:0x01,tftrotate2:0x02,3:0x07
     tft.setTouch( calData );
+    #endif
 
 
     lv_port_disp_init(&tft);
@@ -157,8 +159,9 @@ void Port_Init(){
     // lv_disp_drv_register( &disp_drv );
 
     //  Serial.println( "buff" );
-
+    // #ifdef TOUCH_CS
     lv_port_indev_init();
+    // #endif
     
     /*Initialize the (dummy) input device driver*/
     // static lv_indev_drv_t indev_drv;

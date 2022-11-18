@@ -44,6 +44,7 @@ lv_indev_t* touch_indev;
  **********************/
 
 /*Read the touchpad*/
+#ifdef TOUCH_CS
 static void my_touchpad_read( lv_indev_drv_t * indev_driver, lv_indev_data_t * data )
 {
     uint16_t touchX, touchY;
@@ -64,12 +65,14 @@ static void my_touchpad_read( lv_indev_drv_t * indev_driver, lv_indev_data_t * d
 
     }
 }
-
+#endif
 
 void lv_port_indev_init(void)
 {
     // test=1;
     static lv_indev_drv_t indev_drv;
+    #ifdef TOUCH_CS
+    
     lv_indev_drv_init( &indev_drv );
     indev_drv.type = LV_INDEV_TYPE_POINTER;
     indev_drv.read_cb = my_touchpad_read;
@@ -78,6 +81,7 @@ void lv_port_indev_init(void)
     lv_group_t* group = lv_group_create();
     lv_indev_set_group(touch_indev, group);
     lv_group_set_default(group);
+    #endif
     // Serial.printf( "indevtest:%d\n",test );
     /*------------------
      * Encoder
@@ -87,10 +91,10 @@ void lv_port_indev_init(void)
     // encoder_init();
 
     /*Register a encoder input device*/
-    // lv_indev_drv_init(&indev_drv);
-    // indev_drv.type = LV_INDEV_TYPE_POINTER;
-    // indev_drv.read_cb = encoder_read;
-    // encoder_indev = lv_indev_drv_register(&indev_drv);
+    lv_indev_drv_init(&indev_drv);
+    indev_drv.type = LV_INDEV_TYPE_POINTER;
+    indev_drv.read_cb = encoder_read;
+    encoder_indev = lv_indev_drv_register(&indev_drv);
 
 
 

@@ -121,9 +121,9 @@ PageBase::State_t PageManager::StateLoadExecute(PageBase* base)
             }
         }
     }
-
+    
     base->onViewDidLoad();
-
+    PM_LOG_INFO("Page(%s) did load", base->Name);
     if (base->priv.IsDisableAutoCache)
     {
         PM_LOG_INFO("Page(%s) disable auto cache, ReqEnableCache = %d", base->Name, base->priv.ReqEnableCache);
