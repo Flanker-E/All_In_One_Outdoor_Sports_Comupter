@@ -95,6 +95,10 @@ void lv_port_indev_init(void)
     indev_drv.type = LV_INDEV_TYPE_POINTER;
     indev_drv.read_cb = encoder_read;
     encoder_indev = lv_indev_drv_register(&indev_drv);
+    lv_group_t* group = lv_group_create();
+    lv_indev_set_group(encoder_indev, group);
+    lv_group_set_default(group);
+    
 
 
 

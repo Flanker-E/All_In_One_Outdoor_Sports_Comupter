@@ -13,6 +13,8 @@ extern TFT_eSPI tft; /* TFT instance */
 // int test=0;
 // static lv_indev_drv_t indev_drv;
 extern lv_indev_t* touch_indev;
+extern lv_indev_t* encoder_indev;
+
 // static const uint16_t screenWidth  = 320;
 // static const uint16_t screenHeight = 240;
 
