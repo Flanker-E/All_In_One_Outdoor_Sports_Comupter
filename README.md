@@ -7,13 +7,17 @@
 20220928 sync using new machine.  
 20221004 update hardware design.  
 20221102 PCB v2.7 =>Fab  
-20221110 case 3D modeling v1.3
+20221110 case 3D modeling v1.3  
+20221116 driver switch between LCD and EINK  
+20221120 case 3D modeling v1.4, revision for PCB v2.7    
+
 
 ## Credit to 
 Based on [X-Track](https://github.com/FASTSHIFT/X-TRACK), [Peak](https://github.com/peng-zhihui/Peak) and [Peak-T2](https://gitee.com/forairaaaaa/peak-t2/tree/master/1.Hardware#https://gitee.com/link?target=https%3A%2F%2Foshwhub.com%2Feedadada%2Ffed36bbc19da4527b237982f9cd09f99)
 
 ## Firmware compile using PIO
 Open project with Vscode, wait for PlatformIO to configure the project.  
+
 ### configure lvgl/lv_conf.h  
 copy from lv_conf_template.h and change name to lv_conf.h  
 line 15 change to -> #if 1 
@@ -30,7 +34,20 @@ line 351 change to -> #define LV_USE_FONT_COMPRESSED 1
 line 526 change to -> #define LV_USE_THEME_BASIC 0  
 line 529 change to -> #define LV_USE_THEME_MONO 0  
 
-### configure TFT_eSPI/User_Setup.h  
+### using 7789V(PCB):  
+#### configure TFT_eSPI/User_Setup.h  
+uncomment line 45  
+comment line 168-170  
+comment line 205-210 and 223  
+#### configure TFT_eSPI/User_Setup_select.h  
+uncomment line 72 setup24_st7789.h  
+#### configure TFT_eSPI/User_Setups/Setup24_ST7789.h  
+uncomment line 10, enable TFT_RGB  
+uncomment line 22-27, change TFT_CS to 9  
+comment line 30-33  
+
+### using IL9341(quick proto):   
+#### configure TFT_eSPI/User_Setup.h  
 comment line 168-170  
 uncomment line 205-210 and 223  
 
