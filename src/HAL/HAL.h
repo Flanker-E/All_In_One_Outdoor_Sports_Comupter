@@ -6,6 +6,7 @@
 #include "HAL_Def.h"
 #include "App/Configs/Config.h"
 #include "CommonMacro.h"
+#include "M5Touch.h"
 // #include "FreeRTOS.h"
 #define HAVE_PERI 0
 
@@ -23,6 +24,11 @@ namespace HAL
     void Backlight_SetValue(int32_t val);
     void Backlight_SetGradual(uint32_t target, uint16_t time = 500);
     void Backlight_ForceLit(bool en);
+
+    /* Touch screen */
+    void Touch_Init();
+    bool Touch_Ispressed();
+    void Touch_GetPressPoint(TouchPoint_t* coordinate);
 
 /* I2C */
     void I2C_Init(bool startScan);

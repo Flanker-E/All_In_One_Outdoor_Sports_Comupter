@@ -60,13 +60,18 @@ void HAL::HAL_Init()
     pinMode(5,OUTPUT);
     digitalWrite(5,LOW); 
 
-    Encoder_Init();
-    Serial.println("encoder inited");
-    // Move the malloc process to Init() to make sure that the largest heap can be used for this buffer.
-    // lv_disp_buf_p = static_cast<lv_color_t*>(malloc(DISP_BUF_SIZE * sizeof(lv_color_t)));
     lv_disp_buf_p = (lv_color_t*)malloc(DISP_BUF_SIZE * sizeof(lv_color_t));
     if (lv_disp_buf_p == nullptr)
         LV_LOG_WARN("lv_port_disp_init malloc failed!\n");
+    
+    Encoder_Init();
+    // Serial.println("encoder inited");
+
+    I2C_Init(true); //init and scan
+    Touch_Init();
+    // Move the malloc process to Init() to make sure that the largest heap can be used for this buffer.
+    // lv_disp_buf_p = static_cast<lv_color_t*>(malloc(DISP_BUF_SIZE * sizeof(lv_color_t)));
+    
     Buzz_init();
     Audio_Init();
     GPS_Init();
