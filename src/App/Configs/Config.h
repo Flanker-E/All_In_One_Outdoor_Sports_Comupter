@@ -51,11 +51,11 @@
 #define NULL_PIN                    PD0
 
 /* Screen */
-#define CONFIG_SCREEN_CS_PIN        PB0
-#define CONFIG_SCREEN_DC_PIN        PA4
-#define CONFIG_SCREEN_RST_PIN       PA6
-#define CONFIG_SCREEN_SCK_PIN       PA5
-#define CONFIG_SCREEN_MOSI_PIN      PA7
+#define CONFIG_SCREEN_CS_PIN        9
+#define CONFIG_SCREEN_DC_PIN        2
+#define CONFIG_SCREEN_RST_PIN       4
+#define CONFIG_SCREEN_SCK_PIN       18
+#define CONFIG_SCREEN_MOSI_PIN      23
 #define CONFIG_SCREEN_BLK_PIN       12
 
 #define CONFIG_SCREEN_HOR_RES       240//240
@@ -75,8 +75,8 @@
 #define CONFIG_GPS_SERIAL           Serial2
 #define CONFIG_GPS_USE_TRANSPARENT  0
 #define CONFIG_GPS_BUF_OVERLOAD_CHK 0
-#define CONFIG_GPS_TX_PIN           PA3
-#define CONFIG_GPS_RX_PIN           PA2
+#define CONFIG_GPS_TX_PIN           36
+#define CONFIG_GPS_RX_PIN           19
 
 /* IMU */
 #define CONFIG_IMU_INT1_PIN         32

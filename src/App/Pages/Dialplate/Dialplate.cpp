@@ -41,19 +41,19 @@ void Dialplate::onViewDidLoad()
 
 void Dialplate::onViewWillAppear()
 {
-    Serial.println("onviewwillappear");
+    //Serial.println("onviewwillappear");
     lv_indev_wait_release(lv_indev_get_act());
-    Serial.println("onviewwillappear");
+    //Serial.println("onviewwillappear");
     lv_group_t* group = lv_group_get_default();
-    Serial.println("onviewwillappear");
+    //Serial.println("onviewwillappear");
     lv_group_set_wrap(group, false);
-    Serial.println("addobj");
+    //Serial.println("addobj");
     lv_group_add_obj(group, View.ui.btnCont.btnMap);
-    Serial.println("btnMap");
+    //Serial.println("btnMap");
     lv_group_add_obj(group, View.ui.btnCont.btnRec);
-    Serial.println("btnRec");
+    //Serial.println("btnRec");
     lv_group_add_obj(group, View.ui.btnCont.btnMenu);
-    Serial.println("btnMenu");
+    //Serial.println("btnMenu");
 
     if (lastFocus)
     {
@@ -63,9 +63,9 @@ void Dialplate::onViewWillAppear()
     {
         lv_group_focus_obj(View.ui.btnCont.btnRec);
     }
-    Serial.println("group");
+    //Serial.println("group");
     Model.SetStatusBarStyle(DataProc::STATUS_BAR_STYLE_TRANSP);
-    Serial.println("to update");
+    //Serial.println("to update");
     Update();
 
     View.AppearAnimStart();

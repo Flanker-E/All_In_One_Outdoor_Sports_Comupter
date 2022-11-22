@@ -73,9 +73,11 @@ void HAL::HAL_Init()
 
 void HAL::HAL_Update()
 {
+    Power_Update();
     IMU_Update();
     Audio_Update();
     MAG_Update();
+
     // Encoder_Update();
 }
 #endif

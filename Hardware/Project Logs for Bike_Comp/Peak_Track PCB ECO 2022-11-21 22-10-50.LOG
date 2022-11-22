@@ -1,0 +1,163 @@
+Change Component Comment : Designator=R24 Old Comment=0R New Comment=3R
+Change component parameters: Designator = "A1" ("A1"); Footprint = "ANT-Rainsun-AN5120"; UniqueID = "\EQBXVDQI" ("\EQBXVDQI")
+Change component parameters (AddParameter): Name = "LCSC PART #"; Value = "C99727"; VariantName = "[No Variations]"
+Change component parameters: Designator = "A2" ("A2"); Footprint = "ANT-Rainsun-AN5120"; UniqueID = "\RAQOUTDN" ("\RAQOUTDN")
+Change component parameters (AddParameter): Name = "LCSC PART #"; Value = "C99727"; VariantName = "[No Variations]"
+Change component parameters: Designator = "C10" ("C10"); Footprint = "CAP_0402"; UniqueID = "\ITLJDFEA" ("\ITLJDFEA")
+Change component parameters (AddParameter): Name = "LCSC PART #"; Value = "C52923"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "0.1u"; VariantName = "[No Variations]"
+Change component parameters: Designator = "C21" ("C21"); Footprint = "CAP_0402"; UniqueID = "\HQYBUDHS" ("\HQYBUDHS")
+Change component parameters (AddParameter): Name = "LCSC PART #"; Value = "C52923"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "0.1u"; VariantName = "[No Variations]"
+Change component parameters: Designator = "C25" ("C25"); Footprint = "CAP_0402"; UniqueID = "\QBTAMHBB" ("\QBTAMHBB")
+Change component parameters (AddParameter): Name = "LCSC PART #"; Value = "C52923"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "0.1u"; VariantName = "[No Variations]"
+Change component parameters: Designator = "C26" ("C26"); Footprint = "CAP_0402"; UniqueID = "\IOSYGTSU" ("\IOSYGTSU")
+Change component parameters (AddParameter): Name = "LCSC PART #"; Value = "C52923"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "0.1u"; VariantName = "[No Variations]"
+Change component parameters: Designator = "C27" ("C27"); Footprint = "CAP_0402"; UniqueID = "\JHWNRSVJ" ("\JHWNRSVJ")
+Change component parameters (AddParameter): Name = "LCSC PART #"; Value = "C52923"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "0.1u"; VariantName = "[No Variations]"
+Change component parameters: Designator = "C32" ("C32"); Footprint = "CAP_0402"; UniqueID = "\XUGADZMJ" ("\XUGADZMJ")
+Change component parameters (AddParameter): Name = "LCSC PART #"; Value = "C52923"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "0.1u"; VariantName = "[No Variations]"
+Change component parameters: Designator = "D1" ("D1"); Footprint = "SOD-323"; UniqueID = "\UGMKNBSJ" ("\UGMKNBSJ")
+Change component parameters (AddParameter): Name = "LCSC PART #"; Value = "C8598"; VariantName = "[No Variations]"
+Change component parameters: Designator = "D2" ("D2"); Footprint = "SOD-323"; UniqueID = "\ADPSTOMG" ("\ADPSTOMG")
+Change component parameters (AddParameter): Name = "LCSC PART #"; Value = "C8598"; VariantName = "[No Variations]"
+Change component parameters: Designator = "D3" ("D3"); Footprint = "SOD-323"; UniqueID = "\GHJMWBRI" ("\GHJMWBRI")
+Change component parameters (AddParameter): Name = "LCSC PART #"; Value = "C8598"; VariantName = "[No Variations]"
+Change component parameters: Designator = "D4" ("D4"); Footprint = "SMA"; UniqueID = "\WTBTZIQY" ("\WTBTZIQY")
+Change component parameters (AddParameter): Name = "Arrow Part Number"; Value = "SK34AFL-TP"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Arrow Price/Stock"; Value = "https://www.arrow.com/en/products/sk34afl-tp/micro-commercial-components?region=europe"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet Link"; Value = "https://www.mouser.de/datasheet/2/258/SK32AFL_SK310AFL_DO_221AC_-2492378.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Height"; Value = "1.25mm"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LCSC PART #"; Value = "C85269"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer_Name"; Value = "Micro Commercial Components (MCC)"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer_Part_Number"; Value = "SK34AFL-TP"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser Part Number"; Value = "833-SK34AFL-TP"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser Price/Stock"; Value = "https://www.mouser.co.uk/ProductDetail/Micro-Commercial-Components-MCC/SK34AFL-TP?qs=%2F9jDaHz9Z2hx3laGbsEE%252BA%3D%3D"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser Testing Part Number"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser Testing Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Change component parameters: Designator = "D5" ("D5"); Footprint = "LED_0402_RED"; UniqueID = "\NTPYAJKL" ("\NTPYAJKL")
+Change component parameters (AddParameter): Name = "LCSC PART #"; Value = "C160479"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Type"; Value = "0402"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "color?"; VariantName = "[No Variations]"
+Change component parameters: Designator = "D6" ("D6"); Footprint = "SMA"; UniqueID = "\VLCUOFWK" ("\VLCUOFWK")
+Change component parameters (AddParameter): Name = "Arrow Part Number"; Value = "SK34AFL-TP"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Arrow Price/Stock"; Value = "https://www.arrow.com/en/products/sk34afl-tp/micro-commercial-components?region=europe"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet Link"; Value = "https://www.mouser.de/datasheet/2/258/SK32AFL_SK310AFL_DO_221AC_-2492378.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Height"; Value = "1.25mm"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LCSC PART #"; Value = "C85269"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer_Name"; Value = "Micro Commercial Components (MCC)"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer_Part_Number"; Value = "SK34AFL-TP"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser Part Number"; Value = "833-SK34AFL-TP"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser Price/Stock"; Value = "https://www.mouser.co.uk/ProductDetail/Micro-Commercial-Components-MCC/SK34AFL-TP?qs=%2F9jDaHz9Z2hx3laGbsEE%252BA%3D%3D"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser Testing Part Number"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser Testing Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Change component parameters: Designator = "D7" ("D7"); Footprint = "LED_0402_RED"; UniqueID = "\UNEWEQGZ" ("\UNEWEQGZ")
+Change component parameters (AddParameter): Name = "LCSC PART #"; Value = "C71911"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Type"; Value = "0402"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "color?"; VariantName = "[No Variations]"
+Change component parameters: Designator = "D8" ("D8"); Footprint = "LED_0402_RED"; UniqueID = "\XLOMIRIA" ("\XLOMIRIA")
+Change component parameters (AddParameter): Name = "LCSC PART #"; Value = "C160479"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Type"; Value = "0402"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "color?"; VariantName = "[No Variations]"
+Change component parameters: Designator = "D9" ("D9"); Footprint = "SOD3716X135N"; UniqueID = "\NSHHWMZY" ("\NSHHWMZY")
+Change component parameters (AddParameter): Name = "Arrow Part Number"; Value = "MBR0530"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Arrow Price/Stock"; Value = "https://www.arrow.com/en/products/mbr0530/on-semiconductor?region=nac"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet Link"; Value = "http://www.onsemi.com/pub/Collateral/MBR0530T1-D.PDF"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Height"; Value = "1.35mm"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LCSC PART #"; Value = "C77336"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer_Name"; Value = "onsemi"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer_Part_Number"; Value = "MBR0530"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser Part Number"; Value = "512-MBR0530"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser Price/Stock"; Value = "https://www.mouser.co.uk/ProductDetail/ON-Semiconductor-Fairchild/MBR0530?qs=VOMQJJE%252BBNniwJKcE3T43Q%3D%3D"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser Testing Part Number"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser Testing Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Change component parameters: Designator = "D10" ("D10"); Footprint = "SOD3716X135N"; UniqueID = "\GPVESNHM" ("\GPVESNHM")
+Change component parameters (AddParameter): Name = "Arrow Part Number"; Value = "MBR0530"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Arrow Price/Stock"; Value = "https://www.arrow.com/en/products/mbr0530/on-semiconductor?region=nac"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet Link"; Value = "http://www.onsemi.com/pub/Collateral/MBR0530T1-D.PDF"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Height"; Value = "1.35mm"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LCSC PART #"; Value = "C77336"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer_Name"; Value = "onsemi"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer_Part_Number"; Value = "MBR0530"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser Part Number"; Value = "512-MBR0530"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser Price/Stock"; Value = "https://www.mouser.co.uk/ProductDetail/ON-Semiconductor-Fairchild/MBR0530?qs=VOMQJJE%252BBNniwJKcE3T43Q%3D%3D"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser Testing Part Number"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser Testing Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Change component parameters: Designator = "D11" ("D11"); Footprint = "SOD3716X135N"; UniqueID = "\QHXUOBAC" ("\QHXUOBAC")
+Change component parameters (AddParameter): Name = "Arrow Part Number"; Value = "MBR0530"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Arrow Price/Stock"; Value = "https://www.arrow.com/en/products/mbr0530/on-semiconductor?region=nac"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet Link"; Value = "http://www.onsemi.com/pub/Collateral/MBR0530T1-D.PDF"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Height"; Value = "1.35mm"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LCSC PART #"; Value = "C77336"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer_Name"; Value = "onsemi"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer_Part_Number"; Value = "MBR0530"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser Part Number"; Value = "512-MBR0530"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser Price/Stock"; Value = "https://www.mouser.co.uk/ProductDetail/ON-Semiconductor-Fairchild/MBR0530?qs=VOMQJJE%252BBNniwJKcE3T43Q%3D%3D"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser Testing Part Number"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser Testing Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Change component parameters: Designator = "L1" ("L1"); Footprint = "SWPA3015"; UniqueID = "\KGYYIOYD" ("\KGYYIOYD")
+Change component parameters (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LCSC PART #"; Value = "C2925423"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "PackageDescription"; Value = "Axial Device, Thru-Hole; 2 Leads; 0.9 in Pin Spacing"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "PackageReference"; Value = "AXIAL-0.9"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Published"; Value = "24-Mar-1999"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "68uH"; VariantName = "[No Variations]"
+Change component parameters: Designator = "LC1" ("LC1"); Footprint = "FPC0.5-WT-10P"; UniqueID = "\UTFKWLZQ" ("\UTFKWLZQ")
+Change component parameters (AddParameter): Name = "LCSC PART #"; Value = "C11085"; VariantName = "[No Variations]"
+Change component parameters: Designator = "P3" ("P3"); Footprint = "FPC0.5-WT-4P"; UniqueID = "\FVLMDYGB" ("\FVLMDYGB")
+Change component parameters (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LCSC PART #"; Value = "C191195"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Change component parameters: Designator = "P4" ("P4"); Footprint = "FPC0.5-WT-4P"; UniqueID = "\RQLJUEQC" ("\RQLJUEQC")
+Change component parameters (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LCSC PART #"; Value = "C191195"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Change component parameters: Designator = "Q1" ("Q1"); Footprint = "SOT23-3"; UniqueID = "\CUBIEMTH" ("\CUBIEMTH")
+Change component parameters (AddParameter): Name = "LCSC PART #"; Value = "C15127"; VariantName = "[No Variations]"
+Change component parameters: Designator = "Q6" ("Q6"); Footprint = "SOT23-3"; UniqueID = "\IWULUIKV" ("\IWULUIKV")
+Change component parameters (AddParameter): Name = "LCSC PART #"; Value = "C15127"; VariantName = "[No Variations]"
+Change component parameters: Designator = "Q8" ("Q8"); Footprint = "SOT23-3"; UniqueID = "\DZABTAUP" ("\DZABTAUP")
+Change component parameters (AddParameter): Name = "LCSC PART #"; Value = "C15127"; VariantName = "[No Variations]"
+Change component parameters: Designator = "Q9" ("Q9"); Footprint = "SOT65P210X110-3N"; UniqueID = "\BCQMNDQK" ("\BCQMNDQK")
+Change component parameters (AddParameter): Name = "Arrow Part Number"; Value = "SI1308EDL-T1-GE3"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Arrow Price/Stock"; Value = "https://www.arrow.com/en/products/si1308edl-t1-ge3/vishay?region=nac"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet Link"; Value = "https://componentsearchengine.com/Datasheets/1/SI1308EDL-T1-GE3.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Height"; Value = "1.1mm"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LCSC PART #"; Value = "LCSC PART #"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer_Name"; Value = "Vishay"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer_Part_Number"; Value = "Si1308EDL-T1-GE3"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser Part Number"; Value = "78-SI1308EDL-T1-GE3"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser Price/Stock"; Value = "https://www.mouser.co.uk/ProductDetail/Vishay-Semiconductors/SI1308EDL-T1-GE3?qs=bX1%252BNvsK%2FBramh9tgpOaEw%3D%3D"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser Testing Part Number"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser Testing Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Change component parameters: Designator = "R15" ("R15"); Footprint = "RES_0402"; UniqueID = "\PTENBEQZ" ("\PTENBEQZ")
+Change component parameters (AddParameter): Name = "LCSC PART #"; Value = "C25077"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "22R"; VariantName = "[No Variations]"
+Change component parameters: Designator = "SW1" ("SW1"); Footprint = "SIQ-02FVS3"; UniqueID = "\PLDPFPHY" ("\PLDPFPHY")
+Change component parameters (AddParameter): Name = "BOM_JLCPCB Part Class"; Value = "Extended Part"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "BOM_Manufacturer"; Value = "ALPSALPINE"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "BOM_Manufacturer Part"; Value = "EC11E1534443"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "BOM_Supplier"; Value = "LCSC"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "BOM_Supplier Part"; Value = "C1322543"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Contributor"; Value = "LCSC"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "LCSC PART #"; Value = "C2925423"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "spicePre"; Value = "S"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "spiceSymbolName"; Value = "EC11E1534443"; VariantName = "[No Variations]"
+Change component parameters: Designator = "U4" ("U4"); Footprint = "QFN-48_7X7"; UniqueID = "\DYJACUGZ" ("\DYJACUGZ")
+Change component parameters (AddParameter): Name = "LCSC PART #"; Value = "C193707"; VariantName = "[No Variations]"
+Change component parameters: Designator = "R9" ("R9"); Footprint = "RES_0402"; UniqueID = "\GMEINJNT" ("\GMEINJNT")
+Change component parameters (AddParameter): Name = "LCSC PART #"; Value = "C25752"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Parameter 1"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "22R"; VariantName = "[No Variations]"
+Change component parameters: Designator = "R12" ("R12"); Footprint = "RES_0402"; UniqueID = "\NNDJRFUB" ("\NNDJRFUB")
+Change component parameters (AddParameter): Name = "LCSC PART #"; Value = "C25752"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Parameter 1"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "22R"; VariantName = "[No Variations]"
