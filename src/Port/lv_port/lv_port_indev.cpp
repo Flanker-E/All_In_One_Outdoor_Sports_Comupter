@@ -92,7 +92,7 @@ void lv_port_indev_init(void)
 
     /*Register a encoder input device*/
     lv_indev_drv_init(&indev_drv);
-    indev_drv.type = LV_INDEV_TYPE_POINTER;
+    indev_drv.type = LV_INDEV_TYPE_ENCODER;
     indev_drv.read_cb = encoder_read;
     encoder_indev = lv_indev_drv_register(&indev_drv);
     lv_group_t* group = lv_group_create();

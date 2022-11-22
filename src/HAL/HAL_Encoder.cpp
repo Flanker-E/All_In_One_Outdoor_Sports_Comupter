@@ -13,11 +13,12 @@ Account* actEncoder;
 
 static void Encoder_IrqHandler()
 {
+    // Serial.println("Encoder irq handle");
     if (!EncoderEnable || EncoderDiffDisable)
     {
         return;
     }
-
+    // Serial.println("count");
     static volatile int count, countLast;
     static volatile uint8_t a0, b0;
     static volatile uint8_t ab0;
@@ -49,14 +50,17 @@ static void Encoder_PushHandler(ButtonEvent* btn, int event)
 {
     if (event == ButtonEvent::EVENT_PRESSED)
     {
-        HAL::Buzz_Tone(500, 20);
+        Serial.println("pressed");
+        // HAL::Buzz_Tone(500, 20);
         EncoderDiffDisable = true;
     } else if (event == ButtonEvent::EVENT_RELEASED)
     {
-        HAL::Buzz_Tone(700, 20);
+        Serial.println("released");
+        // HAL::Buzz_Tone(700, 20);
         EncoderDiffDisable = false;
     } else if (event == ButtonEvent::EVENT_LONG_PRESSED)
     {
+        Serial.println("long pressed");
         HAL::Audio_PlayMusic("Shutdown");
         HAL::Power_Shutdown();
     }
@@ -79,7 +83,7 @@ void HAL::Encoder_Init()
     attachInterrupt(CONFIG_ENCODER_A_PIN, Encoder_IrqHandler, CHANGE);
 
     EncoderPush.EventAttach(Encoder_PushHandler);
-
+    Serial.println("encoder intr and event attached");
 
     actEncoder = new Account("Encoder", DataProc::Center(), sizeof(int16_t), nullptr);
 
@@ -87,6 +91,8 @@ void HAL::Encoder_Init()
 
 void HAL::Encoder_Update()
 {
+    // if(Encoder_GetIsPush())
+    //     Serial.println("is pushed");
     EncoderPush.EventMonitor(Encoder_GetIsPush());
 }
 
@@ -105,6 +111,7 @@ int16_t HAL::Encoder_GetDiff()
 
 bool HAL::Encoder_GetIsPush()
 {
+    
     if (!EncoderEnable)
     {
         return false;
