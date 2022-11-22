@@ -31,7 +31,7 @@
 #include "CommonMacro.h"
 // #include "FreeRTOS.h"
 #include "TFT_eSPI.h"
-// #include "M5Touch.h"
+#include "M5Touch.h"
 #include "TinyGPSPlus.h"
 // #include "MillisTaskManager.h"
 
@@ -71,9 +71,9 @@ void Backlight_ForceLit(bool en);
 void Display_Init();
 
 /* Touch screen */
-// void Touch_Init();
-// bool Touch_Ispressed();
-// void Touch_GetPressPoint(TouchPoint_t* coordinate);
+void Touch_Init();
+bool Touch_Ispressed();
+void Touch_GetPressPoint(TouchPoint_t* coordinate);
 
 /* I2C */
 void I2C_Init(bool startScan);

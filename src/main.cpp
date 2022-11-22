@@ -17,8 +17,8 @@
 #define GPS_SERIAL           Serial1
 #define CONFIG_GPS_TX_PIN           36
 #define CONFIG_GPS_RX_PIN           19
-#define TRANSFER_TO_EINK  digitalWrite(TFT_CS,HIGH);digitalWrite(CS_PIN,LOW);
-#define TRANSFER_TO_LCD digitalWrite(CS_PIN,HIGH);digitalWrite(TFT_CS,LOW);
+// #define TRANSFER_TO_EINK  digitalWrite(TFT_CS,HIGH);digitalWrite(CS_PIN,LOW);
+// #define TRANSFER_TO_LCD digitalWrite(CS_PIN,HIGH);digitalWrite(TFT_CS,LOW);
 // #include "App/App.h"
 // #include "TouchScreen.h"
 /*If you want to use the LVGL examples,
@@ -47,6 +47,8 @@ extern lv_disp_t * disp_eink;
 
 extern lv_obj_t * scr_lcd;
 extern lv_obj_t * scr_eink;
+
+extern SemaphoreHandle_t einkUpdateSemaphore;
 //lcd information
 //GPS,IMU,LCD,E-Ink,SD,BLE
 lv_obj_t* Info_GPS;
@@ -108,6 +110,7 @@ void onTimerUpdate(lv_timer_t* timer){
     "Altitude\n"
     "Speed",
     */
+   static int count=0;
    Serial.println( "text_update" );
    if(gps_info.isVaild)
         lv_label_set_text_fmt(
@@ -146,6 +149,13 @@ void onTimerUpdate(lv_timer_t* timer){
         //   trip+=(float)0.1,
         //   time1++
     );
+    count++;
+    if(count==5){
+        //give semaphore
+        xSemaphoreGive(einkUpdateSemaphore);
+        Serial.println("give eink update semaphore");
+        count=0;
+    }
     Serial.println( "text_updated" );
 }
 
@@ -210,7 +220,7 @@ void Eink_Item_Create(
   lv_obj_align(data, LV_ALIGN_TOP_LEFT, x_bias+60, y_bias);
 
 }
-void lv_example_get_started_1(void)
+void Eink_info_init(void)
 {
   Eink_Item_Create(
       Info_North,
@@ -250,103 +260,8 @@ void lv_example_get_started_1(void)
 //   );
 }
 
-void setup()
-{
-  //  File f = SPIFFS.open(CALIBRATION_FILE, "r");
-    Serial.begin( 115200 ); /* prepare for possible serial debug */
-
-    String LVGL_Arduino = "Hello Arduino! ";
-    LVGL_Arduino += String('V') + lv_version_major() + "." + lv_version_minor() + "." + lv_version_patch();
-
-    Serial.println( LVGL_Arduino );
-    Serial.println( "I am LVGL_Arduino" );
-
-    //GPS init
-    GPS_SERIAL.begin(9600, SERIAL_8N1, CONFIG_GPS_TX_PIN, CONFIG_GPS_RX_PIN);
-    Serial.print("GPS: TinyGPS++ library v. ");
-    Serial.print(TinyGPSPlus::libraryVersion());
-    Serial.println(" by Mikal Hart");
-
-    //I2C and IMU init
-    HAL::I2C_Init(true);
-    HAL::IMU_Init();
-    // HAL::SD_Init();
-    // digitalWrite(CS_PIN,HIGH);
-    TRANSFER_TO_LCD
-    Port_Init();
-    startFreeRtos();
-    // lv_task_handler();
-
-    End_spi_transaction();
-    Serial.println("eink set up start");
-    //EINK test
-    TRANSFER_TO_EINK
-    Port_Init_Eink();
-    lv_example_get_started_1();
-    delay(1000);
-    End_spi_transaction();
-    
-    Serial.println("start rtos");
-    
-    // lv_task_handler();
-    // Serial.println("delay begin");
-    //eink test end
-    // delay(5000);
-    Serial.println("end of eink set up");
-    TRANSFER_TO_LCD
-    Port_Init();
-    lv_disp_set_default(disp_lcd);
-    
-  //screen init, assign screen object to lvgl
-    // Port_Init();
-    // get current display from lvgl.
-    // scr_lcd = lv_scr_act();
-
-    //suspend LCD
-    // digitalWrite(TFT_CS,HIGH);
-
-    // //Eink init
-    // epdControl.Init(FULL);
-    // Serial.println("epd PART");
-    // // epd.Display(IMAGE_DATA);
-    
-    // // delay(5000);
-
-    // // epd.Clear();
-    // // delay(5000);
-    // // paint.SetWidth(248);
-    // // Serial.println("test");
-    // // paint.SetHeight(100);
-    // // Serial.println("test");
-    // // paint.Clear(UNCOLORED);
-    // // Serial.println("test"/);
-    // // paint.DrawStringAt(4, 4, "Hello world!", &Font16, UNCOLORED);
-    // // Serial.println("test");
-    // epdControl.Display(einkImg.GetImage());
-    // Serial.println("paint hello world");
-    // delay(5000);
-    // Serial.println("epd sleep");
-    // // epd.SetFrameMemory(paint.GetImage(), 0, 10, paint.GetWidth(), paint.GetHeight());
-
-    // epdControl.Sleep();
-
-    //toggle different screen
-    // digitalWrite(CS_PIN,HIGH);
-    // digitalWrite(TFT_CS,LOW);
-
-    //display size
-    //font
-    //
-#if LV_USE_THEME_DEFAULT
-    lv_theme_default_init(NULL, lv_palette_main(LV_PALETTE_BLUE), lv_palette_main(LV_PALETTE_RED), LV_THEME_DEFAULT_DARK,
-                          LV_FONT_DEFAULT);
-#endif
-//data
-
-  
-
-    // create information items
-  Item_Create(
+void LCD_info_init(){
+      Item_Create(
       Info_GPS,
       Data_GPS,
       "GPS",
@@ -403,6 +318,118 @@ void setup()
       20,
       380
 );
+}
+
+void setup()
+{
+  //  File f = SPIFFS.open(CALIBRATION_FILE, "r");
+    Serial.begin( 115200 ); /* prepare for possible serial debug */
+
+    String LVGL_Arduino = "Hello Arduino! ";
+    LVGL_Arduino += String('V') + lv_version_major() + "." + lv_version_minor() + "." + lv_version_patch();
+
+    Serial.println( LVGL_Arduino );
+    Serial.println( "I am LVGL_Arduino" );
+
+    //GPS init
+    GPS_SERIAL.begin(9600, SERIAL_8N1, CONFIG_GPS_TX_PIN, CONFIG_GPS_RX_PIN);
+    Serial.print("GPS: TinyGPS++ library v. ");
+    Serial.print(TinyGPSPlus::libraryVersion());
+    Serial.println(" by Mikal Hart");
+
+    //I2C and IMU init
+    HAL::I2C_Init(true);
+    HAL::IMU_Init();
+    // HAL::SD_Init();
+    // digitalWrite(CS_PIN,HIGH);
+    // TRANSFER_TO_LCD
+    // Port_Init();
+    einkUpdateSemaphore = xSemaphoreCreateBinary();
+    if (einkUpdateSemaphore!=NULL)
+    {
+        Serial.println("eink update semaphore creation succeed!");
+    }
+    To_LCD_Port();
+    startFreeRtos();
+    LCD_info_init();
+    // lv_task_handler();
+    // delay(3000);
+    // // End_spi_transaction();
+    // Serial.println("eink set up start");
+    // //EINK test
+    // // TRANSFER_TO_EINK
+    // // Port_Init_Eink();
+    To_Eink_Port();
+    Eink_info_init();
+    // delay(1000);
+    // // End_spi_transaction();
+    
+    // // Serial.println("start rtos");
+    
+    // // lv_task_handler();
+    // // Serial.println("delay begin");
+    // //eink test end
+    // // delay(5000);
+    // Serial.println("end of eink set up");
+    // // TRANSFER_TO_LCD
+    // // Port_Init();
+    // To_LCD_Port();
+    // delay(3000);
+    // To_Eink_Port();
+    // Eink_info_init();
+    // delay(1000);
+    To_LCD_Port();
+    // lv_disp_set_default(disp_lcd);
+
+
+    
+//   return;
+  //screen init, assign screen object to lvgl
+    // Port_Init();
+    // get current display from lvgl.
+    // scr_lcd = lv_scr_act();
+
+    //suspend LCD
+    // digitalWrite(TFT_CS,HIGH);
+
+    // //Eink init
+    // epdControl.Init(FULL);
+    // Serial.println("epd PART");
+    // // epd.Display(IMAGE_DATA);
+    
+    // // delay(5000);
+
+    // // epd.Clear();
+    // // delay(5000);
+    // // paint.SetWidth(248);
+    // // Serial.println("test");
+    // // paint.SetHeight(100);
+    // // Serial.println("test");
+    // // paint.Clear(UNCOLORED);
+    // // Serial.println("test"/);
+    // // paint.DrawStringAt(4, 4, "Hello world!", &Font16, UNCOLORED);
+    // // Serial.println("test");
+    // epdControl.Display(einkImg.GetImage());
+    // Serial.println("paint hello world");
+    // delay(5000);
+    // Serial.println("epd sleep");
+    // // epd.SetFrameMemory(paint.GetImage(), 0, 10, paint.GetWidth(), paint.GetHeight());
+
+    // epdControl.Sleep();
+
+    //toggle different screen
+    // digitalWrite(CS_PIN,HIGH);
+    // digitalWrite(TFT_CS,LOW);
+
+    //display size
+    //font
+    //
+
+
+  
+
+    // create information items
+
 
     // Info_GPS = lv_label_create(scr);
     // lv_label_set_text(Info_GPS,"Firmware1\n"
@@ -433,6 +460,11 @@ void setup()
     // lv_obj_align(data1, LV_ALIGN_CENTER, 60, 0);
     
     // create timer that update the data text at certain period
+    #if LV_USE_THEME_DEFAULT
+    lv_theme_default_init(NULL, lv_palette_main(LV_PALETTE_BLUE), lv_palette_main(LV_PALETTE_RED), LV_THEME_DEFAULT_DARK,
+                          LV_FONT_DEFAULT);
+    #endif
+//data
     timer = lv_timer_create(onTimerUpdate, 1000, nullptr);
     lv_timer_ready(timer);
 
