@@ -22,7 +22,7 @@ static const uint16_t screenHeight = 240;
 static lv_disp_draw_buf_t disp_buf;
 // static lv_disp_draw_buf_t draw_buf_eink;
 static lv_color_t buf[ screenWidth * 50 ];
-// static lv_color_t buf_eink[ screenWidth * 30 ];
+// // static lv_color_t buf_eink[ screenWidth * 30 ];
 
 // TFT_eSPI tft = TFT_eSPI(); /* TFT instance */
 #define CALIBRATION_FILE "/TouchCalData1"
