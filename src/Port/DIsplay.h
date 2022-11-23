@@ -13,8 +13,8 @@ extern lv_indev_t* touch_indev;
 extern lv_indev_t* encoder_indev;
 
 #define CS_PIN          9
-#define TRANSFER_TO_EINK  digitalWrite(TFT_CS,HIGH);digitalWrite(CS_PIN,LOW);
-#define TRANSFER_TO_LCD digitalWrite(CS_PIN,HIGH);digitalWrite(TFT_CS,LOW);
+#define TRANSFER_TO_EINK  digitalWrite(TFT_CS,HIGH);digitalWrite(9,LOW);
+#define TRANSFER_TO_LCD digitalWrite(9,HIGH);digitalWrite(TFT_CS,LOW);
 
 static const uint16_t screenWidth  = 320;
 static const uint16_t screenHeight = 240;
@@ -31,6 +31,8 @@ static lv_color_t buf[ screenWidth * 50 ];
 // typedef TFT_eSPI SCREEN_CLASS;
 void To_LCD_Port();
 void To_Eink_Port();
+void To_LCD_Port_test();
+void To_Eink_Port_test();
 void Port_Init_Eink();
 void Port_Init();
 void End_spi_transaction();

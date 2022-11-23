@@ -110,51 +110,77 @@ void onTimerUpdate(lv_timer_t* timer){
     "Altitude\n"
     "Speed",
     */
+   static bool isLCD=false;
    static int count=0;
+   
    Serial.println( "text_update" );
-   if(gps_info.isVaild)
-        lv_label_set_text_fmt(
-            Data_GPS,
-            "%0.6f\n"
-            "%0.6f\n"
-            "%0.2fm\n"
-            "%0.1fkm/h",
-            gps_info.latitude,
-            gps_info.longitude,
-            gps_info.altitude,
-            gps_info.speed
-            //   trip+=(float)0.1,
-            //   time1++
-        );
-    else{
-        lv_label_set_text_fmt(
-            Data_GPS,
-            "%0.6f\n"
-            "%0.6f\n"
-            "%0.2fm\n"
-            "%0.1fkm/h",
-            (float)0,
-            (float)0,
-            (float)0,
-            (float)0
-        );
+   if(isLCD){
+    if(gps_info.isVaild)
+          lv_label_set_text_fmt(
+              Data_GPS,
+              "%0.6f\n"
+              "%0.6f\n"
+              "%0.2fm\n"
+              "%0.1fkm/h",
+              gps_info.latitude,
+              gps_info.longitude,
+              gps_info.altitude,
+              gps_info.speed
+              //   trip+=(float)0.1,
+              //   time1++
+          );
+      else{
+          lv_label_set_text_fmt(
+              Data_GPS,
+              "%0.6f\n"
+              "%0.6f\n"
+              "%0.2fm\n"
+              "%0.1fkm/h",
+              (float)0,
+              (float)0,
+              (float)0,
+              (float)0
+          );
+      }
+    
+    lv_label_set_text_fmt(
+          Data_IMU,
+          "%.3f\n%.3f\n%.3f\n",
+          imu_info.ax,
+          imu_info.ay,
+          imu_info.az
+          //   trip+=(float)0.1,
+          //   time1++
+      );
     }
-  
-  lv_label_set_text_fmt(
-        Data_IMU,
-        "%.3f\n%.3f\n%.3f\n",
-        imu_info.ax,
-        imu_info.ay,
-        imu_info.az
-        //   trip+=(float)0.1,
-        //   time1++
-    );
+    else{
+      lv_label_set_text_fmt(
+          Data_North,
+          "%dm\n",
+          count
+      );
+      lv_label_set_text_fmt(
+          Data_East,
+          "%dm\n",
+          count
+      );
+    }
     count++;
-    if(count==5){
+    if(count==4){
         //give semaphore
-        xSemaphoreGive(einkUpdateSemaphore);
-        Serial.println("give eink update semaphore");
+        // xSemaphoreGive(einkUpdateSemaphore);
+        // Serial.println("give eink update semaphore");
         count=0;
+        Serial.println("update semaphore detected, switch");
+      if(isLCD){
+        To_Eink_Port_test();
+      // Eink_info_init();
+      }
+      else
+        To_LCD_Port_test();
+      isLCD=!isLCD;
+    //   lv_task_handler();
+      Serial.println("end of switch");
     }
     Serial.println( "text_updated" );
 }
@@ -341,6 +367,8 @@ void setup()
     HAL::I2C_Init(true);
     HAL::IMU_Init();
     // HAL::SD_Init();
+    pinMode(TFT_CS,OUTPUT);
+    pinMode(9,OUTPUT);
     // digitalWrite(CS_PIN,HIGH);
     // TRANSFER_TO_LCD
     // Port_Init();
@@ -349,8 +377,10 @@ void setup()
     {
         Serial.println("eink update semaphore creation succeed!");
     }
+
+    lv_init();
     To_LCD_Port();
-    startFreeRtos();
+    
     LCD_info_init();
     // lv_task_handler();
     // delay(3000);
@@ -361,6 +391,7 @@ void setup()
     // // Port_Init_Eink();
     To_Eink_Port();
     Eink_info_init();
+    startFreeRtos();
     // delay(1000);
     // // End_spi_transaction();
     
@@ -378,94 +409,18 @@ void setup()
     // To_Eink_Port();
     // Eink_info_init();
     // delay(1000);
-    To_LCD_Port();
+    // To_LCD_Port();
     // lv_disp_set_default(disp_lcd);
 
 
-    
-//   return;
-  //screen init, assign screen object to lvgl
-    // Port_Init();
-    // get current display from lvgl.
-    // scr_lcd = lv_scr_act();
-
-    //suspend LCD
-    // digitalWrite(TFT_CS,HIGH);
-
-    // //Eink init
-    // epdControl.Init(FULL);
-    // Serial.println("epd PART");
-    // // epd.Display(IMAGE_DATA);
-    
-    // // delay(5000);
-
-    // // epd.Clear();
-    // // delay(5000);
-    // // paint.SetWidth(248);
-    // // Serial.println("test");
-    // // paint.SetHeight(100);
-    // // Serial.println("test");
-    // // paint.Clear(UNCOLORED);
-    // // Serial.println("test"/);
-    // // paint.DrawStringAt(4, 4, "Hello world!", &Font16, UNCOLORED);
-    // // Serial.println("test");
-    // epdControl.Display(einkImg.GetImage());
-    // Serial.println("paint hello world");
-    // delay(5000);
-    // Serial.println("epd sleep");
-    // // epd.SetFrameMemory(paint.GetImage(), 0, 10, paint.GetWidth(), paint.GetHeight());
-
-    // epdControl.Sleep();
-
-    //toggle different screen
-    // digitalWrite(CS_PIN,HIGH);
-    // digitalWrite(TFT_CS,LOW);
-
-    //display size
-    //font
-    //
-
-
-  
-
-    // create information items
-
-
-    // Info_GPS = lv_label_create(scr);
-    // lv_label_set_text(Info_GPS,"Firmware1\n"
-    //                           "Author1\n");
-    // // lv_obj_add_style(Info1, &style.info, 0);
-    // lv_obj_align(Info_GPS, LV_ALIGN_LEFT_MID, 20, 0);
-    // // item->labelInfo = label;
-    
-    // Info_IMU = lv_label_create(scr);
-    // // lv_label_set_text(Info1, infos);
-    // lv_label_set_text(Info_IMU,"Firmware2\n"
-    //                           "Author2\n");
-    // // lv_obj_add_style(Info1, &style.info, 0);
-    // lv_obj_align(Info_IMU, LV_ALIGN_LEFT_MID, 20, 40);
-
-    // Info_IMU = lv_label_create(scr);
-    // // lv_label_set_text(Info1, infos);
-    // lv_label_set_text(Info_IMU,"Firmware2\n"
-    //                           "Author2\n");
-    // // lv_obj_add_style(Info1, &style.info, 0);
-    // lv_obj_align(Info_IMU, LV_ALIGN_LEFT_MID, 20, 40);
-
-
-    /* datas */
-    // data1 = lv_label_create(scr);
-    // // lv_label_set_text(data1, "-");
-    // // lv_obj_add_style(data1, &style.data, 0);
-    // lv_obj_align(data1, LV_ALIGN_CENTER, 60, 0);
-    
+ 
     // create timer that update the data text at certain period
     #if LV_USE_THEME_DEFAULT
     lv_theme_default_init(NULL, lv_palette_main(LV_PALETTE_BLUE), lv_palette_main(LV_PALETTE_RED), LV_THEME_DEFAULT_DARK,
                           LV_FONT_DEFAULT);
     #endif
 //data
-    timer = lv_timer_create(onTimerUpdate, 1000, nullptr);
+    timer = lv_timer_create(onTimerUpdate, 2000, nullptr);
     lv_timer_ready(timer);
 
 // #endif
@@ -479,6 +434,8 @@ void setup()
     //     // NULL);
     //     &handleTaskLvgl);
     // App_Init();
+    Serial.println( "notify give" );
+    xTaskNotifyGive(handleTaskLvgl);
     Serial.println( "Setup done" );
 }
 
@@ -488,9 +445,8 @@ void loop()
     // Serial.println( "GPS_update" );
     HAL::GPS_Update();
     HAL::IMU_Update(&imu_info);
-    // Serial.println( "GPS_getinfo" );
     HAL::GPS_GetInfo(&gps_info);
-    xTaskNotifyGive(handleTaskLvgl);
+    
 
 
     // lv_timer_handler(); /* let the GUI do its work */

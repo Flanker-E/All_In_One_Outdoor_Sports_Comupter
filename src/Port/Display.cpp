@@ -30,7 +30,7 @@ void TaskLvglUpdate(void* parameter)
     for (;;)
     {
         lv_task_handler();
-        Serial.println("lv_update");
+        // Serial.println("lv_update");
         delay(5);
     }
 }
@@ -53,7 +53,7 @@ void TaskEinkUpdate(void *parameter)
       else
         To_LCD_Port();
       isLCD=!isLCD;
-      lv_task_handler();
+      // lv_task_handler();
       Serial.println("end of switch");
     }
     vTaskDelay(10);
@@ -130,44 +130,6 @@ void touch_calibrate()
 }
 #endif
 /* Display flushing */
-// void my_disp_flush( lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *color_p )
-// {
-//     uint32_t w = ( area->x2 - area->x1 + 1 );
-//     uint32_t h = ( area->y2 - area->y1 + 1 );
-
-//     tft.startWrite();
-//     tft.setAddrWindow( area->x1, area->y1, w, h );
-//     tft.pushColors( ( uint16_t * )&color_p->full, w * h, true );
-//     tft.endWrite();
-
-//     lv_disp_flush_ready( disp );
-//     Serial.printf("LCD: y1 %d,y2 %d,x1 %d,x2 %d\r\n",area->y1,area->y2,area->x1,area->x2);
-
-//     // Serial.println("my_disp_flush: all pixel updated");
-// }
-
-/*Read the touchpad*/
-// void my_touchpad_read( lv_indev_drv_t * indev_driver, lv_indev_data_t * data )
-// {
-//     uint16_t touchX, touchY;
-
-//     bool touched = tft.getTouch( &touchX, &touchY);
-
-//     if( !touched )
-//     {
-//         data->state = LV_INDEV_STATE_REL;
-//     }
-//     else
-//     {
-//         data->state = LV_INDEV_STATE_PR;
-
-//         /*Set the coordinates*/
-//         data->point.x = touchX;
-//         data->point.y = touchY;
-
-//     }
-    
-// }
 
 
 
@@ -198,6 +160,27 @@ void To_Eink_Port(){
   Serial.println("switched to Eink"); 
 }
 
+void To_LCD_Port_test(){
+  if(spi_started){
+    End_spi_transaction();
+    Serial.println("spi trans end");
+    }
+  TRANSFER_TO_LCD
+  Port_Init();
+  lv_disp_set_default(disp_lcd);
+  Serial.println("switched to LCD"); 
+}
+void To_Eink_Port_test(){
+  if(spi_started){
+    End_spi_transaction();
+    Serial.println("spi trans end");
+    }
+  TRANSFER_TO_EINK
+  Port_Init_Eink();
+  lv_disp_set_default(disp_eink);
+  Serial.println("switched to Eink"); 
+}
+
 void Port_Init(){
     static bool inited=false;
     Serial.println("start of lcd init");
@@ -208,12 +191,8 @@ void Port_Init(){
     tft.fillScreen(TFT_BLACK);
     
     if(!inited){
-    lv_init();
-    Serial.println("start of lcd lvgl driver init");
-    // }
-    // lv_disp_draw_buf_init( &disp_buf, buf, NULL, screenWidth * 50 );
     // lv_init();
-    // lv_port_disp_lcd_init(&tft);
+    Serial.println("start of lcd lvgl driver init");
 
     /*Set the touchscreen calibration data,
      the actual data for your display can be aquired using
@@ -226,24 +205,8 @@ void Port_Init(){
 
     /*Initialize the display*/
     lv_port_disp_lcd_init(&tft);
-    // static lv_disp_drv_t disp_drv;
-    // lv_disp_drv_init( &disp_drv );
-    // /*Change the following line to your display resolution*/
-    // disp_drv.hor_res = screenHeight;
-    // disp_drv.ver_res = screenWidth ;
-    // disp_drv.flush_cb = my_disp_flush;
-    // disp_drv.draw_buf = &draw_buf;
-    // disp_lcd=lv_disp_drv_register( &disp_drv );
-    // lv_disp_set_default(disp_lcd);
-
-    
     /*Initialize the (dummy) input device driver*/
     lv_port_indev_init();
-    // static lv_indev_drv_t indev_drv;
-    // lv_indev_drv_init( &indev_drv );
-    // indev_drv.type = LV_INDEV_TYPE_POINTER;
-    // indev_drv.read_cb = my_touchpad_read;
-    // lv_indev_drv_register( &indev_drv );
     scr_lcd = lv_scr_act();
     Serial.println("end of lcd lvgl driver init");
     }
@@ -259,21 +222,8 @@ void Port_Init_Eink(){
   epdControl.Init(FULL);
   if(!inited){
   Serial.println("begin of eink lvgl driver init");
-  // lv_disp_draw_buf_init(&draw_buf_eink, buf_eink, NULL, screenWidth * 30); //Initialize the display buffer.
-  // lv_disp_draw_buf_init( &disp_buf, buf, NULL, screenWidth * 50 );
+
   lv_port_disp_eink_init();
-  
-  // static lv_disp_drv_t disp_drv;                                                  //Descriptor of a display driver
-  // lv_disp_drv_init(&disp_drv);                                                    //Basic initialization
-  // disp_drv.flush_cb = my_disp_flush_eink;                                              //Set your driver function
-  // // disp_drv.draw_buf = &draw_buf_eink;                                                  //Assign the buffer to the display
-  // disp_drv.draw_buf = &draw_buf; 
-  // disp_drv.hor_res = MY_DISP_HOR_RES;                                             //Set the horizontal resolution of the display
-  // disp_drv.ver_res = MY_DISP_VER_RES;                                             //Set the vertical resolution of the display
-  // // disp_drv.sw_rotate=1;
-  // // disp_drv.rotated = LV_DISP_ROT_90;                                          //Set the rotation the display to 90
-  // disp_eink=lv_disp_drv_register(&disp_drv);  
-  // lv_disp_set_default(disp_eink); 
   
   scr_eink = lv_scr_act();                                             //Finally register the driver
   Serial.println("end of eink lvgl driver init");
@@ -293,11 +243,11 @@ void startFreeRtos(){
       configMAX_PRIORITIES - 1,
       // NULL);
       &handleTaskLvgl);
-  xTaskCreate(
-      TaskEinkUpdate,
-      "Update eink when detected semaphore",
-      10000,
-      nullptr,
-      configMAX_PRIORITIES - 2,
-      NULL);
+  // xTaskCreate(
+  //     TaskEinkUpdate,
+  //     "Update eink when detected semaphore",
+  //     10000,
+  //     nullptr,
+  //     configMAX_PRIORITIES - 2,
+  //     NULL);
 }

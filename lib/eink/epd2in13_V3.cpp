@@ -29,7 +29,8 @@
 ******************************************************************************/
 #include <stdlib.h>
 #include "epd2in13_V3.h"
-
+#include <spi.h>
+extern SPIClass spi;
 unsigned char lut_full_update[]= {
 	0x80,	0x4A,	0x40,	0x0,	0x0,	0x0,	0x0,	0x0,	0x0,	0x0,	0x0,	0x0,
 	0x40,	0x4A,	0x80,	0x0,	0x0,	0x0,	0x0,	0x0,	0x0,	0x0,	0x0,	0x0,
@@ -266,7 +267,7 @@ int Epd::Init(char Mode)
     } else {
         return -1;
     }
-
+    spi.endTransaction();
     return 0;
 }
 
@@ -327,10 +328,14 @@ void Epd::Display(const unsigned char* frame_buffer)
     }
 
     //DISPLAY REFRESH
+    Serial.println("Eink Display");
+    spi.beginTransaction(SPISettings(2000000, MSBFIRST, SPI_MODE0));
     SendCommand(0x22);
     SendData(0xC7);
     SendCommand(0x20);
     WaitUntilIdle();
+    spi.endTransaction();
+    Serial.println("Eink end of Display");
 }
 
 /******************************************************************************

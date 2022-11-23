@@ -75,7 +75,7 @@ void my_disp_flush_eink(lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *
       color_p++;
     }
   }
-  if(area->y2>=120)
+  // if(area->y2>=120)
     epdControl.Display(einkImg.GetImage());
   Serial.printf("y1 %d,y2 %d,x1 %d,x2 %d\r\n",area->y1,area->y2,area->x1,area->x2);
   // Serial.println("my_disp_flush: all pixel updated");
