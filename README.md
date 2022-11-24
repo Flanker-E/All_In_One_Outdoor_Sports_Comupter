@@ -66,3 +66,51 @@ Then the simulator should can work.
 todo 
 some basic function don't work under Mac c++ env.
 
+## Software Part Understanding
+### Software Init Pipeline
+Setup:  
+* HAL_init;  
+    * buzz: thread(tailored in this project)  
+*	Port_Init //LCD  
+    * Tft object setup, binding with LVGL  
+    * Create FreeRTOS task  
+*	App_init  
+    * Init data buffer, lv clear, init resourse, create apps, bind service  
+
+Loop:  
+*	HAL_update  
+
+After that, the FreeRTOS will periodically call lv_handler, which gives lvgl heart beat.  
+The software structure and lvgl outside of FreeRTOS will listen from input and periodic timers to do its job.  
+
+### Software Structure (explaination on content)
+#### FreeRTOS
+* Task1: lvgl update  
+* Task2: pending: HAL update 
+* Task3: pending: switch between LCD and Eink 
+plan : using state machine to control the shift between normal mode and low power mode.  
+#### Data Buffer:
+Namespace DataProc:  
+
+class:  
+Account:   
+all account connect to one data center. Using an id to distinguish.   
+Having a general pingpong buffer and a specified user data pointer.  
+Using commit to get data and use publish to notify all subscriber with new data.  
+Can data can be pull from subscriber.  
+Timer’s utility? Cmd utility?  
+
+DataCenter:  
+Provide find specific account utility.  
+Store accounts using account pool, which is a vector.  
+
+Pingpong buffer:  
+
+    void* buffer[2];
+        volatile uint8_t writeIndex;
+        volatile uint8_t readIndex;
+        volatile uint8_t readAvaliable[2];
+          
+readidx=0 or 1. After read, set avai to 0.  
+Write: can not be the same with read. Write to another slot and set its availability to 1.  
+
