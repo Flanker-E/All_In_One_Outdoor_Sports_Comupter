@@ -114,3 +114,68 @@ Pingpong buffer:
 readidx=0 or 1. After read, set avai to 0.  
 Write: can not be the same with read. Write to another slot and set its availability to 1.  
 
+#### App
+AppFactory: public inherited from PageFactory  
+Provide createpage check function. Check whether “create a page named xx” is legal. Then return the page object  
+
+PageManager: manage pages. Install, register, push&pop of page stack, page switch and the other stuff.  
+Organized the page-switching logic!  
+Install of page: init page, assign some information of this page.  
+Register of page: assign PM’s this pointer, assign page name to itself (?), pushback in pagepool  
+
+Page stack and page pool:  
+Page stack is used to store the sequence of appearance of pages. Page pool is used to check whether a page is registered or not.  
+
+The app will show after it is pushed into the stack by calling “SwitchTo”  
+Switch to: detect and copy stash into the target page.  
+
+The PM will raise StateUpdate to check the state and call corresponding functions in pages (state machine)  
+
+
+App使用MVC框架  
+[基本概念参考:](https://www.zhihu.com/question/27897315)  
+[详细细节以及 IOS viewcontroler：](https://www.jianshu.com/p/caaa173071f3)  
+[跟MVP的区别？](http://c.biancheng.net/view/7743.html) 然后会发现mvc的定义出现了分歧  
+
+
+实现了页面调度（生命周期）的功能  
+移植 通过push添加页面进池，pop弹出当前页面回到上一个页面  
+确认硬件没有初始化导致systeminfo会引用空指针  
+添加其他页面  
+
+Page：接口功能，包括创建，显示，加载等  
+PageView：功能实现，如创建，建组等  
+PageModel：数据交互功能，如读取数据更新等  
+
+onBtnClicked called by onEvent. onEvent is a callback function, which is attached to events by lv_obj_add_event_cb In onEvent
+
+The onEvent will call different functions based on the event code.  
+
+The information updates of map and dialplate are done by lv_timer  
+
+#### Button and Lvgl
+Encoder_Init provide: hardware interrupt when a pin changed, attach encoder with buttonEvent  
+Bind encoder in the Encoder_Init only provide long press power off feature(disable encoder difference calc)  
+Encoder_Update will call ButtonEvent’s EventMonitor, which judge the state of press. This can determin whether device should be power off.  
+
+Lvgl determines press event using the encoder_read call-back function. It reads diff and state from encoder driver.  
+#### Map
+Using Microsoft Tiled map system: different scale, different image.   
+Which uses scale number to calculate the crop of an image.  
+
+Namespace page  
+Class livemap :pagebase  
+
+MapConv mapConv;  
+TileConv tileConv;  
+
+When things are being updated. Enter or outside from map?
+Using lv_poly_line to record track line
+
+
+Observation: the map will exit when button is pressed(before release)
+#### Resource Pool
+Import fonts, label images
+
+
+
