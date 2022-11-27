@@ -415,6 +415,9 @@
     <Filter Include="App\Configs">
       <UniqueIdentifier>{a87c00e9-164a-4330-90af-c452b2391df6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="App\Pages\Settings">
+      <UniqueIdentifier>{f46a9232-32d8-4a0f-a1d5-55b6d309eb41}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lvgl\examples\get_started\lv_example_get_started.h">
@@ -1028,6 +1031,15 @@
     </ClInclude>
     <ClInclude Include="..\..\src\App\Configs\Version.h">
       <Filter>App\Configs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\App\Pages\Settings\Settings.h">
+      <Filter>App\Pages\Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\App\Pages\Settings\SettingsModel.h">
+      <Filter>App\Pages\Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\App\Pages\Settings\SettingsView.h">
+      <Filter>App\Pages\Settings</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -2098,6 +2110,15 @@
     </ClCompile>
     <ClCompile Include="..\..\src\App\Resource\Font\font_barlow_semiconre_17.c">
       <Filter>App\Resource\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\App\Pages\Settings\Settings.cpp">
+      <Filter>App\Pages\Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\App\Pages\Settings\SettingsModel.cpp">
+      <Filter>App\Pages\Settings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\App\Pages\Settings\SettingsView.cpp">
+      <Filter>App\Pages\Settings</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

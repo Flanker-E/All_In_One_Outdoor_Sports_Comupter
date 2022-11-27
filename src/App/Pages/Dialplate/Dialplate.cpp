@@ -146,8 +146,8 @@ void Dialplate::onBtnClicked(lv_obj_t* btn)
     }
     else if (btn == View.ui.btnCont.btnMenu)
     {
-        Manager->Push("Pages/SystemInfos");
-        PM_LOG_DEBUG_LN("sysinfo");
+        Manager->Push("Pages/Settings");
+        PM_LOG_DEBUG_LN("settings");
     }
 }
 
@@ -224,6 +224,7 @@ void Dialplate::SetBtnRecImgSrc(const char* srcName)
 
 void Dialplate::onEvent(lv_event_t* event)
 {
+    // instance is this here
     Dialplate* instance = (Dialplate*)lv_event_get_user_data(event);
     LV_ASSERT_NULL(instance);
 

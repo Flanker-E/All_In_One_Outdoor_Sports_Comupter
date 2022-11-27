@@ -101,6 +101,9 @@
     <ClInclude Include="..\..\src\App\Pages\LiveMap\LiveMapModel.h" />
     <ClInclude Include="..\..\src\App\Pages\LiveMap\LiveMapView.h" />
     <ClInclude Include="..\..\src\App\Pages\Page.h" />
+    <ClInclude Include="..\..\src\App\Pages\Settings\Settings.h" />
+    <ClInclude Include="..\..\src\App\Pages\Settings\SettingsModel.h" />
+    <ClInclude Include="..\..\src\App\Pages\Settings\SettingsView.h" />
     <ClInclude Include="..\..\src\App\Pages\Startup\Startup.h" />
     <ClInclude Include="..\..\src\App\Pages\Startup\StartupModel.h" />
     <ClInclude Include="..\..\src\App\Pages\Startup\StartupView.h" />
@@ -310,6 +313,9 @@
     <ClCompile Include="..\..\src\App\Pages\LiveMap\LiveMap.cpp" />
     <ClCompile Include="..\..\src\App\Pages\LiveMap\LiveMapModel.cpp" />
     <ClCompile Include="..\..\src\App\Pages\LiveMap\LiveMapView.cpp" />
+    <ClCompile Include="..\..\src\App\Pages\Settings\Settings.cpp" />
+    <ClCompile Include="..\..\src\App\Pages\Settings\SettingsModel.cpp" />
+    <ClCompile Include="..\..\src\App\Pages\Settings\SettingsView.cpp" />
     <ClCompile Include="..\..\src\App\Pages\Startup\Startup.cpp" />
     <ClCompile Include="..\..\src\App\Pages\Startup\StartupModel.cpp" />
     <ClCompile Include="..\..\src\App\Pages\Startup\StartupView.cpp" />

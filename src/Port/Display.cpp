@@ -1,6 +1,6 @@
 #include "Display.h"
 // #include "FS.h"
-
+TFT_eSPI tft = TFT_eSPI();
 TaskHandle_t handleTaskLvgl;
 void TaskLvglUpdate(void* parameter)
 {
@@ -122,7 +122,7 @@ void touch_calibrate()
 //     }
 // }
 // lv_indev_t* touch_indev;
-TFT_eSPI tft = TFT_eSPI();
+
 void Port_Init(){
 
 

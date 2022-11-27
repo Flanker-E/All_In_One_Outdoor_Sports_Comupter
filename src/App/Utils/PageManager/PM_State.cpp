@@ -40,7 +40,7 @@ void PageManager::StateUpdate(PageBase* base)
         break;
 
     case PageBase::PAGE_STATE_LOAD:
-        // Serial.println("stateloadex");
+        PM_LOG_INFO("Page(%s) state load", base->Name);
         base->priv.State = StateLoadExecute(base);
         // Serial.println("stateloadex");
         StateUpdate(base);
@@ -48,10 +48,12 @@ void PageManager::StateUpdate(PageBase* base)
         break;
 
     case PageBase::PAGE_STATE_WILL_APPEAR:
+        PM_LOG_INFO("Page(%s) state will appear", base->Name);
         base->priv.State = StateWillAppearExecute(base);
         break;
 
     case PageBase::PAGE_STATE_DID_APPEAR:
+        PM_LOG_INFO("Page(%s) state did appear", base->Name);
         base->priv.State = StateDidAppearExecute(base);
         PM_LOG_INFO("Page(%s) state active", base->Name);
         break;
@@ -63,10 +65,12 @@ void PageManager::StateUpdate(PageBase* base)
         break;
 
     case PageBase::PAGE_STATE_WILL_DISAPPEAR:
+        PM_LOG_INFO("Page(%s) state will disappear", base->Name);
         base->priv.State = StateWillDisappearExecute(base);
         break;
 
     case PageBase::PAGE_STATE_DID_DISAPPEAR:
+        PM_LOG_INFO("Page(%s) state did disappear", base->Name);
         base->priv.State = StateDidDisappearExecute(base);
         if (base->priv.State == PageBase::PAGE_STATE_UNLOAD)
         {
@@ -75,6 +79,7 @@ void PageManager::StateUpdate(PageBase* base)
         break;
 
     case PageBase::PAGE_STATE_UNLOAD:
+        PM_LOG_INFO("Page(%s) state unload", base->Name);
         base->priv.State = StateUnloadExecute(base);
         break;
 
@@ -91,7 +96,7 @@ void PageManager::StateUpdate(PageBase* base)
   */
 PageBase::State_t PageManager::StateLoadExecute(PageBase* base)
 {
-    PM_LOG_INFO("Page(%s) state load", base->Name);
+    // PM_LOG_INFO("Page(%s) state load", base->Name);
 
     if (base->root != nullptr)
     {
@@ -159,7 +164,7 @@ PageBase::State_t PageManager::StateWillAppearExecute(PageBase* base)
   */
 PageBase::State_t PageManager::StateDidAppearExecute(PageBase* base)
 {
-    PM_LOG_INFO("Page(%s) state did appear", base->Name);
+    
     base->onViewDidAppear();
     return PageBase::PAGE_STATE_ACTIVITY;
 }
@@ -171,7 +176,7 @@ PageBase::State_t PageManager::StateDidAppearExecute(PageBase* base)
   */
 PageBase::State_t PageManager::StateWillDisappearExecute(PageBase* base)
 {
-    PM_LOG_INFO("Page(%s) state will disappear", base->Name);
+    
     base->onViewWillDisappear();
     SwitchAnimCreate(base);
     return PageBase::PAGE_STATE_DID_DISAPPEAR;
@@ -184,7 +189,7 @@ PageBase::State_t PageManager::StateWillDisappearExecute(PageBase* base)
   */
 PageBase::State_t PageManager::StateDidDisappearExecute(PageBase* base)
 {
-    PM_LOG_INFO("Page(%s) state did disappear", base->Name);
+    
     if (GetCurrentLoadAnimType() == LOAD_ANIM_FADE_ON)
     {
         PM_LOG_INFO("AnimState.TypeCurrent == LOAD_ANIM_FADE_ON, Page(%s) hidden", base->Name);
@@ -209,7 +214,7 @@ PageBase::State_t PageManager::StateDidDisappearExecute(PageBase* base)
   */
 PageBase::State_t PageManager::StateUnloadExecute(PageBase* base)
 {
-    PM_LOG_INFO("Page(%s) state unload", base->Name);
+    
     if (base->root == nullptr)
     {
         PM_LOG_WARN("Page is loaded!");

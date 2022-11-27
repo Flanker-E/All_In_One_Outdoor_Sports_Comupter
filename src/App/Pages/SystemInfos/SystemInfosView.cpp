@@ -1,4 +1,5 @@
 #include "SystemInfosView.h"
+#include "../../Utils/PageManager/PM_Log.h"
 
 using namespace Page;
 
@@ -170,6 +171,7 @@ void SystemInfosView::onFocus(lv_group_t* g)
     lv_obj_t* icon = lv_group_get_focused(g);
     lv_obj_t* cont = lv_obj_get_parent(icon);
     lv_coord_t y = lv_obj_get_y(cont);
+    PM_LOG_INFO("scroll to %d",y);
     lv_obj_scroll_to_y(lv_obj_get_parent(cont), y, LV_ANIM_ON);
 }
 
