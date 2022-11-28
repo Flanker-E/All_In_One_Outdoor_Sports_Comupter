@@ -4,7 +4,7 @@
 #include "DialplateView.h"
 #include "DialplateModel.h"
 
-namespace Page
+namespace Page 
 {
 
 class Dialplate : public PageBase
