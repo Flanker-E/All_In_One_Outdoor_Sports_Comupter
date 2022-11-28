@@ -62,9 +62,9 @@ PageBase* PageManager::Push(const char* name, const PageBase::Stash_t* stash)
     PM_LOG_INFO("Page(%s) push >> [Screen] (stash = 0x%p)", name, stash);
 
     /* Page switching execution */
-    PM_LOG_DEBUG_LN("switch");
+    
     SwitchTo(base, true, stash);
-    PM_LOG_DEBUG_LN("switched");
+    // PM_LOG_DEBUG_LN("switched");
     return base;
 }
 
@@ -123,6 +123,7 @@ PageBase* PageManager::Pop()
   */
 void PageManager::SwitchTo(PageBase* newNode, bool isPushAct, const PageBase::Stash_t* stash)
 {
+    PM_LOG_DEBUG_LN("switch");
     if (newNode == nullptr)
     {
         PM_LOG_ERROR("newNode is nullptr");

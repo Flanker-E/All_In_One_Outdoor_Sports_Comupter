@@ -15,13 +15,9 @@ void Settings::onViewLoad(){
     View.Create(root);
     AttachEvent(root);
     AttachEvent(View.ui.info.icon);
+    AttachEvent(View.ui.ble.icon);
     AttachEvent(View.ui.back.icon);
-     //AttachEvent(View.ui.imu.icon);
-    // AttachEvent(View.ui.mag.icon);
-    // AttachEvent(View.ui.rtc.icon);
-    // AttachEvent(View.ui.battery.icon);
-    // AttachEvent(View.ui.storage.icon);
-    // AttachEvent(View.ui.system.icon);
+    
 }
 
 void Settings::onViewDidLoad(){}
@@ -29,56 +25,51 @@ void Settings::onViewDidLoad(){}
 void Settings::onViewWillAppear(){
     //Serial.println("onviewwillappear");
     lv_indev_wait_release(lv_indev_get_act());
+    // View.Style_Init();
     View.Group_Init();
+    
     Model.SetStatusBarStyle(DataProc::STATUS_BAR_STYLE_BLACK);
     //Serial.println("onviewwillappear");
     // timer = lv_timer_create(onTimerUpdate, 1000, this);
     // lv_timer_ready(timer);
+
+    if (lastFocus)
+    {
+        lv_group_focus_obj(lastFocus);
+    }
+    else
+    {
+        lv_group_focus_obj(View.ui.info.icon);
+    }
 
     View.SetScrollToY(root, -LV_VER_RES, LV_ANIM_OFF);
     //Serial.println("onviewwillappear");
     lv_obj_set_style_opa(root, LV_OPA_TRANSP, 0);
     //Serial.println("onviewwillappear");
     lv_obj_fade_in(root, 300, 0);
-    //Serial.println("onviewwillappear");
-    //Serial.println("onviewwillappear");
-    // lv_indev_wait_release(lv_indev_get_act());
-    // lv_group_t* group = lv_group_get_default();
-    // lv_group_set_wrap(group, false);
-    // lv_group_add_obj(group, View.ui.btnCont.btnInfos);
-    // lv_group_add_obj(group, View.ui.btnCont.btnBack);
-    // //Serial.println("btnRec");
-    // // lv_group_add_obj(group, View.ui.btnCont.btnMenu);
-    // //Serial.println("btnMenu");
 
-    // if (lastFocus)
-    // {
-    //     lv_group_focus_obj(lastFocus);
-    // }
-    // else
-    // {
-    //     lv_group_focus_obj(View.ui.btnCont.btnInfos);
-    // }
-    // //Serial.println("group");
-    // // Model.SetStatusBarStyle(DataProc::STATUS_BAR_STYLE_TRANSP);
-    // Model.SetStatusBarStyle(DataProc::STATUS_BAR_STYLE_BLACK);
-    // //Serial.println("to update");
-    // Update();
-
-    // View.SetScrollToY(root, -LV_VER_RES, LV_ANIM_OFF);
-    // lv_obj_set_style_opa(root, LV_OPA_TRANSP, 0);
-    // lv_obj_fade_in(root, 300, 0);
-    // View.AppearAnimStart();
 }
 
 void Settings::onViewDidAppear(){
-    View.onFocus(lv_group_get_default());
+    lv_group_t* group = lv_group_get_default();
+    View.onFocus(group);
+    PM_LOG_DEBUG("group pointer addr %p",group);
+    // if(group->focus_cb)
+    //     PM_LOG_DEBUG("group focus cb");
+    // else
+    //     PM_LOG_DEBUG("group no focus cb");
+    
 }
 
 void Settings::onViewWillDisappear(){
-    //lv_obj_fade_out(root, 300, 0);
+    lv_obj_fade_out(root, 300, 0);
     lv_group_t* group = lv_group_get_default();
-    lv_group_remove_all_objs(group);
+    lastFocus = lv_group_get_focused(group);
+    // lv_group_remove_all_objs(group);
+    lv_group_remove_obj(View.ui.info.icon);
+    lv_group_remove_obj(View.ui.ble.icon);
+    lv_group_remove_obj(View.ui.back.icon);
+    // group->focus_cb
 }
 
 void Settings::onViewDidDisappear(){}
@@ -86,6 +77,7 @@ void Settings::onViewDidDisappear(){}
 void Settings::onViewDidUnload(){
     View.Delete();
     Model.Deinit();
+    lastFocus=nullptr;
 }
 
 void Settings::onTimer(lv_timer_t* timer){}

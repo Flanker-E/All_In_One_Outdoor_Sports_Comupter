@@ -35,6 +35,16 @@ void SettingsView::Create(lv_obj_t* root){
 
     /* Item back */
     Item_Create(
+        &ui.ble,
+        root,
+        "BLE",
+        "bicycle",
+
+        "BLE config"
+    );
+
+    /* Item back */
+    Item_Create(
         &ui.back,
         root,
         "Back",
@@ -54,18 +64,24 @@ void SettingsView::Group_Init()
 {
     lv_group_t* group = lv_group_get_default();
     lv_group_set_wrap(group, true);
-    lv_group_set_focus_cb(group, onFocus);
+    // PM_LOG_DEBUG("set group focus cb");
+    // lv_group_set_focus_cb(lv_group_get_default(), onFocus);
+    if(group->focus_cb==nullptr){
+        PM_LOG_DEBUG("set group focus cb");
+        lv_group_set_focus_cb(group, onFocus);}
 
     lv_group_add_obj(group, ui.info.icon);
+    lv_group_add_obj(group, ui.ble.icon);
     lv_group_add_obj(group, ui.back.icon);
-    // lv_group_add_obj(group, ui.battery.icon);
+    
     // lv_group_add_obj(group, ui.rtc.icon);
     // lv_group_add_obj(group, ui.imu.icon);
     // lv_group_add_obj(group, ui.mag.icon);
     // lv_group_add_obj(group, ui.gps.icon);
     // lv_group_add_obj(group, ui.sport.icon);
-
-    lv_group_focus_obj(ui.back.icon);
+    // PM_LOG_INFO("focus");
+    // lv_group_focus_obj(ui.info.icon);
+    // PM_LOG_INFO("focus");
 }
 
 void SettingsView::SetScrollToY(lv_obj_t* obj, lv_coord_t y, lv_anim_enable_t en)

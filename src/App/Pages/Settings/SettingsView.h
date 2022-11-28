@@ -14,6 +14,7 @@ public:
     void SetScrollToY(lv_obj_t* obj, lv_coord_t y, lv_anim_enable_t en);
     static void onFocus(lv_group_t* g);
     void Group_Init();
+    void Style_Init();
 
 public:
     // struct
@@ -43,6 +44,7 @@ public:
     {
         item_t info;
         item_t back;
+        item_t ble;
         // item_t mag;
         // item_t imu;
         // item_t rtc;
@@ -62,7 +64,7 @@ private:
 
 private:
     
-    void Style_Init();
+    
     void Style_Reset();
     void Item_Create(
         item_t* item,

@@ -150,7 +150,7 @@ PageBase::State_t PageManager::StateLoadExecute(PageBase* base)
   */
 PageBase::State_t PageManager::StateWillAppearExecute(PageBase* base)
 {
-    PM_LOG_INFO("Page(%s) state will appear", base->Name);
+    // PM_LOG_INFO("Page(%s) state will appear", base->Name);
     base->onViewWillAppear();
     lv_obj_clear_flag(base->root, LV_OBJ_FLAG_HIDDEN);
     SwitchAnimCreate(base);

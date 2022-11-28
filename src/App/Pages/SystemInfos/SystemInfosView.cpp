@@ -138,7 +138,9 @@ void SystemInfosView::Group_Init()
 {
     lv_group_t* group = lv_group_get_default();
     lv_group_set_wrap(group, true);
-    lv_group_set_focus_cb(group, onFocus);
+    // lv_group_set_focus_cb(group, onFocus);
+    if(group->focus_cb==nullptr)
+        lv_group_set_focus_cb(group, onFocus);
 
     lv_group_add_obj(group, ui.system.icon);
     lv_group_add_obj(group, ui.storage.icon);
@@ -153,8 +155,9 @@ void SystemInfosView::Group_Init()
 }
 
 void SystemInfosView::Delete()
-{
-    lv_group_set_focus_cb(lv_group_get_default(), nullptr);
+{   
+    //should not use. It will make onFocus function unattachable(even set focus cb again won't help)
+    // lv_group_set_focus_cb(lv_group_get_default(), nullptr);
     Style_Reset();
 }
 

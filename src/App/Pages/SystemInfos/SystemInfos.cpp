@@ -63,6 +63,24 @@ void SystemInfos::onViewWillDisappear()
 
 void SystemInfos::onViewDidDisappear()
 {
+    lv_group_t* group = lv_group_get_default();
+    lv_group_remove_obj(View.ui.system.icon);
+    lv_group_remove_obj(View.ui.storage.icon);
+    lv_group_remove_obj(View.ui.battery.icon);
+    lv_group_remove_obj(View.ui.rtc.icon);
+    lv_group_remove_obj(View.ui.imu.icon);
+    lv_group_remove_obj(View.ui.mag.icon);
+    lv_group_remove_obj(View.ui.gps.icon);
+    lv_group_remove_obj(View.ui.sport.icon);
+
+    // lv_group_add_obj(group, ui.system.icon);
+    // lv_group_add_obj(group, ui.storage.icon);
+    // lv_group_add_obj(group, ui.battery.icon);
+    // lv_group_add_obj(group, ui.rtc.icon);
+    // lv_group_add_obj(group, ui.imu.icon);
+    // lv_group_add_obj(group, ui.mag.icon);
+    // lv_group_add_obj(group, ui.gps.icon);
+    // lv_group_add_obj(group, ui.sport.icon);
     lv_timer_del(timer);
 }
 
