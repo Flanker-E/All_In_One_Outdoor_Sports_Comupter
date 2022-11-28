@@ -1,4 +1,5 @@
 #include "DialplateView.h"
+#include "../../Configs/Config.h"
 #include <stdarg.h>
 #include <stdio.h>
 
@@ -58,7 +59,7 @@ void DialplateView::TopInfo_Create(lv_obj_t* par)
     lv_obj_set_size(cont, 254, 254);// LV_HOR_RES, LV_HOR_RES);// 7.0 / 12 * LV_VER_RES);
 
     lv_obj_set_style_bg_opa(cont, LV_OPA_COVER, 0);
-    lv_obj_set_style_bg_color(cont, lv_color_hex(0x333333), 0);
+    lv_obj_set_style_bg_color(cont, COLOR_DIM_TEXT, 0);
 
     lv_obj_set_style_radius(cont, 254/2, 0);
     lv_obj_align(cont, LV_ALIGN_TOP_MID, 0, -254 / 2 + 25);
@@ -71,7 +72,7 @@ void DialplateView::TopInfo_Create(lv_obj_t* par)
     lv_obj_set_size(subcont, 180, 180);// LV_HOR_RES, LV_HOR_RES);// 7.0 / 12 * LV_VER_RES);
 
     lv_obj_set_style_bg_opa(subcont, LV_OPA_COVER, 0);
-    lv_obj_set_style_bg_color(subcont, lv_color_black(), 0);
+    lv_obj_set_style_bg_color(subcont, COLOR_BACKGROUND, 0);
 
     lv_obj_set_style_radius(subcont, 180 / 2, 0);
     lv_obj_align(subcont, LV_ALIGN_CENTER, 0, 0);
@@ -81,14 +82,14 @@ void DialplateView::TopInfo_Create(lv_obj_t* par)
     lv_obj_t* label = lv_label_create(cont);
     lv_obj_set_style_text_font(label, ResourcePool::GetFont("barlow_conExBoIt_85"), 0);
     //lv_obj_set_style_text_font(label, &lv_font_montserrat_48, 0);
-    lv_obj_set_style_text_color(label, lv_color_white(), 0);
+    lv_obj_set_style_text_color(label, COLOR_TEXT, 0);
     lv_label_set_text(label, "00");
     lv_obj_align(label, LV_ALIGN_CENTER, 0, 40);
     ui.topInfo.labelSpeed = label;
 
     label = lv_label_create(cont);
     lv_obj_set_style_text_font(label, ResourcePool::GetFont("barlow_conExBoIt_30"), 0);
-    lv_obj_set_style_text_color(label, lv_color_white(), 0);
+    lv_obj_set_style_text_color(label, COLOR_TEXT, 0);
     lv_label_set_text(label, "KM/H");
     lv_obj_align_to(label, ui.topInfo.labelSpeed, LV_ALIGN_OUT_BOTTOM_MID, 0, 5);
     ui.topInfo.labelUint = label;
@@ -98,7 +99,7 @@ void DialplateView::BottomInfo_Create(lv_obj_t* par)
 {
     lv_obj_t* cont = lv_obj_create(par);
     lv_obj_remove_style_all(cont);
-    lv_obj_set_style_bg_color(cont, lv_color_black(), 0);
+    lv_obj_set_style_bg_color(cont, COLOR_BACKGROUND, 0);
     lv_obj_set_size(cont, LV_HOR_RES, 2.9/8.0*LV_VER_RES);
     lv_obj_align(cont, LV_ALIGN_TOP_MID, 0, 5.7 / 12 * LV_VER_RES);
 
@@ -147,12 +148,12 @@ void DialplateView::SubInfoGrp_Create(lv_obj_t* par, SubInfo_t* info, const char
 
     lv_obj_t* label = lv_label_create(cont);
     lv_obj_set_style_text_font(label, ResourcePool::GetFont("barlow_conExBoIt_23"), 0);
-    lv_obj_set_style_text_color(label, lv_color_white(), 0);
+    lv_obj_set_style_text_color(label, COLOR_TEXT, 0);
     info->lableValue = label;
 
     label = lv_label_create(cont);
     lv_obj_set_style_text_font(label, ResourcePool::GetFont("barlow_conExBoIt_17"), 0);
-    lv_obj_set_style_text_color(label, lv_color_hex(0xb3b3b3), 0);
+    lv_obj_set_style_text_color(label, COLOR_DIM_TEXT, 0);
     lv_label_set_text(label, unitText);
     info->lableUnit = label;
 
@@ -194,9 +195,9 @@ lv_obj_t* DialplateView::Btn_Create(lv_obj_t* par, const void* img_src, lv_coord
     lv_obj_set_style_bg_opa(obj, LV_OPA_COVER, 0);
     lv_obj_set_style_width(obj, 45, LV_STATE_PRESSED);
     lv_obj_set_style_height(obj, 25, LV_STATE_PRESSED);
-    lv_obj_set_style_bg_color(obj, lv_color_hex(0x666666), 0);
-    lv_obj_set_style_bg_color(obj, lv_color_hex(0xbbbbbb), LV_STATE_PRESSED);
-    lv_obj_set_style_bg_color(obj, lv_color_hex(0xff931e), LV_STATE_FOCUSED);
+    lv_obj_set_style_bg_color(obj, COLOR_UNFOCUS, 0);
+    lv_obj_set_style_bg_color(obj, COLOR_PRESSED, LV_STATE_PRESSED);
+    lv_obj_set_style_bg_color(obj, COLOR_FOCUS, LV_STATE_FOCUSED);
     lv_obj_set_style_radius(obj, 9, 0);
 
     static lv_style_transition_dsc_t tran;

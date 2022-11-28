@@ -33,6 +33,28 @@
 #define CONFIG_LIVE_MAP_VIEW_WIDTH            LV_HOR_RES
 #define CONFIG_LIVE_MAP_VIEW_HEIGHT           LV_VER_RES
 
+// color config
+#define UMICH_COLOR_MAIZE                     lv_color_hex(0xffcb05)
+#define UMICH_COLOR_BLUE                      lv_color_hex(0x00274c)
+#define UMICH_COLOR_WHITE                     lv_color_hex(0xffffff)
+
+// #define COLOR_BACKGROUND                      lv_color_black()
+// #define COLOR_FOCUS                           lv_color_hex(0xff931e)
+// #define COLOR_TEXT                            lv_color_white()
+// #define COLOR_DIM_TEXT                        lv_color_hex(0xb3b3b3)
+// #define COLOR_UNFOCUS                         lv_color_hex(0x666666)
+// #define COLOR_PRESSED                         lv_color_hex(0xbbbbbb)
+
+#define COLOR_BACKGROUND                      UMICH_COLOR_BLUE
+#define COLOR_FOCUS                           UMICH_COLOR_MAIZE
+
+// #define COLOR_BACKGROUND                      lv_color_black()
+// #define COLOR_FOCUS                           UMICH_COLOR_BLUE
+#define COLOR_TEXT                            UMICH_COLOR_WHITE
+#define COLOR_DIM_TEXT                        lv_color_hex(0x939393)
+#define COLOR_UNFOCUS                         COLOR_DIM_TEXT
+#define COLOR_PRESSED                         COLOR_DIM_TEXT
+
 /* Simulator */
 #define CONFIG_TRACK_VIRTUAL_GPX_FILE_PATH    "S:/TRK_20210801_203324.gpx"
 

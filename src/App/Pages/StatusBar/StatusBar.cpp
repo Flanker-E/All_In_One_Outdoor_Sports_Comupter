@@ -24,6 +24,7 @@
 #include "../Page.h"
 #include "../../Common/DataProc/DataProc.h"
 #include "../../Utils/lv_anim_label/lv_anim_label.h"
+#include "../../Configs/Config.h"
 
 #define BATT_USAGE_HEIGHT (lv_obj_get_style_height(ui.battery.img, 0) - 6)
 #define BATT_USAGE_WIDTH  (lv_obj_get_style_width(ui.battery.img, 0) - 4)
@@ -103,7 +104,7 @@ static lv_obj_t* StatusBar_RecAnimLabelCreate(lv_obj_t* par)
 {
     static lv_style_t style_label;
     lv_style_init(&style_label);
-    lv_style_set_text_color(&style_label, lv_color_white());
+    lv_style_set_text_color(&style_label, COLOR_TEXT);
     lv_style_set_text_font(&style_label, ResourcePool::GetFont("barlow_semiconre_17"));
 
     lv_obj_t* alabel = lv_anim_label_create(par);
@@ -115,7 +116,7 @@ static lv_obj_t* StatusBar_RecAnimLabelCreate(lv_obj_t* par)
     lv_anim_label_add_style(alabel, &style_label);
 
     lv_obj_align(alabel, LV_ALIGN_RIGHT_MID, -45, 0);
-    //lv_obj_set_style_border_color(alabel, lv_color_white(), 0);
+    //lv_obj_set_style_border_color(alabel, COLOR_TEXT, 0);
     //lv_obj_set_style_border_width(alabel, 1, 0);
 
     lv_anim_t a_enter;
@@ -190,8 +191,8 @@ static void StatusBar_StyleInit(lv_obj_t* cont)
 
     /* style2 */
     lv_obj_set_style_bg_opa(cont, LV_OPA_60, LV_STATE_USER_1);
-    lv_obj_set_style_bg_color(cont, lv_color_black(), LV_STATE_USER_1);
-    lv_obj_set_style_shadow_color(cont, lv_color_black(), LV_STATE_USER_1);
+    lv_obj_set_style_bg_color(cont, COLOR_BACKGROUND, LV_STATE_USER_1);
+    lv_obj_set_style_shadow_color(cont, COLOR_BACKGROUND, LV_STATE_USER_1);
     lv_obj_set_style_shadow_width(cont, 10, LV_STATE_USER_1);
 
     static lv_style_transition_dsc_t tran;
@@ -270,7 +271,7 @@ lv_obj_t* Page::StatusBar_Create(lv_obj_t* par)
 
     static lv_style_t style_label;
     lv_style_init(&style_label);
-    lv_style_set_text_color(&style_label, lv_color_white());
+    lv_style_set_text_color(&style_label, COLOR_TEXT);
     lv_style_set_text_font(&style_label, ResourcePool::GetFont("barlow_semiconre_17"));
 
     /* satellite */
@@ -308,7 +309,7 @@ lv_obj_t* Page::StatusBar_Create(lv_obj_t* par)
 
     lv_obj_t* obj = lv_obj_create(img);
     lv_obj_remove_style_all(obj);
-    lv_obj_set_style_bg_color(obj, lv_color_white(), 0);
+    lv_obj_set_style_bg_color(obj, COLOR_TEXT, 0);
     lv_obj_set_style_bg_opa(obj, LV_OPA_COVER, 0);
     lv_obj_set_style_opa(obj, LV_OPA_COVER, 0);
     lv_obj_set_size(obj, BATT_USAGE_WIDTH, BATT_USAGE_HEIGHT);

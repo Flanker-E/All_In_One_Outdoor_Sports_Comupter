@@ -1,5 +1,6 @@
 #include "SystemInfosView.h"
 #include "../../Utils/PageManager/PM_Log.h"
+#include "../../Configs/Config.h"
 
 using namespace Page;
 
@@ -10,7 +11,7 @@ void SystemInfosView::Create(lv_obj_t* root)
 {
     lv_obj_remove_style_all(root);
     lv_obj_set_size(root, LV_HOR_RES, LV_VER_RES);
-    lv_obj_set_style_bg_color(root, lv_color_black(), 0);
+    lv_obj_set_style_bg_color(root, COLOR_BACKGROUND, 0);
     lv_obj_set_style_bg_opa(root, LV_OPA_COVER, 0);
     lv_obj_set_style_pad_ver(root, ITEM_PAD, 0);
 
@@ -182,16 +183,16 @@ void SystemInfosView::Style_Init()
 {
     lv_style_init(&style.icon);
     lv_style_set_width(&style.icon, 220);
-    lv_style_set_bg_color(&style.icon, lv_color_black());
+    lv_style_set_bg_color(&style.icon, COLOR_BACKGROUND);
     lv_style_set_bg_opa(&style.icon, LV_OPA_COVER);
     lv_style_set_text_font(&style.icon, ResourcePool::GetFont("barlow_semiconre_17"));
-    lv_style_set_text_color(&style.icon, lv_color_white());
+    lv_style_set_text_color(&style.icon, COLOR_TEXT);
 
     lv_style_init(&style.focus);
     lv_style_set_width(&style.focus, 70);
     lv_style_set_border_side(&style.focus, LV_BORDER_SIDE_RIGHT);
     lv_style_set_border_width(&style.focus, 2);
-    lv_style_set_border_color(&style.focus, lv_color_hex(0xff931e));
+    lv_style_set_border_color(&style.focus, COLOR_FOCUS);
 
     static const lv_style_prop_t style_prop[] =
     {
@@ -213,11 +214,11 @@ void SystemInfosView::Style_Init()
 
     lv_style_init(&style.info);
     lv_style_set_text_font(&style.info, ResourcePool::GetFont("barlow_semiconre_17"));
-    lv_style_set_text_color(&style.info, lv_color_hex(0x999999));
+    lv_style_set_text_color(&style.info, COLOR_DIM_TEXT);
 
     lv_style_init(&style.data);
     lv_style_set_text_font(&style.data, ResourcePool::GetFont("barlow_semiconre_17"));
-    lv_style_set_text_color(&style.data, lv_color_white());
+    lv_style_set_text_color(&style.data, COLOR_TEXT);
 }
 
 void SystemInfosView::Style_Reset()

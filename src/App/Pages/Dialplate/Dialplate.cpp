@@ -253,7 +253,13 @@ void Dialplate::onEvent(lv_event_t* event)
         }
         else if (code == LV_EVENT_LONG_PRESSED)
         {
+            PM_LOG_DEBUG_LN("long pressed");
             instance->onRecord(true);
         }
+        // keep pressing
+        // else if (code == LV_EVENT_LONG_PRESSED_REPEAT){
+        //     PM_LOG_DEBUG_LN("long pressed repeat");
+        //     instance->onRecord(true);
+        // }
     }
 }

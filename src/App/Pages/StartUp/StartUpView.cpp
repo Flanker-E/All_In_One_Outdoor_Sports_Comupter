@@ -1,9 +1,10 @@
 #include "StartupView.h"
 #include "../../Configs/Version.h"
+#include "../../Configs/Config.h"
 
 using namespace Page;
 
-#define COLOR_ORANGE    lv_color_hex(0xff931e)
+// #define COLOR_FOCUS    COLOR_FOCUS
 
 void StartupView::Create(lv_obj_t* root)
 {
@@ -14,7 +15,7 @@ void StartupView::Create(lv_obj_t* root)
     lv_obj_remove_style_all(cont);
     lv_obj_clear_flag(cont, LV_OBJ_FLAG_SCROLLABLE);
     lv_obj_set_size(cont, 110, 50);
-    lv_obj_set_style_border_color(cont, COLOR_ORANGE, 0);
+    lv_obj_set_style_border_color(cont, COLOR_FOCUS, 0);
     lv_obj_set_style_border_side(cont, LV_BORDER_SIDE_BOTTOM, 0);
     lv_obj_set_style_border_width(cont, 3, 0);
     lv_obj_set_style_border_post(cont, true, 0);
@@ -24,7 +25,7 @@ void StartupView::Create(lv_obj_t* root)
     lv_obj_t* label = lv_label_create(cont);
     lv_obj_set_style_text_font(label, ResourcePool::GetFont("agencyb_36"), 0);
     //lv_obj_set_style_text_font(label, &lv_font_montserrat_26, 0);
-    lv_obj_set_style_text_color(label, lv_color_white(), 0);
+    lv_obj_set_style_text_color(label, COLOR_TEXT, 0);
     lv_label_set_text(label, VERSION_FIRMWARE_NAME);
     lv_obj_center(label);
     ui.labelLogo = label;

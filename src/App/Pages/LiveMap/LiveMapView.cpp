@@ -18,7 +18,7 @@ void LiveMapView::Create(lv_obj_t* root, uint32_t tileNum)
 {
     lv_obj_remove_style_all(root);
     lv_obj_set_size(root, LV_HOR_RES, LV_VER_RES);
-    lv_obj_set_style_bg_color(root, lv_color_white(), 0);
+    lv_obj_set_style_bg_color(root, COLOR_TEXT, 0);
     lv_obj_set_style_bg_opa(root, LV_OPA_COVER, 0);
 
     lv_obj_t* label = lv_label_create(root);
@@ -55,18 +55,18 @@ void LiveMapView::Delete()
 void LiveMapView::Style_Create()
 {
     lv_style_init(&ui.styleCont);
-    lv_style_set_bg_color(&ui.styleCont, lv_color_black());
+    lv_style_set_bg_color(&ui.styleCont, COLOR_BACKGROUND);
     lv_style_set_bg_opa(&ui.styleCont, LV_OPA_60);
     lv_style_set_radius(&ui.styleCont, 6);
     lv_style_set_shadow_width(&ui.styleCont, 10);
-    lv_style_set_shadow_color(&ui.styleCont, lv_color_black());
+    lv_style_set_shadow_color(&ui.styleCont, COLOR_BACKGROUND);
 
     lv_style_init(&ui.styleLabel);
     lv_style_set_text_font(&ui.styleLabel, ResourcePool::GetFont("bahnschrift_17"));
-    lv_style_set_text_color(&ui.styleLabel, lv_color_white());
+    lv_style_set_text_color(&ui.styleLabel, COLOR_TEXT);
 
     lv_style_init(&ui.styleLine);
-    lv_style_set_line_color(&ui.styleLine, lv_color_hex(0xff931e));
+    lv_style_set_line_color(&ui.styleLine, COLOR_FOCUS);
     lv_style_set_line_width(&ui.styleLine, 5);
     lv_style_set_line_opa(&ui.styleLine, LV_OPA_COVER);
     lv_style_set_line_rounded(&ui.styleLine, true);
@@ -214,14 +214,14 @@ void LiveMapView::SportInfo_Create(lv_obj_t* par)
     lv_obj_t* label = lv_label_create(obj);
     lv_label_set_text(label, "00");
     lv_obj_set_style_text_font(label, ResourcePool::GetFont("bahnschrift_32"), 0);
-    lv_obj_set_style_text_color(label, lv_color_white(), 0);
+    lv_obj_set_style_text_color(label, COLOR_TEXT, 0);
     lv_obj_align(label, LV_ALIGN_LEFT_MID, 20, -10);
     ui.sportInfo.labelSpeed = label;
 
     label = lv_label_create(obj);
     lv_label_set_text(label, "km/h");
     lv_obj_set_style_text_font(label, ResourcePool::GetFont("bahnschrift_13"), 0);
-    lv_obj_set_style_text_color(label, lv_color_white(), 0);
+    lv_obj_set_style_text_color(label, COLOR_TEXT, 0);
     lv_obj_align_to(label, ui.sportInfo.labelSpeed, LV_ALIGN_OUT_BOTTOM_MID, 0, 3);
 
     ui.sportInfo.labelTrip = ImgLabel_Create(obj, ResourcePool::GetImage("trip"), 5, 10);
