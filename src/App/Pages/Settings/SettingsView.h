@@ -45,6 +45,7 @@ public:
         item_t info;
         item_t back;
         item_t ble;
+        item_t wifi;
         // item_t mag;
         // item_t imu;
         // item_t rtc;

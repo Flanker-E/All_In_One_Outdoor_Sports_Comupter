@@ -29,7 +29,7 @@ void SettingsView::Create(lv_obj_t* root){
         &ui.info,
         root,
         "Info",
-        "system",
+        "sysinfo",
 
         "More Information"
     );
@@ -39,9 +39,19 @@ void SettingsView::Create(lv_obj_t* root){
         &ui.ble,
         root,
         "BLE",
-        "bicycle",
+        "ble",
 
         "BLE config"
+    );
+
+    /* Item back */
+    Item_Create(
+        &ui.wifi,
+        root,
+        "WIFI",
+        "wifi",
+
+        "WIFI config"
     );
 
     /* Item back */
@@ -49,7 +59,7 @@ void SettingsView::Create(lv_obj_t* root){
         &ui.back,
         root,
         "Back",
-        "bicycle",
+        "back",
 
         "Back to sport"
     );
@@ -72,6 +82,7 @@ void SettingsView::Group_Init()
         lv_group_set_focus_cb(group, onFocus);}
 
     lv_group_add_obj(group, ui.back.icon);
+    lv_group_add_obj(group, ui.wifi.icon);
     lv_group_add_obj(group, ui.ble.icon);
     lv_group_add_obj(group, ui.info.icon);
     
@@ -193,11 +204,11 @@ void SettingsView::Item_Create(
     item->labelInfo = label;
 
     /* datas */
-    label = lv_label_create(cont);
-    lv_label_set_text(label, "button");
-    lv_obj_add_style(label, &style.data, 0);
-    lv_obj_align(label, LV_ALIGN_CENTER, 60, 0);
-    item->button = label;
+    // label = lv_label_create(cont);
+    // lv_label_set_text(label, "button");
+    // lv_obj_add_style(label, &style.data, 0);
+    // lv_obj_align(label, LV_ALIGN_CENTER, 60, 0);
+    // item->button = label;
 
     lv_obj_move_foreground(icon);
 

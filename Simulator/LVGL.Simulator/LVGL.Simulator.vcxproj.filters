@@ -2120,6 +2120,18 @@
     <ClCompile Include="..\..\src\App\Pages\Settings\SettingsView.cpp">
       <Filter>App\Pages\Settings</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\App\Resource\Image\img_src_back.c">
+      <Filter>App\Resource\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\App\Resource\Image\img_src_ble.c">
+      <Filter>App\Resource\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\App\Resource\Image\img_src_sysinfo.c">
+      <Filter>App\Resource\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\App\Resource\Image\img_src_wifi.c">
+      <Filter>App\Resource\Image</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="lvgl\.github\ISSUE_TEMPLATE\bug-report.md">

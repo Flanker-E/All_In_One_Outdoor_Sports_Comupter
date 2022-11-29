@@ -6,24 +6,7 @@
 
 
 // #include "TouchScreen.h"
-/*If you want to use the LVGL examples,
-  make sure to install the lv_examples Arduino library
-  and uncomment the following line.
-#include <lv_examples.h>
-*/
 
-// TaskHandle_t handleTaskLvgl;
-// void TaskLvglUpdate(void* parameter)
-// {
-//     ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
-
-//     for (;;)
-//     {
-//         lv_task_handler();
-
-//         delay(5);
-//     }
-// }
 void setup()
 {
   //  File f = SPIFFS.open(CALIBRATION_FILE, "r");
@@ -36,40 +19,12 @@ void setup()
     // Serial.println( "I am LVGL_Arduino" );
 
 
-
-// #if 0
-//     /* Create simple label */
-//     lv_obj_t *label = lv_label_create( lv_scr_act() );
-//     lv_label_set_text( label, LVGL_Arduino.c_str() );
-//     lv_obj_align( label, LV_ALIGN_CENTER, 0, 0 );
-// #else
-    /* Try an example from the lv_examples Arduino library
-       make sure to include it as written above.
-    lv_example_btn_1();
-   */
     HAL::HAL_Init();
     Serial.println( "HAL Init" );
     Port_Init();
     // Serial.printf( "maintest:%d\n",test );
     Serial.println( "Port Init" );
-    // uncomment one of these demos
-    // lv_demo_widgets();            // OK
-    // Serial.println( "Demo Init" );
-    // lv_demo_benchmark();          // OK
-    // lv_demo_keypad_encoder();     // works, but I haven't an encoder
-    // lv_demo_music();              // NOK
-    // lv_demo_printer();
-    // lv_demo_stress();             // seems to be OK
-// #endif
-// Update display in parallel thread.
-    // xTaskCreate(
-    //     TaskLvglUpdate,
-    //     "LvglThread",
-    //     20000,
-    //     nullptr,
-    //     configMAX_PRIORITIES - 1,
-    //     // NULL);
-    //     &handleTaskLvgl);
+
     App_Init();
 
     Serial.println( "Setup done" );

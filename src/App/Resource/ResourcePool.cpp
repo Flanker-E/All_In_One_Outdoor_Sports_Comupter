@@ -57,6 +57,11 @@ do{\
         IMPORT_IMG(system_info);
         IMPORT_IMG(time_info);
         IMPORT_IMG(trip);
+        //newly added
+        IMPORT_IMG(back);
+        IMPORT_IMG(ble);
+        IMPORT_IMG(sysinfo);
+        IMPORT_IMG(wifi);
     }
 
 } /* extern "C" */

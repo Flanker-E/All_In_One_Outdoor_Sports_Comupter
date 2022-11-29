@@ -58,11 +58,6 @@ void SystemInfos::onViewDidAppear()
 
 void SystemInfos::onViewWillDisappear()
 {
-    lv_obj_fade_out(root, 300, 0);
-}
-
-void SystemInfos::onViewDidDisappear()
-{
     lv_group_t* group = lv_group_get_default();
     lv_group_remove_obj(View.ui.system.icon);
     lv_group_remove_obj(View.ui.storage.icon);
@@ -72,6 +67,12 @@ void SystemInfos::onViewDidDisappear()
     lv_group_remove_obj(View.ui.mag.icon);
     lv_group_remove_obj(View.ui.gps.icon);
     lv_group_remove_obj(View.ui.sport.icon);
+    // lv_obj_fade_out(root, 300, 0);
+}
+
+void SystemInfos::onViewDidDisappear()
+{
+
 
     // lv_group_add_obj(group, ui.system.icon);
     // lv_group_add_obj(group, ui.storage.icon);
@@ -82,6 +83,7 @@ void SystemInfos::onViewDidDisappear()
     // lv_group_add_obj(group, ui.gps.icon);
     // lv_group_add_obj(group, ui.sport.icon);
     lv_timer_del(timer);
+    lv_obj_fade_out(root, 300, 0);
 }
 
 void SystemInfos::onViewDidUnload()

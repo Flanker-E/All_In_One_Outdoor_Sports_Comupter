@@ -5,7 +5,8 @@
 #endif
 using namespace Page;
 
-Settings::Settings(){}
+Settings::Settings()
+: lastFocus(nullptr){}
 Settings::~Settings(){}
 
 void Settings::onCustomAttrConfig(){}
@@ -16,6 +17,7 @@ void Settings::onViewLoad(){
     AttachEvent(root);
     AttachEvent(View.ui.info.icon);
     AttachEvent(View.ui.ble.icon);
+    AttachEvent(View.ui.wifi.icon);
     AttachEvent(View.ui.back.icon);
     
 }
@@ -33,7 +35,7 @@ void Settings::onViewWillAppear(){
     // timer = lv_timer_create(onTimerUpdate, 1000, this);
     // lv_timer_ready(timer);
 
-    if (lastFocus)
+    if (lastFocus!=nullptr)
     {
         lv_group_focus_obj(lastFocus);
     }
@@ -62,17 +64,20 @@ void Settings::onViewDidAppear(){
 }
 
 void Settings::onViewWillDisappear(){
-    lv_obj_fade_out(root, 300, 0);
+    
     lv_group_t* group = lv_group_get_default();
     lastFocus = lv_group_get_focused(group);
     // lv_group_remove_all_objs(group);
     lv_group_remove_obj(View.ui.info.icon);
     lv_group_remove_obj(View.ui.ble.icon);
+    lv_group_remove_obj(View.ui.wifi.icon);
     lv_group_remove_obj(View.ui.back.icon);
     // group->focus_cb
 }
 
-void Settings::onViewDidDisappear(){}
+void Settings::onViewDidDisappear(){
+    lv_obj_fade_out(root, 300, 0);
+}
 
 void Settings::onViewDidUnload(){
     View.Delete();

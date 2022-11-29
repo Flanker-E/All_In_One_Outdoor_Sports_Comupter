@@ -338,9 +338,11 @@
     <ClCompile Include="..\..\src\App\Resource\Font\font_barlow_conExBoIt_85.c" />
     <ClCompile Include="..\..\src\App\Resource\Font\font_barlow_semiconre_17.c" />
     <ClCompile Include="..\..\src\App\Resource\Image\img_src_alarm.c" />
+    <ClCompile Include="..\..\src\App\Resource\Image\img_src_back.c" />
     <ClCompile Include="..\..\src\App\Resource\Image\img_src_battery.c" />
     <ClCompile Include="..\..\src\App\Resource\Image\img_src_battery_info.c" />
     <ClCompile Include="..\..\src\App\Resource\Image\img_src_bicycle.c" />
+    <ClCompile Include="..\..\src\App\Resource\Image\img_src_ble.c" />
     <ClCompile Include="..\..\src\App\Resource\Image\img_src_compass.c" />
     <ClCompile Include="..\..\src\App\Resource\Image\img_src_gps_arrow_dark.c" />
     <ClCompile Include="..\..\src\App\Resource\Image\img_src_gps_arrow_default.c" />
@@ -357,9 +359,11 @@
     <ClCompile Include="..\..\src\App\Resource\Image\img_src_start.c" />
     <ClCompile Include="..\..\src\App\Resource\Image\img_src_stop.c" />
     <ClCompile Include="..\..\src\App\Resource\Image\img_src_storage.c" />
+    <ClCompile Include="..\..\src\App\Resource\Image\img_src_sysinfo.c" />
     <ClCompile Include="..\..\src\App\Resource\Image\img_src_system_info.c" />
     <ClCompile Include="..\..\src\App\Resource\Image\img_src_time_info.c" />
     <ClCompile Include="..\..\src\App\Resource\Image\img_src_trip.c" />
+    <ClCompile Include="..\..\src\App\Resource\Image\img_src_wifi.c" />
     <ClCompile Include="..\..\src\App\Resource\ResourcePool.cpp" />
     <ClCompile Include="..\..\src\App\Utils\DataCenter\Account.cpp" />
     <ClCompile Include="..\..\src\App\Utils\DataCenter\DataCenter.cpp" />
