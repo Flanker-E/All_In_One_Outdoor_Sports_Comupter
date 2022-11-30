@@ -12,6 +12,8 @@
 20221120 case 3D modeling v1.4, revision for PCB v2.7  
 20221122 incorporate encoder and touch screen  
 20221123 solved the switch between LCD and Eink  
+20221127 adding settings page  
+20221128 design settings items' icon  
 
 ## Credit to 
 Based on [X-Track](https://github.com/FASTSHIFT/X-TRACK), [Peak](https://github.com/peng-zhihui/Peak) and [Peak-T2](https://gitee.com/forairaaaaa/peak-t2/tree/master/1.Hardware#https://gitee.com/link?target=https%3A%2F%2Foshwhub.com%2Feedadada%2Ffed36bbc19da4527b237982f9cd09f99)
