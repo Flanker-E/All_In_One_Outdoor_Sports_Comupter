@@ -31,8 +31,6 @@ static lv_color_t buf[ screenWidth * 50 ];
 // typedef TFT_eSPI SCREEN_CLASS;
 void To_LCD_Port();
 void To_Eink_Port();
-void To_LCD_Port_test();
-void To_Eink_Port_test();
 void Port_Init_Eink();
 void Port_Init();
 void End_spi_transaction();

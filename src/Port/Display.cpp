@@ -1,6 +1,6 @@
 #include "Display.h"
 
-#include "epd2in13_V3.h"
+#include "epd1in54_V2.h"
 // #include "epdpaint.h"
 // #include "imagedata.h"
 
@@ -15,6 +15,7 @@ lv_disp_t * disp_eink;
 lv_obj_t * scr_lcd;
 lv_obj_t * scr_eink;
 volatile bool spi_started=false;
+volatile bool isLCD=false;
 
 TaskHandle_t handleTaskLvgl;
 SemaphoreHandle_t einkUpdateSemaphore;
@@ -36,7 +37,7 @@ void TaskLvglUpdate(void* parameter)
 }
 void TaskEinkUpdate(void *parameter)
 {
-    static bool isLCD=true;
+    
 //   Epd myEink = ((EinkSemaphoreUpdateConfig*)parameter )->einkDisplay;
 //   unsigned char * imageData = ((EinkSemaphoreUpdateConfig*)parameter )->imageData;
 //   SemaphoreHandle_t einkUpdateSemaphore = *(((EinkSemaphoreUpdateConfig*)parameter )->xSemaphore);
@@ -160,26 +161,6 @@ void To_Eink_Port(){
   Serial.println("switched to Eink"); 
 }
 
-void To_LCD_Port_test(){
-  if(spi_started){
-    End_spi_transaction();
-    Serial.println("spi trans end");
-    }
-  TRANSFER_TO_LCD
-  Port_Init();
-  lv_disp_set_default(disp_lcd);
-  Serial.println("switched to LCD"); 
-}
-void To_Eink_Port_test(){
-  if(spi_started){
-    End_spi_transaction();
-    Serial.println("spi trans end");
-    }
-  TRANSFER_TO_EINK
-  Port_Init_Eink();
-  lv_disp_set_default(disp_eink);
-  Serial.println("switched to Eink"); 
-}
 
 void Port_Init(){
     static bool inited=false;
@@ -219,7 +200,7 @@ void Port_Init(){
 void Port_Init_Eink(){
   static bool inited=false;
   Serial.println("begin of eink init");
-  epdControl.Init(FULL);
+  epdControl.LDirInit();
   if(!inited){
   Serial.println("begin of eink lvgl driver init");
 
@@ -243,11 +224,11 @@ void startFreeRtos(){
       configMAX_PRIORITIES - 1,
       // NULL);
       &handleTaskLvgl);
-  // xTaskCreate(
-  //     TaskEinkUpdate,
-  //     "Update eink when detected semaphore",
-  //     10000,
-  //     nullptr,
-  //     configMAX_PRIORITIES - 2,
-  //     NULL);
+  xTaskCreate(
+      TaskEinkUpdate,
+      "Update eink when detected semaphore",
+      10000,
+      nullptr,
+      configMAX_PRIORITIES - 2,
+      NULL);
 }

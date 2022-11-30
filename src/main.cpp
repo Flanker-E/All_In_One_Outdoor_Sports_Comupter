@@ -86,6 +86,7 @@ int time1=0;
 HAL::GPS_Info_t gps_info;
 HAL::IMU_Info_t imu_info;
 
+extern volatile bool isLCD;
 // eink object
 // Epd epd;
 // unsigned char image[1536];
@@ -110,11 +111,12 @@ void onTimerUpdate(lv_timer_t* timer){
     "Altitude\n"
     "Speed",
     */
-   static bool isLCD=false;
+//    static bool isLCD=false;
    static int count=0;
    
    Serial.println( "text_update" );
    if(isLCD){
+    Serial.println( "is LCD" );
     if(gps_info.isVaild)
           lv_label_set_text_fmt(
               Data_GPS,
@@ -154,6 +156,7 @@ void onTimerUpdate(lv_timer_t* timer){
       );
     }
     else{
+        Serial.println( "is Eink" );
       lv_label_set_text_fmt(
           Data_North,
           "%dm\n",
@@ -168,16 +171,17 @@ void onTimerUpdate(lv_timer_t* timer){
     count++;
     if(count==4){
         //give semaphore
-        // xSemaphoreGive(einkUpdateSemaphore);
         // Serial.println("give eink update semaphore");
+        // xSemaphoreGive(einkUpdateSemaphore);
+        
         count=0;
-        Serial.println("update semaphore detected, switch");
+        // Serial.println("update semaphore detected, switch");
       if(isLCD){
-        To_Eink_Port_test();
+        To_Eink_Port();
       // Eink_info_init();
       }
       else
-        To_LCD_Port_test();
+        To_LCD_Port();
       isLCD=!isLCD;
     //   lv_task_handler();
       Serial.println("end of switch");
@@ -252,30 +256,30 @@ void Eink_info_init(void)
       Info_North,
       Data_North,
       "North:",
-      9,
-      8
+      27,
+      53
   );
   Eink_Item_Create(
       Info_East,
       Data_East,
       "East",
-      9,
-      44
+      27,
+      88
   );
   Eink_Item_Create(
       Info_Dest,
-      Data_Dest,
+      Data_Dest, 
       "Dest",
-      9,
-      80
+      27,
+      123
   );
 
   Eink_Item_Create(
       Info_Batt,
       Data_Batt,
       "Batt:",
-      173,
-      8
+      15,
+      9
   );
 //   Eink_Item_Create(
 //       Info_GPS,
@@ -392,26 +396,6 @@ void setup()
     To_Eink_Port();
     Eink_info_init();
     startFreeRtos();
-    // delay(1000);
-    // // End_spi_transaction();
-    
-    // // Serial.println("start rtos");
-    
-    // // lv_task_handler();
-    // // Serial.println("delay begin");
-    // //eink test end
-    // // delay(5000);
-    // Serial.println("end of eink set up");
-    // // TRANSFER_TO_LCD
-    // // Port_Init();
-    // To_LCD_Port();
-    // delay(3000);
-    // To_Eink_Port();
-    // Eink_info_init();
-    // delay(1000);
-    // To_LCD_Port();
-    // lv_disp_set_default(disp_lcd);
-
 
  
     // create timer that update the data text at certain period

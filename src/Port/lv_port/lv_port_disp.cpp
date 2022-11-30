@@ -1,5 +1,5 @@
 #include "Port/Display.h"
-#include "epd2in13_V3.h"
+#include "epd1in54_V2.h"
 #include "epdpaint.h"
 #include "imagedata.h"
 

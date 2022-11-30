@@ -3,6 +3,13 @@
         "*.tcc": "cpp",
         "array": "cpp",
         "string": "cpp",
-        "string_view": "cpp"
+        "string_view": "cpp",
+        "lv_examples.h": "c",
+        "lv_example_others.h": "c",
+        "lv_example_libs.h": "c",
+        "hal.h": "c",
+        "stdint.h": "c",
+        "pgmspace.h": "c",
+        "fonts.h": "c"
     }
 }
