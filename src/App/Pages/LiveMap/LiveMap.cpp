@@ -1,6 +1,9 @@
 #include "LiveMap.h"
 #include "../../Configs/Config.h"
+#include "../../Utils/PageManager/PM_Log.h"
 
+volatile bool isNormalMode=true;
+volatile bool einkNeedUpdate=false;
 using namespace Page;
 
 uint16_t LiveMap::mapLevelCurrent = CONFIG_LIVE_MAP_LEVEL_DEFAULT;
@@ -140,10 +143,30 @@ void LiveMap::AttachEvent(lv_obj_t* obj)
     lv_obj_add_event_cb(obj, onEvent, LV_EVENT_ALL, this);
 }
 
+// Will be called based on timer (100ms). Update info every 1s.
 void LiveMap::Update()
 {
+    
     if (lv_tick_elaps(priv.lastMapUpdateTime) >= CONFIG_GPS_REFR_PERIOD)
     {
+        if (isNormalMode){
+            PM_LOG_INFO("normal mode");
+        }
+        else{
+            PM_LOG_INFO("low power mode");
+            static bool einkInfoInited=false;
+
+            if(!einkInfoInited){
+                PM_LOG_INFO("eink init");
+                View.Eink_info_init();
+                einkInfoInited=true;
+            }
+            if(einkNeedUpdate){
+                PM_LOG_INFO("update eink");            
+                View.Eink_Update();
+                einkNeedUpdate=false;
+            }
+        }
         CheckPosition();
         SportInfoUpdate();
         priv.lastMapUpdateTime = lv_tick_get();
@@ -186,14 +209,14 @@ void LiveMap::CheckPosition()
 
     HAL::GPS_Info_t gpsInfo;
     Model.GetGPS_Info(&gpsInfo);
-
+    // check tile level
     mapLevelCurrent = lv_slider_get_value(View.ui.zoom.slider);
     if (mapLevelCurrent != Model.mapConv.GetLevel())
     {
         refreshMap = true;
         Model.mapConv.SetLevel(mapLevelCurrent);
     }
-
+    // get current map pixel pos and focus on it
     int32_t mapX, mapY;
     Model.mapConv.ConvertMapCoordinate(
         gpsInfo.longitude, gpsInfo.latitude,
@@ -205,7 +228,7 @@ void LiveMap::CheckPosition()
     {
         refreshMap = true;
     }
-
+    // refresh
     if (refreshMap)
     {
         TileConv::Rect_t rect;
@@ -221,7 +244,7 @@ void LiveMap::CheckPosition()
 
         onMapTileContRefresh(&area, mapX, mapY);
     }
-
+    // update arrow, track and map pos.
     MapTileContUpdate(mapX, mapY, gpsInfo.course);
 
     if (priv.isTrackAvtive)
@@ -385,7 +408,7 @@ void LiveMap::onEvent(lv_event_t* event)
             instance->priv.lastContShowTime = lv_tick_get();
             instance->UpdateDelay(200);
         }
-        else if (code == LV_EVENT_PRESSED)
+        else if (isNormalMode && code == LV_EVENT_SHORT_CLICKED)
         {
             instance->Manager->Pop();
         }
@@ -393,9 +416,22 @@ void LiveMap::onEvent(lv_event_t* event)
 
     if (obj == instance->View.ui.sportInfo.cont)
     {
-        if (code == LV_EVENT_PRESSED)
+        if (code == LV_EVENT_SHORT_CLICKED)
         {
-            instance->Manager->Pop();
+            PM_LOG_INFO("short clicked");
+            if(isNormalMode)
+                instance->Manager->Pop();
+            else{
+                PM_LOG_INFO("give update");
+                einkNeedUpdate=true;
+            }
+        }
+        else if(code == LV_EVENT_LONG_PRESSED){
+            PM_LOG_INFO("long_pressed");
+            isNormalMode=!isNormalMode;
+            einkNeedUpdate=true;
         }
     }
+    //LV_EVENT_SHORT_CLICKED
+    //LV_EVENT_LONG_PRESSED_REPEAT
 }

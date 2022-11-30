@@ -130,6 +130,7 @@ void HAL::Power_Update()
     if (Power_AutoLowPowerTimeout == 0)
         return;
 
+    // auto power off after a period of time after start up
     if (millis() - Power_LastHandleTime >= (Power_AutoLowPowerTimeout * 1000))
     {
         Power_Shutdown();

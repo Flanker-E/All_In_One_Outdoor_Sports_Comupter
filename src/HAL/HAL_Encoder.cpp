@@ -3,13 +3,15 @@
 // #include "App/Accounts/Account_Master.h"
 #include "App/Common/DataProc/DataProc.h"
 
-static ButtonEvent EncoderPush(5000);
+static ButtonEvent EncoderPush(5000,500,700);
 
 static bool EncoderEnable = true;
 static volatile int16_t EncoderDiff = 0;
 static bool EncoderDiffDisable = false;
 
 Account* actEncoder;
+
+extern volatile bool isNormalMode;
 
 static void Encoder_IrqHandler()
 {
@@ -58,10 +60,16 @@ static void Encoder_PushHandler(ButtonEvent* btn, int event)
         Serial.println("released");
         // HAL::Buzz_Tone(700, 20);
         EncoderDiffDisable = false;
-    } else if (event == ButtonEvent::EVENT_LONG_PRESSED)
+    // }  else if (event == ButtonEvent::EVENT_DOUBLE_CLICKED)
+    // {
+    //     Serial.println("double clicked");
+    //     isNormalMode=!isNormalMode;
+    //     // HAL::Buzz_Tone(700, 20);
+    //     // EncoderDiffDisable = false;
+    }  else if (event == ButtonEvent::EVENT_LONG_PRESSED)
     {
         Serial.println("long pressed");
-        HAL::Audio_PlayMusic("Shutdown");
+        // HAL::Audio_PlayMusic("Shutdown");
         HAL::Power_Shutdown();
     }
 }

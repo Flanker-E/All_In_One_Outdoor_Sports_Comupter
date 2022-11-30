@@ -2,7 +2,11 @@
 #include "../../Configs/Config.h"
 #include <stdarg.h>
 #include <stdio.h>
+extern lv_obj_t* scr_lcd;
+extern lv_obj_t* scr_eink;
 
+extern lv_disp_t* disp_lcd;
+extern lv_disp_t* disp_eink;
 using namespace Page;
 
 #if CONFIG_MAP_IMG_PNG_ENABLE
@@ -13,7 +17,89 @@ using namespace Page;
 #  define TILE_IMG_CREATE  lv_img_create
 #  define TILE_IMG_SET_SRC lv_img_set_src
 #endif
+void LiveMapView::Eink_info_init(void)
+{
+    lv_disp_set_default(disp_eink);
+    
+    Eink_Item_Create(
+        eink_ui.northInfo.Info_North,
+        eink_ui.northInfo.Data_North,
+        "North:",
+        27,
+        53
+    );
+    Eink_Item_Create(
+        eink_ui.eastInfo.Info_East,
+        eink_ui.eastInfo.Data_East,
+        "East",
+        27,
+        88
+    );
+    Eink_Item_Create(
+        eink_ui.destInfo.Info_Dest,
+        eink_ui.destInfo.Data_Dest,
+        "Dest",
+        27,
+        123
+    );
 
+    Eink_Item_Create(
+        eink_ui.battInfo.Info_Batt,
+        eink_ui.battInfo.Data_Batt,
+        "Batt:",
+        15,
+        9
+    );
+    Eink_Item_Create(
+        eink_ui.gpsInfo.Info_GPS,
+        eink_ui.gpsInfo.Data_GPS,
+        "GPS:",
+        115,
+        9
+    );
+    lv_disp_set_default(disp_lcd);
+}
+void LiveMapView::Eink_Item_Create(
+    lv_obj_t* Info,
+    lv_obj_t* &data,
+    // const char* name,
+    // const char* img_src,
+    const char* infos,
+    int x_bias,
+    int y_bias
+)
+{
+  // info text
+  Info = lv_label_create(scr_eink);
+  lv_label_set_text(Info, infos);
+  lv_obj_align(Info, LV_ALIGN_TOP_LEFT, x_bias, y_bias);
+
+  //data text
+  data = lv_label_create(scr_eink);
+  lv_label_set_text(data, "-");
+  lv_obj_align(data, LV_ALIGN_TOP_LEFT, x_bias+60, y_bias);
+
+}
+
+void LiveMapView::Eink_Update(){
+    static int count=0;
+    count++;
+    // if()
+    // Serial.println( "is Eink" );
+    lv_disp_set_default(disp_eink);
+    
+    lv_label_set_text_fmt(
+        eink_ui.northInfo.Data_North,
+        "%dm\n",
+        count
+    );
+    lv_label_set_text_fmt(
+        eink_ui.eastInfo.Data_East,
+        "%dm\n",
+        count
+    );
+    lv_disp_set_default(disp_lcd);
+}
 void LiveMapView::Create(lv_obj_t* root, uint32_t tileNum)
 {
     lv_obj_remove_style_all(root);
@@ -72,6 +158,7 @@ void LiveMapView::Style_Create()
     lv_style_set_line_rounded(&ui.styleLine, true);
 }
 
+// create empty map image and track
 void LiveMapView::Map_Create(lv_obj_t* par, uint32_t tileNum)
 {
     lv_obj_t* cont = lv_obj_create(par);

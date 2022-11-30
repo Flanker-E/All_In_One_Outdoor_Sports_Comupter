@@ -63,7 +63,14 @@ EXTERN_C lv_indev_t* lv_win32_encoder_device_object;
 EXTERN_C void lv_win32_add_all_input_devices_to_group(
     lv_group_t* group);
 
-EXTERN_C bool lv_win32_init(
+EXTERN_C lv_disp_t*  lv_win32_init(
+    HINSTANCE instance_handle,
+    int show_window_mode,
+    lv_coord_t hor_res,
+    lv_coord_t ver_res,
+    HICON icon_handle);
+
+EXTERN_C lv_disp_t*  lv_win32_2_init(
     HINSTANCE instance_handle,
     int show_window_mode,
     lv_coord_t hor_res,

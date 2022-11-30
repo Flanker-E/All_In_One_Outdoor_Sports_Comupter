@@ -56,7 +56,37 @@ public:
             lv_obj_t* labelTime;
         } sportInfo;
     } ui;
+    struct{
+        struct{
+            lv_obj_t* Info_GPS; //already in lcd
+            lv_obj_t* Data_GPS;
+        }gpsInfo;
 
+        struct{
+            lv_obj_t* Info_North; //already in lcd
+            lv_obj_t* Data_North;
+        }northInfo;
+
+        struct{
+            lv_obj_t* Info_East; //already in lcd
+            lv_obj_t* Data_East;
+        }eastInfo;
+
+        struct{
+            lv_obj_t* Info_Dest; //already in lcd
+            lv_obj_t* Data_Dest;
+        }destInfo;
+
+        struct{
+            lv_obj_t* Info_Batt; //already in lcd
+            lv_obj_t* Data_Batt;
+        }battInfo;
+        lv_obj_t* cont;
+
+    } eink_ui;
+    
+    void Eink_info_init(void);
+    void Eink_Update();
     void Create(lv_obj_t* root, uint32_t tileNum);
     void Delete();
     void SetImgArrowStatus(lv_coord_t x, lv_coord_t y, float angle)
@@ -72,6 +102,15 @@ public:
 
 private:
     void Style_Create();
+    void Eink_Item_Create(
+    lv_obj_t* Info,
+    lv_obj_t* &data,
+    // const char* name,
+    // const char* img_src,
+    const char* infos,
+    int x_bias,
+    int y_bias
+    );
     void Map_Create(lv_obj_t* par, uint32_t tileNum);
     void ZoomCtrl_Create(lv_obj_t* par);
     void SportInfo_Create(lv_obj_t* par);

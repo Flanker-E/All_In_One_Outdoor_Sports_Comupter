@@ -32,32 +32,57 @@
 // Restore compilation warnings.
 #pragma warning(pop)
 #endif
+lv_obj_t* scr_lcd = nullptr;
+lv_obj_t* scr_eink = nullptr;
+
+lv_disp_t* disp_lcd = nullptr;
+lv_disp_t* disp_eink = nullptr;
 
 #define SCREEN_HOR_RES  240
 #define SCREEN_VER_RES  320
 
+#define EINK_HOR_RES  200
+#define EINK_VER_RES  200
+
 int main()
 {
     lv_init();
-
+    printf("lvinit\r\n");
     lv_fs_if_init();
-
-    if (!lv_win32_init(
+    printf("lvfs\r\n");
+    if ((disp_lcd = lv_win32_2_init(
         GetModuleHandleW(NULL),
         SW_SHOW,
         SCREEN_HOR_RES,
         SCREEN_VER_RES,
-        LoadIconW(GetModuleHandleW(NULL), MAKEINTRESOURCE(IDI_LVGL))))
+        LoadIconW(GetModuleHandleW(NULL), MAKEINTRESOURCE(IDI_LVGL))))==nullptr)
     {
         return -1;
     }
 
+    scr_lcd = lv_scr_act();
+
+    if ((disp_eink = lv_win32_init(
+        GetModuleHandleW(NULL),
+        SW_SHOW,
+        EINK_HOR_RES,
+        EINK_VER_RES,
+        LoadIconW(GetModuleHandleW(NULL), MAKEINTRESOURCE(IDI_LVGL))))==nullptr)
+    {
+        return -1;
+    }
+    lv_disp_set_default(disp_eink);
+    scr_eink= lv_scr_act();
+    printf("eink\r\n");
+    
+    lv_disp_set_default(disp_lcd);
+    printf("lcd\r\n");
     lv_win32_add_all_input_devices_to_group(NULL);
-
+    printf("hal\r\n");
     HAL::HAL_Init();  
-
+    printf("app\r\n");
     App_Init();
-
+    printf("loop\r\n");
     while (!lv_win32_quit_signal)
     {
         lv_timer_handler();

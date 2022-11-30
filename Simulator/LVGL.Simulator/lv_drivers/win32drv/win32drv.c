@@ -132,11 +132,20 @@ static void lv_win32_display_driver_flush_callback(
     const lv_area_t* area,
     lv_color_t* color_p);
 
+static void lv_win32_display_driver_flush_callback_eink(
+    lv_disp_drv_t* disp_drv,
+    const lv_area_t* area,
+    lv_color_t* color_p);
+
 static void lv_win32_display_driver_rounder_callback(
     lv_disp_drv_t* disp_drv,
     lv_area_t* area);
 
 static void lv_win32_pointer_driver_read_callback(
+    lv_indev_drv_t* indev_drv,
+    lv_indev_data_t* data);
+
+static void lv_win32_pointer_driver_read_callback_eink(
     lv_indev_drv_t* indev_drv,
     lv_indev_data_t* data);
 
@@ -171,14 +180,20 @@ EXTERN_C lv_indev_t* lv_win32_encoder_device_object = NULL;
  *  STATIC VARIABLES
  **********************/
 
-static HINSTANCE g_instance_handle = NULL;
-static HWND g_window_handle = NULL;
+HINSTANCE g_instance_handle_eink = NULL;
+HINSTANCE g_instance_handle = NULL;
+HWND g_window_handle_eink = NULL;
+HWND g_window_handle = NULL;
 
 static HDC g_buffer_dc_handle = NULL;
+static HDC g_buffer_dc_handle_eink = NULL;
 static UINT32* g_pixel_buffer = NULL;
+static UINT32* g_pixel_buffer_eink = NULL;
 static SIZE_T g_pixel_buffer_size = 0;
+static SIZE_T g_pixel_buffer_size_eink = 0;
 
-static lv_disp_t* g_display = NULL;
+lv_disp_t* g_display = NULL;
+lv_disp_t* g_display_eink = NULL;
 
 static bool volatile g_mouse_pressed = false;
 static LPARAM volatile g_mouse_value = 0;
@@ -229,13 +244,14 @@ EXTERN_C void lv_win32_add_all_input_devices_to_group(
     lv_indev_set_group(lv_win32_encoder_device_object, group);
 }
 
-EXTERN_C bool lv_win32_init(
+EXTERN_C lv_disp_t* lv_win32_init(
     HINSTANCE instance_handle,
     int show_window_mode,
     lv_coord_t hor_res,
     lv_coord_t ver_res,
     HICON icon_handle)
 {
+    printf("test\r\n");
     WNDCLASSEXW WindowClass;
 
     WindowClass.cbSize = sizeof(WNDCLASSEX);
@@ -251,12 +267,156 @@ EXTERN_C bool lv_win32_init(
     WindowClass.lpszMenuName = NULL;
     WindowClass.lpszClassName = L"lv_sim_visual_studio";
     WindowClass.hIconSm = icon_handle;
+    
+    if (!RegisterClassExW(&WindowClass))
+    {
+        return NULL;
+    }
+    printf("test\r\n");
+    g_instance_handle_eink = instance_handle;
+
+    g_window_handle_eink = CreateWindowExW(
+        WINDOW_EX_STYLE,
+        WindowClass.lpszClassName,
+        L"LVGL Simulator for Windows Desktop",
+        WINDOW_STYLE,
+        CW_USEDEFAULT,
+        0,
+        CW_USEDEFAULT,
+        0,
+        NULL,
+        NULL,
+        instance_handle,
+        NULL);
+    printf("test\r\n");
+
+    if (!g_window_handle_eink)
+    {
+        return NULL;
+    }
+    printf("test\r\n");
+
+    g_dpi_value = lv_win32_get_dpi_for_window(g_window_handle_eink);
+
+    RECT WindowSize;
+
+    WindowSize.left = 0;
+    WindowSize.right = MulDiv(
+        hor_res * WIN32DRV_MONITOR_ZOOM,
+        g_dpi_value,
+        USER_DEFAULT_SCREEN_DPI);
+    WindowSize.top = 0;
+    WindowSize.bottom = MulDiv(
+        ver_res * WIN32DRV_MONITOR_ZOOM,
+        g_dpi_value,
+        USER_DEFAULT_SCREEN_DPI);
+
+    AdjustWindowRectEx(
+        &WindowSize,
+        WINDOW_STYLE,
+        FALSE,
+        WINDOW_EX_STYLE);
+    OffsetRect(
+        &WindowSize,
+        -WindowSize.left,
+        -WindowSize.top);
+
+    SetWindowPos(
+        g_window_handle_eink,
+        NULL,
+        0,
+        0,
+        WindowSize.right,
+        WindowSize.bottom,
+        SWP_NOZORDER | SWP_NOACTIVATE | SWP_NOMOVE);
+
+    //lv_win32_register_touch_window(g_window_handle_eink, 0);
+
+    lv_timer_create(lv_win32_message_handler, 0, NULL);
+
+    lv_win32_enable_child_window_dpi_message(g_window_handle_eink);
+    printf("test\r\n");
+
+    HDC hNewBufferDC = lv_win32_create_frame_buffer(
+        g_window_handle_eink,
+        hor_res,
+        ver_res,
+        &g_pixel_buffer_eink,
+        &g_pixel_buffer_size_eink);
+
+    DeleteDC(g_buffer_dc_handle_eink);
+    g_buffer_dc_handle_eink = hNewBufferDC;
+
+    static lv_disp_draw_buf_t display_buffer;
+    lv_disp_draw_buf_init(
+        &display_buffer,
+        (lv_color_t*)malloc(hor_res * ver_res * sizeof(lv_color_t)),
+        NULL,
+        hor_res * ver_res);
+
+    static lv_disp_drv_t display_driver;
+    lv_disp_drv_init(&display_driver);
+    display_driver.hor_res = hor_res;
+    display_driver.ver_res = ver_res;
+    display_driver.flush_cb = lv_win32_display_driver_flush_callback_eink;
+    display_driver.draw_buf = &display_buffer;
+    display_driver.rounder_cb = lv_win32_display_driver_rounder_callback;
+    g_display_eink = lv_disp_drv_register(&display_driver);
+
+    //static lv_indev_drv_t pointer_driver;
+    //lv_indev_drv_init(&pointer_driver);
+    //pointer_driver.type = LV_INDEV_TYPE_POINTER;
+    //pointer_driver.read_cb = lv_win32_pointer_driver_read_callback_eink;
+    //lv_win32_pointer_device_object = lv_indev_drv_register(&pointer_driver);
+
+    //static lv_indev_drv_t keypad_driver;
+    //lv_indev_drv_init(&keypad_driver);
+    //keypad_driver.type = LV_INDEV_TYPE_KEYPAD;
+    //keypad_driver.read_cb = lv_win32_keypad_driver_read_callback;
+    //lv_win32_keypad_device_object = lv_indev_drv_register(&keypad_driver);
+
+    //static lv_indev_drv_t encoder_driver;
+    //lv_indev_drv_init(&encoder_driver);
+    //encoder_driver.type = LV_INDEV_TYPE_ENCODER;
+    //encoder_driver.read_cb = lv_win32_encoder_driver_read_callback;
+    //lv_win32_encoder_device_object = lv_indev_drv_register(&encoder_driver);
+
+    ShowWindow(g_window_handle_eink, show_window_mode);
+    UpdateWindow(g_window_handle_eink);
+    printf("test\r\n");
+
+    return g_display_eink;
+}
+
+EXTERN_C lv_disp_t* lv_win32_2_init(
+    HINSTANCE instance_handle,
+    int show_window_mode,
+    lv_coord_t hor_res,
+    lv_coord_t ver_res,
+    HICON icon_handle)
+{
+    printf("test\r\n");
+    WNDCLASSEXW WindowClass;
+
+    WindowClass.cbSize = sizeof(WNDCLASSEX);
+
+    WindowClass.style = 0;
+    WindowClass.lpfnWndProc = lv_win32_window_message_callback;
+    WindowClass.cbClsExtra = 0;
+    WindowClass.cbWndExtra = 0;
+    WindowClass.hInstance = instance_handle;
+    WindowClass.hIcon = icon_handle;
+    WindowClass.hCursor = LoadCursorW(NULL, IDC_ARROW);
+    WindowClass.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
+    WindowClass.lpszMenuName = NULL;
+    WindowClass.lpszClassName = L"lv_sim_visual_studio_2";
+    WindowClass.hIconSm = icon_handle;
 
     if (!RegisterClassExW(&WindowClass))
     {
-        return false;
+        return NULL;
     }
-
+    printf("test1\r\n");
     g_instance_handle = instance_handle;
 
     g_window_handle = CreateWindowExW(
@@ -272,11 +432,13 @@ EXTERN_C bool lv_win32_init(
         NULL,
         instance_handle,
         NULL);
+    printf("test2\r\n");
 
     if (!g_window_handle)
     {
-        return false;
+        return NULL;
     }
+    printf("test3\r\n");
 
     g_dpi_value = lv_win32_get_dpi_for_window(g_window_handle);
 
@@ -317,6 +479,7 @@ EXTERN_C bool lv_win32_init(
     lv_timer_create(lv_win32_message_handler, 0, NULL);
 
     lv_win32_enable_child_window_dpi_message(g_window_handle);
+    printf("test4\r\n");
 
     HDC hNewBufferDC = lv_win32_create_frame_buffer(
         g_window_handle,
@@ -364,8 +527,9 @@ EXTERN_C bool lv_win32_init(
 
     ShowWindow(g_window_handle, show_window_mode);
     UpdateWindow(g_window_handle);
+    printf("test5\r\n");
 
-    return true;
+    return g_display;
 }
 
 /**********************
@@ -674,6 +838,7 @@ static void lv_win32_display_driver_flush_callback(
     const lv_area_t* area,
     lv_color_t* color_p)
 {
+    //printf("g_pixel_buffer_size is %d", g_pixel_buffer_size);
 #if (LV_COLOR_DEPTH == 32) || \
     (LV_COLOR_DEPTH == 16 && LV_COLOR_16_SWAP == 0) || \
     (LV_COLOR_DEPTH == 8) || \
@@ -739,6 +904,77 @@ static void lv_win32_display_driver_flush_callback(
     lv_disp_flush_ready(disp_drv);
 }
 
+static void lv_win32_display_driver_flush_callback_eink(
+    lv_disp_drv_t* disp_drv,
+    const lv_area_t* area,
+    lv_color_t* color_p)
+{
+    printf("g_pixel_buffer_size_eink is %d", g_pixel_buffer_size_eink);
+#if (LV_COLOR_DEPTH == 32) || \
+    (LV_COLOR_DEPTH == 16 && LV_COLOR_16_SWAP == 0) || \
+    (LV_COLOR_DEPTH == 8) || \
+    (LV_COLOR_DEPTH == 1)
+    UNREFERENCED_PARAMETER(area);
+    memcpy(g_pixel_buffer, color_p, g_pixel_buffer_size_eink);
+#elif (LV_COLOR_DEPTH == 16 && LV_COLOR_16_SWAP != 0)
+    SIZE_T count = g_pixel_buffer_size_eink / sizeof(UINT16);
+    PUINT16 source = (PUINT16)color_p;
+    PUINT16 destination = (PUINT16)g_pixel_buffer_eink;
+    for (SIZE_T i = 0; i < count; ++i)
+    {
+        UINT16 current = *source;
+        *destination = (LOBYTE(current) << 8) | HIBYTE(current);
+
+        ++source;
+        ++destination;
+    }
+#else
+    for (int y = area->y1; y <= area->y2; ++y)
+    {
+        for (int x = area->x1; x <= area->x2; ++x)
+        {
+            g_pixel_buffer[y * disp_drv->hor_res + x] = lv_color_to32(*color_p);
+            color_p++;
+        }
+    }
+#endif
+
+    HDC hWindowDC = GetDC(g_window_handle_eink);
+    if (hWindowDC)
+    {
+        int PreviousMode = SetStretchBltMode(
+            hWindowDC,
+            HALFTONE);
+
+        StretchBlt(
+            hWindowDC,
+            0,
+            0,
+            MulDiv(
+                disp_drv->hor_res * WIN32DRV_MONITOR_ZOOM,
+                g_dpi_value,
+                USER_DEFAULT_SCREEN_DPI),
+            MulDiv(
+                disp_drv->ver_res * WIN32DRV_MONITOR_ZOOM,
+                g_dpi_value,
+                USER_DEFAULT_SCREEN_DPI),
+            g_buffer_dc_handle_eink,
+            0,
+            0,
+            disp_drv->hor_res,
+            disp_drv->ver_res,
+            SRCCOPY);
+
+        SetStretchBltMode(
+            hWindowDC,
+            PreviousMode);
+
+        ReleaseDC(g_window_handle_eink, hWindowDC);
+    }
+
+    lv_disp_flush_ready(disp_drv);
+}
+
 static void lv_win32_display_driver_rounder_callback(
     lv_disp_drv_t* disp_drv,
     lv_area_t* area)
@@ -784,6 +1020,44 @@ static void lv_win32_pointer_driver_read_callback(
         data->point.y = g_display->driver->ver_res - 1;
     }
 }
+
+static void lv_win32_pointer_driver_read_callback_eink(
+    lv_indev_drv_t* indev_drv,
+    lv_indev_data_t* data)
+{
+    UNREFERENCED_PARAMETER(indev_drv);
+
+    data->state = (lv_indev_state_t)(
+        g_mouse_pressed ? LV_INDEV_STATE_PR : LV_INDEV_STATE_REL);
+
+    data->point.x = MulDiv(
+        GET_X_LPARAM(g_mouse_value),
+        USER_DEFAULT_SCREEN_DPI,
+        WIN32DRV_MONITOR_ZOOM * g_dpi_value);
+    data->point.y = MulDiv(
+        GET_Y_LPARAM(g_mouse_value),
+        USER_DEFAULT_SCREEN_DPI,
+        WIN32DRV_MONITOR_ZOOM * g_dpi_value);
+
+    if (data->point.x < 0)
+    {
+        data->point.x = 0;
+    }
+    if (data->point.x > g_display_eink->driver->hor_res - 1)
+    {
+        data->point.x = g_display_eink->driver->hor_res - 1;
+    }
+    if (data->point.y < 0)
+    {
+        data->point.y = 0;
+    }
+    if (data->point.y > g_display_eink->driver->ver_res - 1)
+    {
+        data->point.y = g_display_eink->driver->ver_res - 1;
+    }
+}
+
+
 
 static void lv_win32_keypad_driver_read_callback(
     lv_indev_drv_t* indev_drv,

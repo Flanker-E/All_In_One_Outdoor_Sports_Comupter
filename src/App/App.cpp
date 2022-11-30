@@ -37,17 +37,27 @@
 #include "Utils/PageManager/PM_Log.h"
 #include "App.h"
 
+
+extern lv_disp_t* disp_lcd;
+extern lv_disp_t* disp_eink;
 void App_Init()
 {
+    if (disp_lcd == lv_disp_get_default())
+        printf("is lcd disp\r\n");
+    else if (disp_eink == lv_disp_get_default())
+        printf("is eink disp\r\n");
+    else
+        printf("none\r\n");
     static AppFactory factory;
     static PageManager manager(&factory);
-
+   
     //Accounts_Init();
     DataProc_Init();
     //Resource.Init();
     lv_obj_t* scr = lv_scr_act();
     lv_obj_remove_style_all(scr);
     lv_obj_clear_flag(scr, LV_OBJ_FLAG_SCROLLABLE);
+
     lv_disp_set_bg_color(lv_disp_get_default(), COLOR_BACKGROUND);
 
     ResourcePool::Init();
