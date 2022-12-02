@@ -159,37 +159,70 @@ void LiveMap::Update()
     
     if (lv_tick_elaps(priv.lastMapUpdateTime) >= CONFIG_GPS_REFR_PERIOD)
     {
+        // static bool lcdSwitchInfo=false;
+        static bool lastIsNormalMode=true;
         if (isNormalMode){
             PM_LOG_INFO("normal mode");
+            // if(lcdSwitchInfo==true){
+            // }
+            if(isNormalMode!=lastIsNormalMode){
+                // came from low power mode
+                // give lcd power supply and init LCD
+                #ifndef WIN32
+                LCD_Power_On();
+                To_LCD_Port();
+                #endif
+                // hide cover
+                lv_obj_add_flag(View.ui.toEinkLabelInfo.info, LV_OBJ_FLAG_HIDDEN);
+                lv_obj_add_flag(View.ui.toEinkLabelInfo.cont, LV_OBJ_FLAG_HIDDEN);
+                PM_LOG_INFO("switch back to LCD, turn on its power");
+            }
+            
         }
         else{
-            PM_LOG_INFO("low power mode");
             static bool einkInfoInited=false;
-
-            if(!einkInfoInited){
-                PM_LOG_INFO("eink init");
-                #ifndef WIN32
-                To_Eink_Port();
-                #endif
-                View.Eink_info_init();
-                AttachEvent(View.eink_ui.cont);
-                #ifndef WIN32
-                To_LCD_Port();
-                #endif
-                einkInfoInited=true;
+            PM_LOG_INFO("low power mode");
+            if(isNormalMode!=lastIsNormalMode){
+                // show cover
+                lv_obj_clear_flag(View.ui.toEinkLabelInfo.info, LV_OBJ_FLAG_HIDDEN);
+                lv_obj_clear_flag(View.ui.toEinkLabelInfo.cont, LV_OBJ_FLAG_HIDDEN);
+                PM_LOG_INFO("switch back to LCD, turn off its power");
             }
-            if(einkNeedUpdate){
-                PM_LOG_INFO("update eink");
-                #ifndef WIN32
-                To_Eink_Port();
-                #endif            
-                View.Eink_Update();
-                #ifndef WIN32
-                To_LCD_Port();
-                #endif
-                einkNeedUpdate=false;
+            else{
+                LCD_Power_Off();
+                if(!einkInfoInited){
+                    PM_LOG_INFO("eink init");
+                    #ifndef WIN32
+                    
+                    To_Eink_Port();
+                    #endif
+                    View.Eink_info_init();
+                    AttachEvent(View.eink_ui.cont);
+                    #ifndef WIN32
+                    To_LCD_Port();
+                    #endif
+                    einkInfoInited=true;
+                }
+                if(einkNeedUpdate){
+                    PM_LOG_INFO("update eink");
+                    #ifndef WIN32
+                    To_Eink_Port();
+                    #endif            
+                    View.Eink_Update();
+                    #ifndef WIN32
+                    To_LCD_Port();
+                    #endif
+                    einkNeedUpdate=false;
+                }
             }
+            // if(lcdSwitchInfo==false){
+            //     //show swith indication
+            //     lv_obj_clear_flag(View.ui.toEinkLabelInfo.info, LV_OBJ_FLAG_HIDDEN);
+            //     lv_obj_clear_flag(View.ui.toEinkLabelInfo.cont, LV_OBJ_FLAG_HIDDEN);
+            //     lcdSwitchInfo=true;
+            // }
         }
+        lastIsNormalMode=isNormalMode;
         CheckPosition();
         SportInfoUpdate();
         priv.lastMapUpdateTime = lv_tick_get();

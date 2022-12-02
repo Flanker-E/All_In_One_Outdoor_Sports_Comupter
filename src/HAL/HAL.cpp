@@ -57,8 +57,8 @@ void HAL::HAL_Init()
     //open screen backlight
     pinMode(CONFIG_SCREEN_BLK_PIN,OUTPUT);
     digitalWrite(CONFIG_SCREEN_BLK_PIN,HIGH); 
-    pinMode(5,OUTPUT);
-    digitalWrite(5,LOW); 
+    pinMode(CONFIG_SCREEN_PWR_PIN,OUTPUT);
+    digitalWrite(CONFIG_SCREEN_PWR_PIN,LOW); 
 
     lv_disp_buf_p = (lv_color_t*)malloc(DISP_BUF_SIZE * sizeof(lv_color_t));
     if (lv_disp_buf_p == nullptr)

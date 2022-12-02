@@ -12,6 +12,7 @@ static bool EncoderDiffDisable = false;
 Account* actEncoder;
 
 extern volatile bool isNormalMode;
+// extern volatile bool isLcdOff;
 
 static void Encoder_IrqHandler()
 {
@@ -64,6 +65,7 @@ static void Encoder_PushHandler(ButtonEvent* btn, int event)
     {
         Serial.println("button event double clicked");
         isNormalMode=!isNormalMode;
+        
         // HAL::Buzz_Tone(700, 20);
         // EncoderDiffDisable = false;
     }  else if (event == ButtonEvent::EVENT_LONG_PRESSED)

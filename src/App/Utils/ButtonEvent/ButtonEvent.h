@@ -50,8 +50,7 @@ public:
     ButtonEvent(
         uint16_t longPressTime = 500,
         uint16_t longPressTimeRepeat = 200,
-        uint16_t doubleClickTime = 200,
-        uint16_t shortLongPressTime = 1000
+        uint16_t doubleClickTime = 200
     );
     void EventAttach(FuncCallback_t function);
     void EventMonitor(bool isPress);

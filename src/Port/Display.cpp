@@ -124,6 +124,13 @@ void To_Eink_Port(){
   lv_disp_set_default(disp_eink);
   Serial.println("switched to Eink"); 
 }
+void LCD_Power_On(){
+  TURN_ON_LCD
+}
+
+void LCD_Power_Off(){
+  TURN_OFF_LCD
+}
 
 void Port_Init(){
     static bool inited=false;

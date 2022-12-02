@@ -19,6 +19,9 @@ extern lv_indev_t* encoder_indev;
 #define TRANSFER_TO_EINK  digitalWrite(TFT_CS,HIGH);
 #define TRANSFER_TO_LCD   digitalWrite(TFT_CS,LOW);
 
+#define TURN_ON_LCD    digitalWrite(CONFIG_SCREEN_PWR_PIN,LOW);
+#define TURN_OFF_LCD   digitalWrite(CONFIG_SCREEN_PWR_PIN,HIGH);
+
 // static const uint16_t screenWidth  = 320;
 // static const uint16_t screenHeight = 240;
 
@@ -36,6 +39,8 @@ extern lv_indev_t* encoder_indev;
 // typedef TFT_eSPI SCREEN_CLASS;
 void To_LCD_Port();
 void To_Eink_Port();
+void LCD_Power_On();
+void LCD_Power_Off();
 void Port_Init_Eink();
 void Port_Init();
 void End_spi_transaction();
