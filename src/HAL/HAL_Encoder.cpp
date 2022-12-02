@@ -52,20 +52,20 @@ static void Encoder_PushHandler(ButtonEvent* btn, int event)
 {
     if (event == ButtonEvent::EVENT_PRESSED)
     {
-        Serial.println("pressed");
+        // Serial.println("pressed");
         // HAL::Buzz_Tone(500, 20);
         EncoderDiffDisable = true;
     } else if (event == ButtonEvent::EVENT_RELEASED)
     {
-        Serial.println("released");
+        // Serial.println("released");
         // HAL::Buzz_Tone(700, 20);
         EncoderDiffDisable = false;
-    // }  else if (event == ButtonEvent::EVENT_DOUBLE_CLICKED)
-    // {
-    //     Serial.println("double clicked");
-    //     isNormalMode=!isNormalMode;
-    //     // HAL::Buzz_Tone(700, 20);
-    //     // EncoderDiffDisable = false;
+    }  else if (event == ButtonEvent::EVENT_DOUBLE_CLICKED)
+    {
+        Serial.println("button event double clicked");
+        isNormalMode=!isNormalMode;
+        // HAL::Buzz_Tone(700, 20);
+        // EncoderDiffDisable = false;
     }  else if (event == ButtonEvent::EVENT_LONG_PRESSED)
     {
         Serial.println("button event long pressed");

@@ -26,7 +26,6 @@ ButtonEvent::ButtonEvent(
 )
 {
     memset(&priv, 0, sizeof(priv));
-
     priv.longPressTimeCfg = longPressTime;
     priv.longPressRepeatTimeCfg = longPressTimeRepeat;
     priv.doubleClickTimeCfg = doubleClickTime;
@@ -102,7 +101,10 @@ void ButtonEvent::EventMonitor(bool isPress)
     {
         priv.eventCallback(this, EVENT_PRESSING);
     }
-
+    
+    // if (isPress && GetTickElaps(priv.lastPressTime) >= priv.shortLongPressTimeCfg){
+    //     priv.nowState = STATE_LONG_PRESS;
+    // }
     if (isPress && GetTickElaps(priv.lastPressTime) >= priv.longPressTimeCfg)
     {
         priv.nowState = STATE_LONG_PRESS;

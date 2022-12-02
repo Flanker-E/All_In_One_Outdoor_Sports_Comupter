@@ -14,7 +14,11 @@ public:
     struct
     {
         lv_obj_t* loadingLabelInfo;
-        lv_obj_t* toEinkLabelInfo;
+        
+        struct{
+            lv_obj_t* cont;
+            lv_obj_t* info;
+        } toEinkLabelInfo;
 
         lv_style_t styleCont;
         lv_style_t styleLabel;

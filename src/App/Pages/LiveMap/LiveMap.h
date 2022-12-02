@@ -65,6 +65,7 @@ private:
     
     void AttachEvent(lv_obj_t* obj);
     static void onEvent(lv_event_t* event);
+    void onBtnClicked(lv_obj_t* btn);
 };
 
 }

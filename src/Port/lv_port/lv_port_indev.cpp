@@ -167,8 +167,8 @@ static void encoder_init(void)
 /* Will be called by the library to read the encoder */
 static void encoder_read(lv_indev_drv_t * indev_drv, lv_indev_data_t * data)
 {
-    if(data->state!=LV_INDEV_STATE_PR)
-        data->enc_diff = HAL::Encoder_GetDiff();
+    // if(data->state!=LV_INDEV_STATE_PR)
+    data->enc_diff = HAL::Encoder_GetDiff();
     data->state =  HAL::Encoder_GetIsPush() ? LV_INDEV_STATE_PR : LV_INDEV_STATE_REL;
     // if(data->state==LV_INDEV_STATE_REL)
     //     Serial.printf("encoder released");

@@ -59,6 +59,7 @@ void LiveMap::onViewLoad()
     AttachEvent(root);
     AttachEvent(View.ui.zoom.slider);
     AttachEvent(View.ui.sportInfo.cont);
+    
 
     lv_slider_set_value(View.ui.zoom.slider, mapLevelCurrent, LV_ANIM_OFF);
     Model.mapConv.SetLevel(mapLevelCurrent);
@@ -171,6 +172,7 @@ void LiveMap::Update()
                 To_Eink_Port();
                 #endif
                 View.Eink_info_init();
+                AttachEvent(View.eink_ui.cont);
                 #ifndef WIN32
                 To_LCD_Port();
                 #endif
@@ -411,24 +413,44 @@ void LiveMap::onEvent(lv_event_t* event)
     lv_obj_t* obj = lv_event_get_current_target(event);
     lv_event_code_t code = lv_event_get_code(event);
 
+    #ifdef WIN32
     //determine whether click is stale
-    if (lv_tick_elaps(instance->priv.lastClickededTime) >= CONFIG_MAP_DOUBLE_CLICKED_DELAY)
+    if (lv_tick_elaps(instance->priv.lastClickededTime) >= CONFIG_MAP_DOUBLE_CLICKED_DELAY){
+
         instance->priv.clickedBefore=false;
+        }
+    #endif
+    // PM_LOG_INFO("code is %d",code);
+    // if(obj == instance->View.eink_ui.cont){
+    //     PM_LOG_INFO("eink ui%d",code);
+    // }
+    // else if(obj == instance->View.ui.cont){
+    //     PM_LOG_INFO("ui%d",code);
+    // }
+    // else if(obj == instance->View.ui.zoom.slider){
+    //     PM_LOG_INFO("slider%d",code);
+    // }
+    // else if(obj == instance->View.ui.sportInfo.cont){
+    //     PM_LOG_INFO("map info%d",code);
+    // }
+    // else if(obj == instance->View.ui.map.cont){
+    //     PM_LOG_INFO("map cont%d",code);
+    // }
 
     if (code == LV_EVENT_LEAVE)
     {
         instance->Manager->Pop();
         return;
     }
-    else if (code == LV_EVENT_PRESSED)
-    {
-        PM_LOG_INFO("outside pressed");
-        instance->priv.lastPressedTime=lv_tick_get();
+    // else if (code == LV_EVENT_PRESSED)
+    // {
+    //     PM_LOG_INFO("outside pressed");
+    //     instance->priv.lastPressedTime=lv_tick_get();
 
-    }
-    else if(code ==LV_EVENT_RELEASED){
-        PM_LOG_INFO("outside released");
-        if (lv_tick_elaps(instance->priv.lastPressedTime) >= CONFIG_MAP_LONG_PRESSED_TIME){
+    // }
+    else if(code ==LV_EVENT_LONG_PRESSED_REPEAT){
+        // PM_LOG_INFO("outside released");
+        // if (lv_tick_elaps(instance->priv.lastPressedTime) >= CONFIG_MAP_LONG_PRESSED_TIME){
             PM_LOG_INFO("outside long pressed");
             if(isNormalMode)
                 instance->Manager->Pop();
@@ -436,8 +458,9 @@ void LiveMap::onEvent(lv_event_t* event)
                 PM_LOG_INFO("event give update");
                 einkNeedUpdate=true;
             }
-        }
+        // }
     }
+    #ifdef WIN32
     else if(code == LV_EVENT_SHORT_CLICKED){
         PM_LOG_INFO("outside short clicked");
         // determine whether double clicked first
@@ -445,22 +468,19 @@ void LiveMap::onEvent(lv_event_t* event)
             PM_LOG_INFO("outside double clicked");
             isNormalMode=!isNormalMode;
             if(!isNormalMode){
-                lv_obj_clear_flag(instance->View.ui.toEinkLabelInfo, LV_OBJ_FLAG_HIDDEN);
+                lv_obj_clear_flag(instance->View.ui.toEinkLabelInfo.info, LV_OBJ_FLAG_HIDDEN);
+                lv_obj_clear_flag(instance->View.ui.toEinkLabelInfo.cont, LV_OBJ_FLAG_HIDDEN);
             }
             else{
-                lv_obj_add_flag(instance->View.ui.toEinkLabelInfo, LV_OBJ_FLAG_HIDDEN);
+                lv_obj_add_flag(instance->View.ui.toEinkLabelInfo.info, LV_OBJ_FLAG_HIDDEN);
+                lv_obj_add_flag(instance->View.ui.toEinkLabelInfo.cont, LV_OBJ_FLAG_HIDDEN);
             }
             einkNeedUpdate=true;
         }
         instance->priv.clickedBefore=true;
         instance->priv.lastClickededTime=lv_tick_get();
-        // update content if in low power mode
-        if(!isNormalMode){
-            PM_LOG_INFO("event give update");
-            einkNeedUpdate=true;
-        }
-
     }
+    #endif
 
     if (obj == instance->View.ui.zoom.slider)
     {

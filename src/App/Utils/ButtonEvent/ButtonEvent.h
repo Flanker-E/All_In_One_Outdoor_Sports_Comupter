@@ -50,7 +50,8 @@ public:
     ButtonEvent(
         uint16_t longPressTime = 500,
         uint16_t longPressTimeRepeat = 200,
-        uint16_t doubleClickTime = 200
+        uint16_t doubleClickTime = 200,
+        uint16_t shortLongPressTime = 1000
     );
     void EventAttach(FuncCallback_t function);
     void EventMonitor(bool isPress);
@@ -106,6 +107,7 @@ private:
     {
         STATE_NO_PRESS,
         STATE_PRESS,
+        STATE_SHORT_LONG_PRESS, //long press for around 1s, used to update eink
         STATE_LONG_PRESS
     } State_t;
 
