@@ -68,7 +68,7 @@ static void Encoder_PushHandler(ButtonEvent* btn, int event)
     //     // EncoderDiffDisable = false;
     }  else if (event == ButtonEvent::EVENT_LONG_PRESSED)
     {
-        Serial.println("long pressed");
+        Serial.println("button event long pressed");
         // HAL::Audio_PlayMusic("Shutdown");
         HAL::Power_Shutdown();
     }

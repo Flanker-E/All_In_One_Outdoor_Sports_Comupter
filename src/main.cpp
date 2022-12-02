@@ -22,9 +22,9 @@ void setup()
     HAL::HAL_Init();
     Serial.println( "HAL Init" );
     Port_Init();
-    To_Eink_Port();
-    
-    To_LCD_Port();
+    // To_Eink_Port();
+
+    // To_LCD_Port();
     // Serial.printf( "maintest:%d\n",test );
     Serial.println( "Port Init" );
 

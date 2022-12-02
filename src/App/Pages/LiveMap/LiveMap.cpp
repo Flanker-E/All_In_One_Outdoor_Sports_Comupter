@@ -1,6 +1,10 @@
 #include "LiveMap.h"
 #include "../../Configs/Config.h"
 #include "../../Utils/PageManager/PM_Log.h"
+#ifndef WIN32
+#include "Port/Display.h"
+#endif
+
 
 volatile bool isNormalMode=true;
 volatile bool einkNeedUpdate=false;
@@ -91,7 +95,7 @@ void LiveMap::onViewWillAppear()
 
     Model.SetStatusBarStyle(DataProc::STATUS_BAR_STYLE_BLACK);
     SportInfoUpdate();
-    lv_obj_clear_flag(View.ui.labelInfo, LV_OBJ_FLAG_HIDDEN);
+    lv_obj_clear_flag(View.ui.loadingLabelInfo, LV_OBJ_FLAG_HIDDEN);
 }
 
 void LiveMap::onViewDidAppear()
@@ -104,8 +108,13 @@ void LiveMap::onViewDidAppear()
     100,
     this);
     priv.lastMapUpdateTime = 0;
+    // used to determine long press and double click. long press is disabled by LVGL when scroll is used to edit.
+    priv.lastClickededTime = 0;
+    priv.lastPressedTime = 0;
+    priv.clickedBefore = false;
+
     lv_obj_clear_flag(View.ui.map.cont, LV_OBJ_FLAG_HIDDEN);
-    lv_obj_add_flag(View.ui.labelInfo, LV_OBJ_FLAG_HIDDEN);
+    lv_obj_add_flag(View.ui.loadingLabelInfo, LV_OBJ_FLAG_HIDDEN);
 
     priv.lastTileContOriPoint.x = 0;
     priv.lastTileContOriPoint.y = 0;
@@ -158,12 +167,24 @@ void LiveMap::Update()
 
             if(!einkInfoInited){
                 PM_LOG_INFO("eink init");
+                #ifndef WIN32
+                To_Eink_Port();
+                #endif
                 View.Eink_info_init();
+                #ifndef WIN32
+                To_LCD_Port();
+                #endif
                 einkInfoInited=true;
             }
             if(einkNeedUpdate){
-                PM_LOG_INFO("update eink");            
+                PM_LOG_INFO("update eink");
+                #ifndef WIN32
+                To_Eink_Port();
+                #endif            
                 View.Eink_Update();
+                #ifndef WIN32
+                To_LCD_Port();
+                #endif
                 einkNeedUpdate=false;
             }
         }
@@ -390,16 +411,62 @@ void LiveMap::onEvent(lv_event_t* event)
     lv_obj_t* obj = lv_event_get_current_target(event);
     lv_event_code_t code = lv_event_get_code(event);
 
+    //determine whether click is stale
+    if (lv_tick_elaps(instance->priv.lastClickededTime) >= CONFIG_MAP_DOUBLE_CLICKED_DELAY)
+        instance->priv.clickedBefore=false;
+
     if (code == LV_EVENT_LEAVE)
     {
         instance->Manager->Pop();
         return;
+    }
+    else if (code == LV_EVENT_PRESSED)
+    {
+        PM_LOG_INFO("outside pressed");
+        instance->priv.lastPressedTime=lv_tick_get();
+
+    }
+    else if(code ==LV_EVENT_RELEASED){
+        PM_LOG_INFO("outside released");
+        if (lv_tick_elaps(instance->priv.lastPressedTime) >= CONFIG_MAP_LONG_PRESSED_TIME){
+            PM_LOG_INFO("outside long pressed");
+            if(isNormalMode)
+                instance->Manager->Pop();
+            else{
+                PM_LOG_INFO("event give update");
+                einkNeedUpdate=true;
+            }
+        }
+    }
+    else if(code == LV_EVENT_SHORT_CLICKED){
+        PM_LOG_INFO("outside short clicked");
+        // determine whether double clicked first
+        if(instance->priv.clickedBefore==true){
+            PM_LOG_INFO("outside double clicked");
+            isNormalMode=!isNormalMode;
+            if(!isNormalMode){
+                lv_obj_clear_flag(instance->View.ui.toEinkLabelInfo, LV_OBJ_FLAG_HIDDEN);
+            }
+            else{
+                lv_obj_add_flag(instance->View.ui.toEinkLabelInfo, LV_OBJ_FLAG_HIDDEN);
+            }
+            einkNeedUpdate=true;
+        }
+        instance->priv.clickedBefore=true;
+        instance->priv.lastClickededTime=lv_tick_get();
+        // update content if in low power mode
+        if(!isNormalMode){
+            PM_LOG_INFO("event give update");
+            einkNeedUpdate=true;
+        }
+
     }
 
     if (obj == instance->View.ui.zoom.slider)
     {
         if (code == LV_EVENT_VALUE_CHANGED)
         {
+            PM_LOG_INFO("slider value changed");
             int32_t level = lv_slider_get_value(obj);
             int32_t levelMax = instance->Model.mapConv.GetLevelMax();
             lv_label_set_text_fmt(instance->View.ui.zoom.labelInfo, "%d/%d", level, levelMax);
@@ -408,30 +475,41 @@ void LiveMap::onEvent(lv_event_t* event)
             instance->priv.lastContShowTime = lv_tick_get();
             instance->UpdateDelay(200);
         }
-        else if (isNormalMode && code == LV_EVENT_SHORT_CLICKED)
-        {
-            instance->Manager->Pop();
-        }
+        // else if (code == LV_EVENT_SHORT_CLICKED)
+        // {
+        //     PM_LOG_INFO("slider short clicked");
+        //     if(isNormalMode)
+        //         instance->Manager->Pop();
+        //     else{
+        //         PM_LOG_INFO("event give update");
+        //         einkNeedUpdate=true;
+        //     }
+        // }
+        // else if(code == LV_EVENT_LONG_PRESSED){
+        //     PM_LOG_INFO("slider long_pressed");
+        //     isNormalMode=!isNormalMode;
+        //     einkNeedUpdate=true;
+        // }
     }
 
-    if (obj == instance->View.ui.sportInfo.cont)
-    {
-        if (code == LV_EVENT_SHORT_CLICKED)
-        {
-            PM_LOG_INFO("short clicked");
-            if(isNormalMode)
-                instance->Manager->Pop();
-            else{
-                PM_LOG_INFO("give update");
-                einkNeedUpdate=true;
-            }
-        }
-        else if(code == LV_EVENT_LONG_PRESSED){
-            PM_LOG_INFO("long_pressed");
-            isNormalMode=!isNormalMode;
-            einkNeedUpdate=true;
-        }
-    }
+    // if (obj == instance->View.ui.sportInfo.cont ||obj == instance->View.ui.cont)
+    // {
+    //     if (code == LV_EVENT_SHORT_CLICKED)
+    //     {
+    //         PM_LOG_INFO("info short clicked");
+    //         if(isNormalMode)
+    //             instance->Manager->Pop();
+    //         else{
+    //             PM_LOG_INFO("event give update");
+    //             einkNeedUpdate=true;
+    //         }
+    //     }
+    //     else if(code == LV_EVENT_LONG_PRESSED){
+    //         PM_LOG_INFO("info long_pressed");
+    //         isNormalMode=!isNormalMode;
+    //         einkNeedUpdate=true;
+    //     }
+    // }
     //LV_EVENT_SHORT_CLICKED
     //LV_EVENT_LONG_PRESSED_REPEAT
 }

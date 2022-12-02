@@ -30,6 +30,9 @@ private:
     {
         uint32_t lastMapUpdateTime;
         uint32_t lastContShowTime;
+        uint32_t lastPressedTime;
+        uint32_t lastClickededTime;
+        bool clickedBefore;
         lv_timer_t* timer;
         TileConv::Point_t lastTileContOriPoint;
         bool isTrackAvtive;

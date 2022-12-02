@@ -13,7 +13,8 @@ class LiveMapView
 public:
     struct
     {
-        lv_obj_t* labelInfo;
+        lv_obj_t* loadingLabelInfo;
+        lv_obj_t* toEinkLabelInfo;
 
         lv_style_t styleCont;
         lv_style_t styleLabel;
@@ -55,6 +56,7 @@ public:
             lv_obj_t* labelTrip;
             lv_obj_t* labelTime;
         } sportInfo;
+        lv_obj_t* cont;
     } ui;
     struct{
         struct{

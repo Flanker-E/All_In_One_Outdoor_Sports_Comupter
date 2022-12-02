@@ -102,6 +102,7 @@ void LiveMapView::Eink_Update(){
 }
 void LiveMapView::Create(lv_obj_t* root, uint32_t tileNum)
 {
+    ui.cont=root;
     lv_obj_remove_style_all(root);
     lv_obj_set_size(root, LV_HOR_RES, LV_VER_RES);
     lv_obj_set_style_bg_color(root, COLOR_TEXT, 0);
@@ -109,14 +110,36 @@ void LiveMapView::Create(lv_obj_t* root, uint32_t tileNum)
 
     lv_obj_t* label = lv_label_create(root);
     lv_obj_center(label);
-    lv_obj_set_style_text_font(label, ResourcePool::GetFont("bahnschrift_17"), 0);
+    lv_obj_set_style_text_font(label, ResourcePool::GetFont("barlow_semiconre_17"), 0);
     lv_label_set_text(label, "LOADING...");
-    ui.labelInfo = label;
+    ui.loadingLabelInfo = label;    
 
     Style_Create();
     Map_Create(root, tileNum);
     ZoomCtrl_Create(root);
     SportInfo_Create(root);
+    // info user that eink is enabled
+    label = lv_label_create(root);
+    lv_obj_set_style_text_font(label, ResourcePool::GetFont("barlow_semiconre_17"), 0);
+    //lv_obj_set_style_text_font(label, &lv_font_montserrat_26, 0);
+    lv_obj_set_style_text_color(label, COLOR_TEXT, 0);
+    lv_label_set_text(label, "SWITCH TO EINK");
+    lv_obj_center(label);
+    // lv_obj_remove_style_all(label);
+    // lv_obj_center(label);
+    lv_obj_set_style_text_font(label, ResourcePool::GetFont("barlow_semiconre_17"), 0);
+    lv_obj_set_style_text_color(label, COLOR_TEXT, 0);
+    lv_label_set_text(label, "SWITCH TO EINK");
+    lv_obj_align(label, LV_ALIGN_CENTER, 0, 0);
+    
+    lv_obj_set_size(label, LV_HOR_RES, LV_VER_RES);
+    lv_obj_set_style_bg_color(label, COLOR_BACKGROUND, 0);
+    lv_obj_set_style_bg_opa(label, LV_OPA_COVER, 0);
+    // lv_obj_center(label);
+    
+    // lv_label_set_text_color(label, COLOR_TEXT);
+    ui.toEinkLabelInfo=label;
+    lv_obj_add_flag(ui.toEinkLabelInfo, LV_OBJ_FLAG_HIDDEN);
 }
 
 void LiveMapView::Delete()
