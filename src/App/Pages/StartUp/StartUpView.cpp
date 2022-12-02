@@ -11,6 +11,7 @@ void StartupView::Create(lv_obj_t* root)
     lv_obj_remove_style_all(root);
     lv_obj_set_size(root, LV_HOR_RES, LV_VER_RES);
 
+    //underline
     lv_obj_t* cont = lv_obj_create(root);
     lv_obj_remove_style_all(cont);
     lv_obj_clear_flag(cont, LV_OBJ_FLAG_SCROLLABLE);
