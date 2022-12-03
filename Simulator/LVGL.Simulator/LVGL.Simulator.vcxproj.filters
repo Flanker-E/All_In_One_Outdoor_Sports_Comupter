@@ -418,6 +418,9 @@
     <Filter Include="App\Pages\Settings">
       <UniqueIdentifier>{f46a9232-32d8-4a0f-a1d5-55b6d309eb41}</UniqueIdentifier>
     </Filter>
+    <Filter Include="App\Pages\MapSettings">
+      <UniqueIdentifier>{ff3af312-8e00-453c-9723-300637d0acd9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lvgl\examples\get_started\lv_example_get_started.h">
@@ -1040,6 +1043,15 @@
     </ClInclude>
     <ClInclude Include="..\..\src\App\Pages\Settings\SettingsView.h">
       <Filter>App\Pages\Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\App\Pages\MapSettings\MapSettings.h">
+      <Filter>App\Pages\MapSettings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\App\Pages\MapSettings\MapSettingsModel.h">
+      <Filter>App\Pages\MapSettings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\App\Pages\MapSettings\MapSettingsView.h">
+      <Filter>App\Pages\MapSettings</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -2130,6 +2142,18 @@
       <Filter>App\Resource\Image</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\App\Resource\Image\img_src_wifi.c">
+      <Filter>App\Resource\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\App\Pages\MapSettings\MapSettings.cpp">
+      <Filter>App\Pages\MapSettings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\App\Pages\MapSettings\MapSettingsModel.cpp">
+      <Filter>App\Pages\MapSettings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\App\Pages\MapSettings\MapSettingsView.cpp">
+      <Filter>App\Pages\MapSettings</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\App\Resource\Image\img_src_route.c">
       <Filter>App\Resource\Image</Filter>
     </ClCompile>
   </ItemGroup>

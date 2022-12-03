@@ -62,6 +62,7 @@ do{\
         IMPORT_IMG(ble);
         IMPORT_IMG(sysinfo);
         IMPORT_IMG(wifi);
+        IMPORT_IMG(route);
     }
 
 } /* extern "C" */

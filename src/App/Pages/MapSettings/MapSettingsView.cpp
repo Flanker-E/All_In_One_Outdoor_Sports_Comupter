@@ -1,4 +1,4 @@
-#include "SettingsView.h"
+#include "MapSettingsView.h"
 #include "../../Utils/PageManager/PM_Log.h"
 #include "../../Configs/Config.h"
 
@@ -7,7 +7,7 @@ using namespace Page;
 #define ITEM_HEIGHT_MIN   100
 #define ITEM_PAD          ((LV_VER_RES - ITEM_HEIGHT_MIN) / 2)
 
-void SettingsView::Create(lv_obj_t* root){
+void MapSettingsView::Create(lv_obj_t* root){
     lv_obj_remove_style_all(root);
     lv_obj_set_size(root, LV_HOR_RES, LV_VER_RES);
     lv_obj_set_style_bg_color(root, COLOR_BACKGROUND, 0);
@@ -26,33 +26,33 @@ void SettingsView::Create(lv_obj_t* root){
 
     /* Item Info */
     Item_Create(
-        &ui.info,
+        &ui.liveMap,
         root,
-        "Info",
-        "sysinfo",
+        "liveMap",
+        "map_location",
 
-        "More Information"
+        "Live Map"
     );
 
-    /* Item ble */
+    /* Item back */
     Item_Create(
-        &ui.ble,
+        &ui.availableRoute,
         root,
-        "BLE",
-        "ble",
+        "Available Routes",
+        "route",
 
-        "BLE config"
+        "Choose routes"
     );
 
-    /* Item wifi */
-    Item_Create(
-        &ui.wifi,
-        root,
-        "WIFI",
-        "wifi",
+    /* Item back */
+    // Item_Create(
+    //     &ui.wifi,
+    //     root,
+    //     "WIFI",
+    //     "wifi",
 
-        "WIFI config"
-    );
+    //     "WIFI config"
+    // );
 
     /* Item back */
     Item_Create(
@@ -66,12 +66,12 @@ void SettingsView::Create(lv_obj_t* root){
 
     
 }
-void SettingsView::Delete(){
+void MapSettingsView::Delete(){
     lv_group_set_focus_cb(lv_group_get_default(), nullptr);
     Style_Reset();
 }
 
-void SettingsView::Group_Init()
+void MapSettingsView::Group_Init()
 {
     lv_group_t* group = lv_group_get_default();
     lv_group_set_wrap(group, true);
@@ -82,9 +82,9 @@ void SettingsView::Group_Init()
         lv_group_set_focus_cb(group, onFocus);}
 
     lv_group_add_obj(group, ui.back.icon);
-    lv_group_add_obj(group, ui.wifi.icon);
-    lv_group_add_obj(group, ui.ble.icon);
-    lv_group_add_obj(group, ui.info.icon);
+    // lv_group_add_obj(group, ui.wifi.icon);
+    lv_group_add_obj(group, ui.availableRoute.icon);
+    lv_group_add_obj(group, ui.liveMap.icon);
     
     
     
@@ -98,7 +98,7 @@ void SettingsView::Group_Init()
     // PM_LOG_INFO("focus");
 }
 
-void SettingsView::SetScrollToY(lv_obj_t* obj, lv_coord_t y, lv_anim_enable_t en)
+void MapSettingsView::SetScrollToY(lv_obj_t* obj, lv_coord_t y, lv_anim_enable_t en)
 {
     lv_coord_t scroll_y = lv_obj_get_scroll_y(obj);
     lv_coord_t diff = -y + scroll_y;
@@ -106,7 +106,7 @@ void SettingsView::SetScrollToY(lv_obj_t* obj, lv_coord_t y, lv_anim_enable_t en
     lv_obj_scroll_by(obj, 0, diff, en);
 }
 
-void SettingsView::Style_Init()
+void MapSettingsView::Style_Init()
 {
     lv_style_init(&style.icon);
     lv_style_set_width(&style.icon, 220);
@@ -148,7 +148,7 @@ void SettingsView::Style_Init()
     lv_style_set_text_color(&style.data, COLOR_TEXT);
 }
 
-void SettingsView::onFocus(lv_group_t* g)
+void MapSettingsView::onFocus(lv_group_t* g)
 {
     lv_obj_t* icon = lv_group_get_focused(g);
     lv_obj_t* cont = lv_obj_get_parent(icon);
@@ -157,7 +157,7 @@ void SettingsView::onFocus(lv_group_t* g)
     lv_obj_scroll_to_y(lv_obj_get_parent(cont), y, LV_ANIM_ON);
 }
 
-void SettingsView::Item_Create(
+void MapSettingsView::Item_Create(
     item_t* item,
     lv_obj_t* par,
     const char* name,
@@ -220,7 +220,7 @@ void SettingsView::Item_Create(
     lv_obj_set_height(icon, height);
 }
 
-void SettingsView::Style_Reset()
+void MapSettingsView::Style_Reset()
 {
     lv_style_reset(&style.icon);
     lv_style_reset(&style.info);

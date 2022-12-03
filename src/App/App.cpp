@@ -71,6 +71,7 @@ void App_Init()
     manager.Install("LiveMap",     "Pages/LiveMap");
     manager.Install("Dialplate",   "Pages/Dialplate");
     manager.Install("Settings",   "Pages/Settings");
+    manager.Install("MapSettings",   "Pages/MapSettings");
     manager.Install("SystemInfos", "Pages/SystemInfos");
     manager.Install("Startup",     "Pages/Startup");
 

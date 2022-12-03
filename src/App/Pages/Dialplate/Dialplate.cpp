@@ -140,8 +140,8 @@ void Dialplate::onBtnClicked(lv_obj_t* btn)
 {
     if (btn == View.ui.btnCont.btnMap)
     {
-        Manager->Push("Pages/LiveMap");
-        PM_LOG_DEBUG_LN("livemap");
+        Manager->Push("Pages/MapSettings");
+        PM_LOG_DEBUG_LN("MapSettings");
         
     }
     else if (btn == View.ui.btnCont.btnMenu)
