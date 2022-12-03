@@ -189,7 +189,9 @@ void LiveMap::Update()
                 PM_LOG_INFO("switch back to LCD, turn off its power");
             }
             else{
+                #ifndef WIN32
                 LCD_Power_Off();
+                #endif
                 if(!einkInfoInited){
                     PM_LOG_INFO("eink init");
                     #ifndef WIN32
