@@ -31,14 +31,14 @@ void LiveMapView::Eink_info_init(void)
     Eink_Item_Create(
         eink_ui.eastInfo.Info_East,
         eink_ui.eastInfo.Data_East,
-        "East",
+        "East:",
         27,
         88
     );
     Eink_Item_Create(
         eink_ui.destInfo.Info_Dest,
         eink_ui.destInfo.Data_Dest,
-        "Dest",
+        "Dest:",
         27,
         123
     );
@@ -48,36 +48,49 @@ void LiveMapView::Eink_info_init(void)
         eink_ui.battInfo.Data_Batt,
         "Batt:",
         15,
-        9
+        9,
+        false
     );
     Eink_Item_Create(
         eink_ui.gpsInfo.Info_GPS,
         eink_ui.gpsInfo.Data_GPS,
         "GPS:",
         115,
-        9
+        9,
+        false
     );
     lv_disp_set_default(disp_lcd);
 }
 void LiveMapView::Eink_Item_Create(
     lv_obj_t* Info,
     lv_obj_t* &data,
-    // const char* name,
-    // const char* img_src,
     const char* infos,
     int x_bias,
-    int y_bias
+    int y_bias,
+    bool is_large_font
 )
 {
-  // info text
-  Info = lv_label_create(scr_eink);
-  lv_label_set_text(Info, infos);
-  lv_obj_align(Info, LV_ALIGN_TOP_LEFT, x_bias, y_bias);
+    // info text
+    Info = lv_label_create(scr_eink);
+    if(is_large_font)
+        lv_obj_set_style_text_font(Info, ResourcePool::GetFont("barlow_conExBoIt_30"), 0);
+    else
+        lv_obj_set_style_text_font(Info, ResourcePool::GetFont("barlow_semiconre_17"), 0);
+    lv_label_set_text(Info, infos);
+    lv_obj_align(Info, LV_ALIGN_TOP_LEFT, x_bias, y_bias);
 
-  //data text
-  data = lv_label_create(scr_eink);
-  lv_label_set_text(data, "-");
-  lv_obj_align(data, LV_ALIGN_TOP_LEFT, x_bias+60, y_bias);
+    //data text
+    data = lv_label_create(scr_eink);
+    if(is_large_font){
+        lv_obj_set_style_text_font(data, ResourcePool::GetFont("barlow_conExBoIt_30"), 0);
+        lv_obj_align(data, LV_ALIGN_TOP_LEFT, x_bias+100, y_bias);
+        }
+    else{
+        lv_obj_set_style_text_font(Info, ResourcePool::GetFont("barlow_semiconre_17"), 0);
+        lv_obj_align(data, LV_ALIGN_TOP_LEFT, x_bias+60, y_bias);
+        }
+    lv_label_set_text(data, "-");
+    
 
 }
 

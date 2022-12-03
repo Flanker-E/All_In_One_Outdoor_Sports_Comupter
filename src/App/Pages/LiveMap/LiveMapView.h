@@ -111,11 +111,10 @@ private:
     void Eink_Item_Create(
     lv_obj_t* Info,
     lv_obj_t* &data,
-    // const char* name,
-    // const char* img_src,
     const char* infos,
     int x_bias,
-    int y_bias
+    int y_bias,
+    bool is_large_font = true
     );
     void Map_Create(lv_obj_t* par, uint32_t tileNum);
     void ZoomCtrl_Create(lv_obj_t* par);
