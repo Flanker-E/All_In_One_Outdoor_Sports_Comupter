@@ -1,15 +1,30 @@
 #include <lvgl.h>
 // #include "FS.h"
-#include <demos/lv_demos.h>
+// #include <demos/lv_demos.h>
 // #include <TFT_eSPI.h>
 #include "Port/Display.h"
 #include "TinyGPSPlus.h"
 // #include "Arduino.h"
 #include "HAL/HAL.h"
+#include <spi.h>
+#include <BLEDevice.h>
+#include <BLEUtils.h>
+#include <BLEServer.h>
+
+#include <SPI.h>
+// #include "epd2in13_V3.h"
+// Paint lib
+// #include "epdpaint.h"
+// #include "imagedata.h"
+
 
 #define GPS_SERIAL           Serial1
 #define CONFIG_GPS_TX_PIN           36
 #define CONFIG_GPS_RX_PIN           19
+#define TRANSFER_TO_EINK  digitalWrite(TFT_CS,HIGH);digitalWrite(CS_PIN,LOW);
+#define TRANSFER_TO_LCD digitalWrite(CS_PIN,HIGH);digitalWrite(TFT_CS,LOW);
+#define SERVICE_UUID        "b9d2ace9-c0ad-42bd-8d0d-ce841881b4e2"
+#define CHARACTERISTIC_UUID "67cdb060-1a83-46eb-8ddf-44fee0311152"
 // #include "App/App.h"
 // #include "TouchScreen.h"
 /*If you want to use the LVGL examples,
@@ -32,7 +47,13 @@
 // }
 // #define LV_USE_DEMO_WIDGETS
 lv_obj_t * cont;
-static lv_obj_t * scr;
+
+extern lv_disp_t * disp_lcd;
+extern lv_disp_t * disp_eink;
+
+extern lv_obj_t * scr_lcd;
+extern lv_obj_t * scr_eink;
+//lcd information
 //GPS,IMU,LCD,E-Ink,SD,BLE
 lv_obj_t* Info_GPS;
 lv_obj_t* Info_IMU;
@@ -40,13 +61,28 @@ lv_obj_t* Info_BLE;
 lv_obj_t* Info_LCD;
 lv_obj_t* Info_EInk;
 lv_obj_t* Info_SD;
-//data
+lv_obj_t* Info_Cadence;
+// data
 lv_obj_t* Data_GPS;
 lv_obj_t* Data_IMU;
 lv_obj_t* Data_BLE;
 lv_obj_t* Data_LCD;
 lv_obj_t* Data_EInk;
 lv_obj_t* Data_SD;
+lv_obj_t* Data_Cadence;
+
+//eink information
+lv_obj_t* Info_North;
+lv_obj_t* Info_East;
+lv_obj_t* Info_Dest;
+lv_obj_t* Info_Batt;
+// lv_obj_t* Info_GPS; already in lcd
+
+lv_obj_t* Data_North;
+lv_obj_t* Data_East;
+lv_obj_t* Data_Dest;
+lv_obj_t* Data_Batt;
+
 
 // lv_style_t red_style;
 lv_timer_t* timer;
@@ -55,6 +91,27 @@ int time1=0;
 
 HAL::GPS_Info_t gps_info;
 HAL::IMU_Info_t imu_info;
+std::string cadence;
+
+BLEServer *pServer;
+BLEService *pService;
+BLECharacteristic *pCharacteristic;
+
+// eink object
+// Epd epd;
+// unsigned char image[1536];
+// Paint paint(image,96,122);
+#define DISP_HOR_RES EPD_WIDTH   //250 x axis of Paint class
+#define DISP_VER_RES EPD_HEIGHT//122
+#define MY_DISP_HOR_RES DISP_HOR_RES
+#define MY_DISP_VER_RES DISP_VER_RES
+
+#define CS_PIN          9
+
+// Epd epdControl;
+// Paint einkImg(IMAGE_DATA, EPD_WIDTH, EPD_HEIGHT);
+// #define COLORED     0
+// #define UNCOLORED   1
 
 // update the text in certain period using hardware object
 void onTimerUpdate(lv_timer_t* timer){
@@ -64,7 +121,7 @@ void onTimerUpdate(lv_timer_t* timer){
     "Altitude\n"
     "Speed",
     */
-   Serial.println( "GPS_text_update" );
+   Serial.println( "text_update" );
    if(gps_info.isVaild)
         lv_label_set_text_fmt(
             Data_GPS,
@@ -92,7 +149,7 @@ void onTimerUpdate(lv_timer_t* timer){
             (float)0
         );
     }
-  Serial.println( "GPS_text_updated" );
+  
   lv_label_set_text_fmt(
         Data_IMU,
         "%.3f\n%.3f\n%.3f\n",
@@ -102,6 +159,13 @@ void onTimerUpdate(lv_timer_t* timer){
         //   trip+=(float)0.1,
         //   time1++
     );
+
+    lv_label_set_text_fmt(
+        Data_Cadence,
+        "%.2f rev/s",
+        cadence
+    );
+    Serial.println( "text_updated" );
 }
 
 // create item info box using input
@@ -121,7 +185,7 @@ void Item_Create(
 )
 {
   //line
-  lv_obj_t* line = lv_line_create(scr);
+  lv_obj_t* line = lv_line_create(scr_lcd);
   lv_obj_set_size(line, 200, 2);
   lv_obj_set_style_border_color(line,lv_color_hex(0xff931e),0);
   lv_obj_set_style_border_side(line, LV_BORDER_SIDE_BOTTOM, 0);
@@ -129,32 +193,108 @@ void Item_Create(
   lv_obj_align(line, LV_ALIGN_TOP_LEFT, x_bias, y_bias+14);
 
   //name text 
-  lv_obj_t* label = lv_label_create(scr);
+  lv_obj_t* label = lv_label_create(scr_lcd);
   lv_label_set_text(label, name);
   lv_obj_align(label, LV_ALIGN_TOP_LEFT, x_bias, y_bias);
 
   // info text
-  Info = lv_label_create(scr);
+  Info = lv_label_create(scr_lcd);
   lv_label_set_text(Info, infos);
   lv_obj_align(Info, LV_ALIGN_TOP_LEFT, x_bias, y_bias+15);
 
   //data text
-  data = lv_label_create(scr);
+  data = lv_label_create(scr_lcd);
   lv_label_set_text(data, "-");
   lv_obj_align(data, LV_ALIGN_TOP_LEFT, x_bias+120, y_bias+15);
-//   if(Data_GPS == data) {
-//         Serial.println( "same" );
-//         if(Data_GPS == NULL) {
-//         Serial.println( "err in create" );
-        
-//         }
-//         }
+
+}
+void Eink_Item_Create(
+    lv_obj_t* Info,
+    lv_obj_t* &data,
+    // const char* name,
+    // const char* img_src,
+    const char* infos,
+    int x_bias,
+    int y_bias
+)
+{
+  // info text
+  Info = lv_label_create(scr_eink);
+  lv_label_set_text(Info, infos);
+  lv_obj_align(Info, LV_ALIGN_TOP_LEFT, x_bias, y_bias);
+
+  //data text
+  data = lv_label_create(scr_eink);
+  lv_label_set_text(data, "-");
+  lv_obj_align(data, LV_ALIGN_TOP_LEFT, x_bias+60, y_bias);
+
+}
+void Eink_info_init(void)
+{
+  Eink_Item_Create(
+      Info_North,
+      Data_North,
+      "North:",
+      9,
+      8
+  );
+  Eink_Item_Create(
+      Info_East,
+      Data_East,
+      "East",
+      9,
+      44
+  );
+  Eink_Item_Create(
+      Info_Dest,
+      Data_Dest,
+      "Dest",
+      9,
+      80
+  );
+
+  Eink_Item_Create(
+      Info_Batt,
+      Data_Batt,
+      "Batt:",
+      173,
+      8
+  );
+//   Eink_Item_Create(
+//       Info_GPS,
+//       Data_GPS,
+//       "GPS:",
+//       173,
+//       30
+//   );
 }
 
 void setup()
 {
+  Serial.begin( 115200 ); /* prepare for possible serial debug */
+  BLEDevice::init("ESP32-BLE-Server");
+  Serial.println("Starting BLE Server!");
+  pServer = BLEDevice::createServer();
+  pService = pServer->createService(SERVICE_UUID);
+  pCharacteristic = pService->createCharacteristic(
+                                         CHARACTERISTIC_UUID,
+                                         BLECharacteristic::PROPERTY_READ |
+                                         BLECharacteristic::PROPERTY_WRITE
+                                       );
+
+  pCharacteristic->setValue("Hello, World!");
+  pService->start();
+  //BLEAdvertising *pAdvertising = pServer->getAdvertising();
+  BLEAdvertising *pAdvertising = BLEDevice::getAdvertising();
+  pAdvertising->addServiceUUID(SERVICE_UUID);
+  pAdvertising->setScanResponse(true);
+  pAdvertising->setMinPreferred(0x06);  // functions that help with iPhone connections issue
+  pAdvertising->setMinPreferred(0x12);
+  BLEDevice::startAdvertising();
+  Serial.println("Characteristic defined! Now you can read it in the Client!");
+  //pAdvertising->start();
   //  File f = SPIFFS.open(CALIBRATION_FILE, "r");
-    Serial.begin( 115200 ); /* prepare for possible serial debug */
+
 
     String LVGL_Arduino = "Hello Arduino! ";
     LVGL_Arduino += String('V') + lv_version_major() + "." + lv_version_minor() + "." + lv_version_patch();
@@ -172,14 +312,71 @@ void setup()
     HAL::I2C_Init(true);
     HAL::IMU_Init();
     // HAL::SD_Init();
+    // digitalWrite(CS_PIN,HIGH);
+    // TRANSFER_TO_LCD
+    // Port_Init();
+    To_LCD_Port();
+    startFreeRtos();
+    // lv_task_handler();
 
-
-
+    // End_spi_transaction();
+    Serial.println("eink set up start");
+    //EINK test
+    // TRANSFER_TO_EINK
+    // Port_Init_Eink();
+    To_Eink_Port();
+    Eink_info_init();
+    delay(1000);
+    // End_spi_transaction();
+    
+    // Serial.println("start rtos");
+    
+    // lv_task_handler();
+    // Serial.println("delay begin");
+    //eink test end
+    // delay(5000);
+    Serial.println("end of eink set up");
+    // TRANSFER_TO_LCD
+    // Port_Init();
+    To_LCD_Port();
+    // lv_disp_set_default(disp_lcd);
+    
   //screen init, assign screen object to lvgl
-    Port_Init();
+    // Port_Init();
     // get current display from lvgl.
-    scr = lv_scr_act();
+    // scr_lcd = lv_scr_act();
 
+    //suspend LCD
+    // digitalWrite(TFT_CS,HIGH);
+
+    // //Eink init
+    // epdControl.Init(FULL);
+    // Serial.println("epd PART");
+    // // epd.Display(IMAGE_DATA);
+    
+    // // delay(5000);
+
+    // // epd.Clear();
+    // // delay(5000);
+    // // paint.SetWidth(248);
+    // // Serial.println("test");
+    // // paint.SetHeight(100);
+    // // Serial.println("test");
+    // // paint.Clear(UNCOLORED);
+    // // Serial.println("test"/);
+    // // paint.DrawStringAt(4, 4, "Hello world!", &Font16, UNCOLORED);
+    // // Serial.println("test");
+    // epdControl.Display(einkImg.GetImage());
+    // Serial.println("paint hello world");
+    // delay(5000);
+    // Serial.println("epd sleep");
+    // // epd.SetFrameMemory(paint.GetImage(), 0, 10, paint.GetWidth(), paint.GetHeight());
+
+    // epdControl.Sleep();
+
+    //toggle different screen
+    // digitalWrite(CS_PIN,HIGH);
+    // digitalWrite(TFT_CS,LOW);
 
     //display size
     //font
@@ -250,6 +447,15 @@ void setup()
       20,
       380
 );
+Item_Create(
+      Info_Cadence,
+      Data_Cadence,
+      "Cadence",
+      "Speed\n"
+      "Time",
+      20,
+      445
+  );
 
     // Info_GPS = lv_label_create(scr);
     // lv_label_set_text(Info_GPS,"Firmware1\n"
@@ -298,7 +504,17 @@ void setup()
 }
 
 void loop()
-{   
+{  
+    std::string value = pCharacteristic->getValue();
+    // std::string newValue;
+    // if ((value.c_str()[0]) == '0') {
+    //   newValue = pCharacteristic->getValue() + "L";
+    // } 
+    // else if ((value.c_str()[0]) == '1'){
+    //   newValue = pCharacteristic->getValue() + "R";
+    // }
+    Serial.println(value.c_str());
+    cadence = value;
     // update data from hardware
     // Serial.println( "GPS_update" );
     HAL::GPS_Update();

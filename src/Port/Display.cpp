@@ -134,7 +134,7 @@ void Port_Init(){
     uint16_t calData[5] = { 275, 3620, 264, 3532, 0x02 };
     tft.setTouch( calData );
 
-    lv_disp_draw_buf_init( &draw_buf, buf, NULL, screenWidth * 100 );
+    lv_disp_draw_buf_init( &draw_buf, buf, NULL, screenWidth * 40 );
 
     /*Initialize the display*/
     static lv_disp_drv_t disp_drv;
