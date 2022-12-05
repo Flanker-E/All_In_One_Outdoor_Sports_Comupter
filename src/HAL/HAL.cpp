@@ -55,11 +55,8 @@ void HAL::HAL_Init()
     Serial.println("Author: " VERSION_AUTHOR_NAME);
     Power_Init();
     //open screen backlight
-    pinMode(CONFIG_SCREEN_BLK_PIN,OUTPUT);
-    digitalWrite(CONFIG_SCREEN_BLK_PIN,HIGH); 
-    pinMode(CONFIG_SCREEN_PWR_PIN,OUTPUT);
-    digitalWrite(CONFIG_SCREEN_PWR_PIN,LOW); 
-
+    SW_Init();
+    
     lv_disp_buf_p = (lv_color_t*)malloc(DISP_BUF_SIZE * sizeof(lv_color_t));
     if (lv_disp_buf_p == nullptr)
         LV_LOG_WARN("lv_port_disp_init malloc failed!\n");
@@ -83,6 +80,7 @@ void HAL::HAL_Update()
 {
     Power_Update();
     IMU_Update();
+    GPS_Update();
     Audio_Update();
     MAG_Update();
 

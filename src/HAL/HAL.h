@@ -102,6 +102,14 @@ namespace HAL
     bool BT_Init();
     void BT_Update();
 
+/*Switches */
+    void SW_Init();
+    void LCD_On();
+    void LCD_Off();
+    void IMU_GPS_On();
+    void IMU_GPS_Off();
+    
+
 }
 
 #endif

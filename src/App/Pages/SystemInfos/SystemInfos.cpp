@@ -119,7 +119,7 @@ void SystemInfos::Update()
     float course;
     float speed;
     Model.GetGPSInfo(&lat, &lng, &alt, buf, sizeof(buf), &course, &speed);
-    // View.SetGPS(lat, lng, alt, buf, course, speed);
+    View.SetGPS(lat, lng, alt, buf, course, speed);
     // Serial.println("mag");
 
     /* MAG */

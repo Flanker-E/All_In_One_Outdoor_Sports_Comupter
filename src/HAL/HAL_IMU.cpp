@@ -1,19 +1,29 @@
 #include "HAL/HAL.h"
 // #include "MPU9250.h"
 // #include "App/Accounts/Account_Master.h"
+#include "MPU6050.h"
 #include "App/Common/DataProc/DataProc.h"
 
 // static MPU9250 mpu;
+static MPU6050 mpu;
+int16_t ax, ay, az;
+int16_t gx, gy, gz;
+int16_t roll, yaw, pitch;
+
 static HAL::CommitFunc_t CommitFunc = nullptr;
 static void* UserData = nullptr;
+
 // bool HAL::IMU_Init()
 // {
-//     if (!mpu.setup(0x68))
+//     mpu.initialize();
+//     if (!mpu.testConnection())
 //     {
 //         Serial.println("MPU connection failed.");
+//         return true;
 //     }
+//     else
+//         return false;
 // }
-
 bool HAL::IMU_Init()
 {
     Serial.print("IMU: init...");
@@ -25,6 +35,34 @@ bool HAL::IMU_Init()
 
     return success;
 }
+
+// void HAL::IMU_Update()
+// {
+//     // memset(info, 0, sizeof(GPS_Info_t));
+//     IMU_Info_t imuInfo;
+// //    mpu.update();
+//     mpu.getMotion6(&ax, &ay, &az, &gx, &gy, &gz);
+//     mpu.getRotation(&roll,&yaw,&pitch);
+//     imuInfo.ax = ax;
+//     imuInfo.ay = ay;
+//     imuInfo.az = az;
+//     imuInfo.gx = gx;
+//     imuInfo.gy = gy;
+//     imuInfo.gz = gz;
+//     imuInfo.mx = 0; //6050无
+//     imuInfo.my = 0;
+//     imuInfo.mz = 0;
+//     imuInfo.roll = roll;
+//     imuInfo.yaw = yaw;
+//     imuInfo.pitch = pitch;
+//     Serial.println("MPU update.");
+
+//     // AccountSystem::IMU_Commit(&imuInfo);
+//     if(CommitFunc)
+//     {
+//         CommitFunc(&imuInfo, UserData);
+//     }
+// }
 
 void HAL::IMU_SetCommitCallback(CommitFunc_t func, void* userData)
 {

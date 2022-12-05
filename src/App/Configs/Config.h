@@ -82,7 +82,6 @@
 #define CONFIG_SCREEN_SCK_PIN       18
 #define CONFIG_SCREEN_MOSI_PIN      23
 #define CONFIG_SCREEN_BLK_PIN       12
-#define CONFIG_SCREEN_PWR_PIN       5
 
 #define CONFIG_SCREEN_HOR_RES       240//240
 #define CONFIG_SCREEN_VER_RES       320
@@ -119,6 +118,8 @@
 
 /* Power */
 #define CONFIG_POWER_EN_PIN         21
+#define CONFIG_IMU_GPS_PWR_PIN      25
+#define CONFIG_SCREEN_PWR_PIN       5
 
 /* Debug USART */
 #define CONFIG_DEBUG_SERIAL         Serial
