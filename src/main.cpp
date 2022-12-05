@@ -448,6 +448,7 @@ void loop()
     HAL::GPS_Update();
     HAL::IMU_Update(&imu_info);
     HAL::GPS_GetInfo(&gps_info);
+    HAL::HAL_Update();
     
 
 

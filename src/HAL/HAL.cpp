@@ -62,11 +62,11 @@ void HAL::HAL_Init()
 void HAL::HAL_Update()
 {
     // /* Power ctrl update */
-    // Power_Update();
+    Power_Update();
     // Power_EventMonitor();
     
     // /* Peripherals update */
-    // Encoder_Update();
+    Encoder_Update();
     // Audio_Update();
     // GPS_Update();
     // IMU_Update();
