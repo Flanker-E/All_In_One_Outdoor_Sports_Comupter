@@ -120,10 +120,14 @@ void onTimerUpdate(lv_timer_t* timer){
     if(gps_info.isVaild)
           lv_label_set_text_fmt(
               Data_GPS,
+              "%s\n"
+              "%d\n"
               "%0.6f\n"
               "%0.6f\n"
               "%0.2fm\n"
               "%0.1fkm/h",
+              "Yes",
+              gps_info.satellites,
               gps_info.latitude,
               gps_info.longitude,
               gps_info.altitude,
@@ -134,10 +138,14 @@ void onTimerUpdate(lv_timer_t* timer){
       else{
           lv_label_set_text_fmt(
               Data_GPS,
+              "%s\n"
+              "%d\n"
               "%0.6f\n"
               "%0.6f\n"
               "%0.2fm\n"
               "%0.1fkm/h",
+                "No",
+                0,
               (float)0,
               (float)0,
               (float)0,
@@ -168,24 +176,24 @@ void onTimerUpdate(lv_timer_t* timer){
           count
       );
     }
-    count++;
-    if(count==4){
-        //give semaphore
-        // Serial.println("give eink update semaphore");
-        // xSemaphoreGive(einkUpdateSemaphore);
+    // count++;
+    // if(count==4){
+    //     //give semaphore
+    //     // Serial.println("give eink update semaphore");
+    //     // xSemaphoreGive(einkUpdateSemaphore);
         
-        count=0;
-        // Serial.println("update semaphore detected, switch");
-      if(isLCD){
-        To_Eink_Port();
-      // Eink_info_init();
-      }
-      else
-        To_LCD_Port();
-      isLCD=!isLCD;
-    //   lv_task_handler();
-      Serial.println("end of switch");
-    }
+    //     count=0;
+    //     // Serial.println("update semaphore detected, switch");
+    //   if(isLCD){
+    //     To_Eink_Port();
+    //   // Eink_info_init();
+    //   }
+    //   else
+    //     To_LCD_Port();
+    //   isLCD=!isLCD;
+    // //   lv_task_handler();
+    //   Serial.println("end of switch");
+    // }
     Serial.println( "text_updated" );
 }
 
@@ -295,6 +303,8 @@ void LCD_info_init(){
       Info_GPS,
       Data_GPS,
       "GPS",
+      "valid\n"
+      "satellite\n"
       "Latitude\n"
       "Longitude\n"
       "Altitude\n"
@@ -366,21 +376,29 @@ void setup()
     Serial.print("GPS: TinyGPS++ library v. ");
     Serial.print(TinyGPSPlus::libraryVersion());
     Serial.println(" by Mikal Hart");
-
+    HAL::Power_Init();
+    HAL::Encoder_Init();
     //I2C and IMU init
     HAL::I2C_Init(true);
     HAL::IMU_Init();
     // HAL::SD_Init();
     pinMode(TFT_CS,OUTPUT);
-    pinMode(9,OUTPUT);
+    pinMode(CONFIG_SCREEN_BLK_PIN,OUTPUT);
+    pinMode(CONFIG_SCREEN_PWR_PIN,OUTPUT);
+    pinMode(CONFIG_IMU_GPS_PWR_PIN,OUTPUT);
+
+    digitalWrite(CONFIG_SCREEN_BLK_PIN,HIGH); // low-side nmos
+    digitalWrite(CONFIG_SCREEN_PWR_PIN,LOW); // high-side pmos
+    digitalWrite(CONFIG_IMU_GPS_PWR_PIN,LOW); // high-side pmos
+    // pinMode(9,OUTPUT);
     // digitalWrite(CS_PIN,HIGH);
     // TRANSFER_TO_LCD
     // Port_Init();
-    einkUpdateSemaphore = xSemaphoreCreateBinary();
-    if (einkUpdateSemaphore!=NULL)
-    {
-        Serial.println("eink update semaphore creation succeed!");
-    }
+    // einkUpdateSemaphore = xSemaphoreCreateBinary();
+    // if (einkUpdateSemaphore!=NULL)
+    // {
+    //     Serial.println("eink update semaphore creation succeed!");
+    // }
 
     lv_init();
     To_LCD_Port();
@@ -393,8 +411,8 @@ void setup()
     // //EINK test
     // // TRANSFER_TO_EINK
     // // Port_Init_Eink();
-    To_Eink_Port();
-    Eink_info_init();
+    // To_Eink_Port();
+    // Eink_info_init();
     startFreeRtos();
 
  

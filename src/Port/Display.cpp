@@ -15,7 +15,7 @@ lv_disp_t * disp_eink;
 lv_obj_t * scr_lcd;
 lv_obj_t * scr_eink;
 volatile bool spi_started=false;
-volatile bool isLCD=false;
+volatile bool isLCD=true;
 
 TaskHandle_t handleTaskLvgl;
 SemaphoreHandle_t einkUpdateSemaphore;
@@ -168,7 +168,7 @@ void Port_Init(){
 
     tft.begin();          /* TFT init */
     spi_started=true;
-    tft.setRotation( 2 ); /* Landscape orientation, flipped */
+    tft.setRotation( 3 ); /* Landscape orientation, flipped */
     tft.fillScreen(TFT_BLACK);
     
     if(!inited){
@@ -178,9 +178,9 @@ void Port_Init(){
     /*Set the touchscreen calibration data,
      the actual data for your display can be aquired using
      the Generic -> Touch_calibrate example from the TFT_eSPI library*/
-    touch_calibrate();
-    uint16_t calData[5] = { 275, 3620, 264, 3532, 0x02 };
-    tft.setTouch( calData );
+    // touch_calibrate();
+    // uint16_t calData[5] = { 275, 3620, 264, 3532, 0x02 };
+    // tft.setTouch( calData );
 
     // lv_disp_draw_buf_init( &draw_buf, buf, NULL, screenWidth * 50 );
 
@@ -189,6 +189,7 @@ void Port_Init(){
     /*Initialize the (dummy) input device driver*/
     lv_port_indev_init();
     scr_lcd = lv_scr_act();
+    lv_fs_if_init();
     Serial.println("end of lcd lvgl driver init");
     }
     
@@ -224,11 +225,11 @@ void startFreeRtos(){
       configMAX_PRIORITIES - 1,
       // NULL);
       &handleTaskLvgl);
-  xTaskCreate(
-      TaskEinkUpdate,
-      "Update eink when detected semaphore",
-      10000,
-      nullptr,
-      configMAX_PRIORITIES - 2,
-      NULL);
+  // xTaskCreate(
+  //     TaskEinkUpdate,
+  //     "Update eink when detected semaphore",
+  //     10000,
+  //     nullptr,
+  //     configMAX_PRIORITIES - 2,
+  //     NULL);
 }

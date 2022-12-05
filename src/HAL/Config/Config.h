@@ -35,11 +35,11 @@
  *=========================*/
 
 /* Screen */
-// #define CONFIG_SCREEN_CS_PIN        PB0
-// #define CONFIG_SCREEN_DC_PIN        PA4
-// #define CONFIG_SCREEN_RST_PIN       PA6
-// #define CONFIG_SCREEN_SCK_PIN       PA5
-// #define CONFIG_SCREEN_MOSI_PIN      PA7
+#define CONFIG_SCREEN_CS_PIN        9
+#define CONFIG_SCREEN_DC_PIN        2
+#define CONFIG_SCREEN_RST_PIN       4
+#define CONFIG_SCREEN_SCK_PIN       18
+#define CONFIG_SCREEN_MOSI_PIN      23
 #define CONFIG_SCREEN_BLK_PIN       12
 #define CONFIG_SCREEN_HOR_RES       240
 #define CONFIG_SCREEN_VER_RES       320
@@ -82,6 +82,8 @@
 
 /* Power */
 #define CONFIG_POWER_EN_PIN         21
+#define CONFIG_IMU_GPS_PWR_PIN      25
+#define CONFIG_SCREEN_PWR_PIN       5
 #define CONFIG_POWER_WAIT_TIME      1000
 #define CONFIG_POWER_SHUTDOWM_DELAY 5000
 

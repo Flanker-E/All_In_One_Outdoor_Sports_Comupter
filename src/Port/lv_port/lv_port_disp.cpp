@@ -7,10 +7,10 @@
 #define DISP_VER_RES         320
 #define EINK_DISP_HOR_RES EPD_HEIGHT
 #define EINK_DISP_VER_RES EPD_WIDTH
-#define DISP_BUF_SIZE        screenWidth * 50
+#define DISP_BUF_SIZE        screenWidth * 30
 
 //static lv_color_t lv_full_disp_buf[DISP_BUF_SIZE];
-lv_color_t* lv_disp_buf_p;
+lv_color_t* lv_disp_buf_p[DISP_BUF_SIZE];
 
 // static lv_disp_draw_buf_t disp_buf;
 // static lv_disp_drv_t disp_drv;
@@ -123,7 +123,7 @@ void lv_port_disp_lcd_init(SCREEN_CLASS* scr)
 
 void lv_port_disp_eink_init(){
   static lv_disp_drv_t disp_drv; 
-  lv_disp_draw_buf_init( &disp_buf, buf, NULL, screenWidth * 50 );
+  lv_disp_draw_buf_init( &disp_buf, lv_disp_buf_p, NULL, DISP_BUF_SIZE );
                                                  //Descriptor of a display driver
   lv_disp_drv_init(&disp_drv);                                                    //Basic initialization
   disp_drv.flush_cb = my_disp_flush_eink;                                              //Set your driver function

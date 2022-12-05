@@ -1,5 +1,5 @@
 #include "HAL.h"
-
+// extern lv_color_t* lv_disp_buf_p;
 // static MillisTaskManager taskManager;
 
 
@@ -21,7 +21,9 @@ void HAL::HAL_Init()
     Serial.println("[Peak-Track]");
     Serial.println("Version: " "1.0");
     Serial.println("Author: " "Forairaaaaa");
-
+    // lv_disp_buf_p = (lv_color_t*)malloc(DISP_BUF_SIZE * sizeof(lv_color_t));
+    // if (lv_disp_buf_p == nullptr)
+        // LV_LOG_WARN("lv_port_disp_init malloc failed!\n");
     /* Power init */
     Power_Init();
 
