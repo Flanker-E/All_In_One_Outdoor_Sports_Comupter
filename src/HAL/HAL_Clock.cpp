@@ -1,6 +1,6 @@
 #include "HAL.h"
 // #include "rtc.h"
-
+static int timeZoneOffset=CONFIG_SYSTEM_TIME_ZONE_DEFAULT;
 void HAL::Clock_Init()
 {
     // RTC_Init();
@@ -31,15 +31,22 @@ void HAL::Clock_GetInfo(Clock_Info_t* info)
     // info->minute = calendar.min;
     // info->second = calendar.sec;
     // info->millisecond = 0;
-
-    info->year = 2022;
-    info->month = 1;
-    info->day = 1;
+    info->year = gps.date.year();
+    info->month = gps.date.month();
+    info->day = gps.date.day();
     info->week = 1;
-    info->hour = 9;
-    info->minute = 0;
-    info->second = 0;
+    info->hour = gps.time.hour()+timeZoneOffset;
+    info->minute = gps.time.minute();
+    info->second = gps.time.second();
     info->millisecond = 0;
+    // info->year = 2022;
+    // info->month = 1;
+    // info->day = 1;
+    // info->week = 1;
+    // info->hour = 9;
+    // info->minute = 0;
+    // info->second = 0;
+    // info->millisecond = 0;
 }
 
 void HAL::Clock_SetInfo(const Clock_Info_t* info)
@@ -48,7 +55,7 @@ void HAL::Clock_SetInfo(const Clock_Info_t* info)
     //     info->year,
     //     info->month,
     //     info->day,
-    //     info->hour,
+        timeZoneOffset=info->hour-gps.time.hour();
     //     info->minute,
     //     info->second
     // );

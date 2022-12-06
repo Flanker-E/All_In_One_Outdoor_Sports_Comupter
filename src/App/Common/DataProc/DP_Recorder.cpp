@@ -3,6 +3,7 @@
 #include "../../Utils/GPX/GPX.h"
 #include "../../Configs/Config.h"
 #include "../../Configs/Version.h"
+#include "../../Utils/DataCenter/DataCenterLog.h"
 
 using namespace DataProc;
 
@@ -22,7 +23,7 @@ typedef struct
 
 static lv_fs_res_t Recorder_FileWriteString(lv_fs_file_t* file_p, const char* str)
 {
-    //LV_LOG_USER(str);
+    //DC_LOG_USER(str);
 
     lv_fs_res_t res = lv_fs_write(
                           file_p,
@@ -62,7 +63,7 @@ static int Recorder_GetTimeConv(
 
 static void Recorder_RecPoint(Recorder_t* recorder, HAL::GPS_Info_t* gpsInfo)
 {
-    //LV_LOG_USER("Track recording...");
+    //DC_LOG_USER("Track recording...");
 
     char timeBuf[64];
     int ret = Recorder_GetTimeConv(
@@ -74,7 +75,7 @@ static void Recorder_RecPoint(Recorder_t* recorder, HAL::GPS_Info_t* gpsInfo)
 
     if (ret < 0)
     {
-        LV_LOG_WARN("cant't get time");
+        DC_LOG_WARN("cant't get time");
         return;
     }
 
@@ -92,7 +93,7 @@ static void Recorder_RecPoint(Recorder_t* recorder, HAL::GPS_Info_t* gpsInfo)
 
 static void Recorder_RecStart(Recorder_t* recorder, uint16_t time)
 {
-    LV_LOG_USER("Track record start");
+    DC_LOG_USER("Track record start");
 
     char filepath[128];
     int ret = Recorder_GetTimeConv(
@@ -103,7 +104,7 @@ static void Recorder_RecStart(Recorder_t* recorder, uint16_t time)
 
     if (ret < 0)
     {
-        LV_LOG_WARN("cant't get time");
+        DC_LOG_WARN("cant't get time");
         return;
     }
 
@@ -111,7 +112,7 @@ static void Recorder_RecStart(Recorder_t* recorder, uint16_t time)
 
     if (res == LV_FS_RES_OK)
     {
-        LV_LOG_USER("Track file %s open success", filepath);
+        DC_LOG_USER("Track file %s open success", filepath);
 
         GPX* gpx = &(recorder->gpx);
         lv_fs_file_t* file_p = &(recorder->file);
@@ -121,17 +122,20 @@ static void Recorder_RecStart(Recorder_t* recorder, uint16_t time)
         gpx->setName(filepath);
         gpx->setDesc("");
 
-        Recorder_FileWriteString(file_p, gpx->getOpen().c_str());
-        Recorder_FileWriteString(file_p, gpx->getMetaData().c_str());
+        uint8_t ret= Recorder_FileWriteString(file_p, gpx->getOpen().c_str());
+        DC_LOG_USER("Track file getopen write ret is%d", ret);
+        ret= Recorder_FileWriteString(file_p, gpx->getMetaData().c_str());
+        DC_LOG_USER("Track file getmeta write ret is%d", ret);
         Recorder_FileWriteString(file_p, gpx->getTrakOpen().c_str());
         Recorder_FileWriteString(file_p, gpx->getInfo().c_str());
+        
         Recorder_FileWriteString(file_p, gpx->getTrakSegOpen().c_str());
 
         recorder->active = true;
     }
     else
     {
-        LV_LOG_ERROR("Track file open error!");
+        DC_LOG_ERROR("Track file open error!");
     }
 }
 
@@ -146,7 +150,7 @@ static void Recorder_RecStop(Recorder_t* recorder)
     Recorder_FileWriteString(file_p, gpx->getClose().c_str());
     lv_fs_close(file_p);
 
-    LV_LOG_USER("Track record end");
+    DC_LOG_USER("Track record end");
 }
 
 static int onNotify(Recorder_t* recorder, Recorder_Info_t* info)
@@ -158,10 +162,10 @@ static int onNotify(Recorder_t* recorder, Recorder_Info_t* info)
         break;
     case RECORDER_CMD_PAUSE:
         recorder->active = false;
-        LV_LOG_USER("Track record pause");
+        DC_LOG_USER("Track record pause");
         break;
     case RECORDER_CMD_CONTINUE:
-        LV_LOG_USER("Track record continue");
+        DC_LOG_USER("Track record continue");
         recorder->active = true;
         break;
     case RECORDER_CMD_STOP:

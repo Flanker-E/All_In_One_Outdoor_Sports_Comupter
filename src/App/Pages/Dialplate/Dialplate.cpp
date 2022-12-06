@@ -160,12 +160,12 @@ void Dialplate::onRecord(bool longPress)
         {
             if (!Model.GetGPSReady())
             {
-                LV_LOG_WARN("GPS has not ready, can't start record");
-                Model.PlayMusic("Error");
+                PM_LOG_WARN("GPS has not ready, can't start record");
+                // Model.PlayMusic("Error");
                 return;
             }
-
-            Model.PlayMusic("Connect");
+            PM_LOG_INFO("record state start");
+            // Model.PlayMusic("Connect");
             Model.RecorderCommand(Model.REC_START);
             SetBtnRecImgSrc("pause");
             recState = RECORD_STATE_RUN;
@@ -174,7 +174,8 @@ void Dialplate::onRecord(bool longPress)
     case RECORD_STATE_RUN:
         if (!longPress)
         {
-            Model.PlayMusic("UnstableConnect");
+            PM_LOG_INFO("record state pause");
+            // Model.PlayMusic("UnstableConnect");
             Model.RecorderCommand(Model.REC_PAUSE);
             SetBtnRecImgSrc("start");
             recState = RECORD_STATE_PAUSE;
@@ -183,14 +184,16 @@ void Dialplate::onRecord(bool longPress)
     case RECORD_STATE_PAUSE:
         if (longPress)
         {
-            Model.PlayMusic("NoOperationWarning");
+            PM_LOG_INFO("record state stop");
+            // Model.PlayMusic("NoOperationWarning");
             SetBtnRecImgSrc("stop");
             Model.RecorderCommand(Model.REC_READY_STOP);
             recState = RECORD_STATE_STOP;
         }
         else
         {
-            Model.PlayMusic("Connect");
+            PM_LOG_INFO("record state restart");
+            // Model.PlayMusic("Connect");
             Model.RecorderCommand(Model.REC_CONTINUE);
             SetBtnRecImgSrc("pause");
             recState = RECORD_STATE_RUN;
@@ -199,14 +202,16 @@ void Dialplate::onRecord(bool longPress)
     case RECORD_STATE_STOP:
         if (longPress)
         {
-            Model.PlayMusic("Disconnect");
+            PM_LOG_INFO("record state ready");
+            // Model.PlayMusic("Disconnect");
             Model.RecorderCommand(Model.REC_STOP);
             SetBtnRecImgSrc("start");
             recState = RECORD_STATE_READY;
         }
         else
         {
-            Model.PlayMusic("Connect");
+            PM_LOG_INFO("record state pause");
+            // Model.PlayMusic("Connect");
             Model.RecorderCommand(Model.REC_CONTINUE);
             SetBtnRecImgSrc("pause");
             recState = RECORD_STATE_RUN;
@@ -232,10 +237,10 @@ void Dialplate::onEvent(lv_event_t* event)
     lv_event_code_t code = lv_event_get_code(event);
 
     // Serial.println("onevent");
-    if (code == LV_EVENT_PRESSED)
-	{
-        PM_LOG_DEBUG_LN("pressed");
-	}
+    // if (code == LV_EVENT_PRESSED)
+	// {
+    //     PM_LOG_DEBUG_LN("pressed");
+	// }
     if (code == LV_EVENT_SHORT_CLICKED)
     {
         instance->onBtnClicked(obj);

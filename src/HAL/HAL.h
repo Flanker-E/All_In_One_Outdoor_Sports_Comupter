@@ -7,8 +7,11 @@
 #include "App/Configs/Config.h"
 #include "CommonMacro.h"
 #include "M5Touch.h"
+#include "TinyGPSPlus.h"
 // #include "FreeRTOS.h"
 #define HAVE_PERI 0
+
+extern TinyGPSPlus gps;
 
 namespace HAL
 {

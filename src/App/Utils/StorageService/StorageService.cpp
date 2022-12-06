@@ -24,6 +24,7 @@
 #include "ArduinoJson.h"
 #include "lvgl.h"
 #include <algorithm>
+#include "../DataCenter/DataCenterLog.h"
 
 #define USE_STATIC_JSON_DOC        1
 #if USE_STATIC_JSON_DOC
@@ -154,7 +155,7 @@ bool StorageService::LoadFile()
 
     if (!file)
     {
-        LV_LOG_ERROR("Failed to open file: %s", FilePath);
+        DC_LOG_ERROR("Failed to open file: %s", FilePath);
         return false;
     }
 
@@ -168,7 +169,7 @@ bool StorageService::LoadFile()
     DeserializationError error = deserializeJson(doc, file);
     if (error)
     {
-        LV_LOG_ERROR("Failed to read file: %s", FilePath);
+        DC_LOG_ERROR("Failed to read file: %s", FilePath);
         return false;
     }
 
@@ -177,7 +178,7 @@ bool StorageService::LoadFile()
     {
         if (!doc.containsKey(iter->key))
         {
-            LV_LOG_WARN("NOT contains key: %s, use default value", iter->key);
+            DC_LOG_WARN("NOT contains key: %s, use default value", iter->key);
             retval = false;
             continue;
         }
@@ -211,7 +212,7 @@ bool StorageService::LoadFile()
             break;
         }
         default:
-            LV_LOG_ERROR("Unknow type: %d", iter->type);
+            DC_LOG_ERROR("Unknow type: %d", iter->type);
             break;
         }
     }
@@ -227,7 +228,7 @@ bool StorageService::SaveFile(const char* backupPath)
     FileWrapper file(path, LV_FS_MODE_WR | LV_FS_MODE_RD);
     if (!file)
     {
-        LV_LOG_ERROR("Failed to open file");
+        DC_LOG_ERROR("Failed to open file");
         return false;
     }
 
@@ -267,7 +268,7 @@ bool StorageService::SaveFile(const char* backupPath)
             break;
         }
         default:
-            LV_LOG_ERROR("Unknow type: %d", iter->type);
+            DC_LOG_ERROR("Unknow type: %d", iter->type);
             break;
         }
     }
@@ -275,7 +276,7 @@ bool StorageService::SaveFile(const char* backupPath)
     // Serialize JSON to file
     if (!serializeJsonPretty(doc, file))
     {
-        LV_LOG_ERROR("Failed to write to file");
+        DC_LOG_ERROR("Failed to write to file");
         return false;
     }
 

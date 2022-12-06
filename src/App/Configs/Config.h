@@ -8,10 +8,10 @@
 #define CONFIG_SYSTEM_SAVE_FILE_PATH          "/SystemSave.json"
 #define CONFIG_SYSTEM_SAVE_FILE_BACKUP_PATH   "/.SystemSaveBackup.json"
 #define CONFIG_SYSTEM_LANGUAGE_DEFAULT        "en-GB"//{'e','n','-','G','B'}
-#define CONFIG_SYSTEM_TIME_ZONE_DEFAULT      8 // GMT+ 8
-#define CONFIG_SYSTEM_SOUND_ENABLE_DEFAULT    true
+#define CONFIG_SYSTEM_TIME_ZONE_DEFAULT      (-5) // GMT- 5, Ann Arbor
+#define CONFIG_SYSTEM_SOUND_ENABLE_DEFAULT    false
 
-#define CONFIG_WEIGHT_DEFAULT                 65 // kg
+#define CONFIG_WEIGHT_DEFAULT                 70 // kg
 
 #define CONFIG_GPS_REFR_PERIOD                1000 // ms
 #define CONFIG_GPS_LONGITUDE_DEFAULT          -83.7161   //Ann Arbor duder

@@ -1,6 +1,7 @@
 #include "DataProc.h"
 #include "HAL/HAL.h"
 #include "lvgl.h"
+#include "../../Utils/DataCenter/DataCenterLog.h"
 
 uint32_t DataProc::GetTick()
 {
@@ -37,6 +38,7 @@ static bool Clock_Calibrate(Account* account, HAL::GPS_Info_t* gpsInfo)
         HAL::Clock_Info_t clock;
         if (account->Pull("TzConv", &clock, sizeof(clock)) == Account::RES_OK)
         {
+            DC_LOG_USER("clock ccalibrated: set time zone");
             HAL::Clock_SetInfo(&clock);
             retval = true;
         }
