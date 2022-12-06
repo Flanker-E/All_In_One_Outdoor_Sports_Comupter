@@ -63,7 +63,7 @@ static int Recorder_GetTimeConv(
 
 static void Recorder_RecPoint(Recorder_t* recorder, HAL::GPS_Info_t* gpsInfo)
 {
-    //DC_LOG_USER("Track recording...");
+    DC_LOG_USER("Track recording...");
 
     char timeBuf[64];
     int ret = Recorder_GetTimeConv(
