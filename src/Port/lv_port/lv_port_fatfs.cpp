@@ -5,7 +5,7 @@
 /*********************
  *      DEFINES
  *********************/
-#define SD_LETTER 'S'
+#define SD_LETTER '/'
 
 /**********************
  *      TYPEDEFS
@@ -54,7 +54,7 @@ static lv_fs_res_t fs_dir_close(lv_fs_drv_t* drv, void* dir_p);
 
 static bool fs_ready(lv_fs_drv_t* drv)
 {
-    return true;
+    return HAL::SD_GetReady();
 }
 
 static lv_fs_drv_t fs_drv;   /*A driver descriptor*/

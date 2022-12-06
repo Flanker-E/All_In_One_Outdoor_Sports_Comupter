@@ -365,7 +365,7 @@ void LiveMap::MapTileContReload()
 
         char path[64];
         Model.mapConv.ConvertMapPath(pos.x, pos.y, path, sizeof(path));
-
+        PM_LOG_INFO("reload map tile path is %s",path);
         View.SetMapTileSrc(i, path);
     }
 }

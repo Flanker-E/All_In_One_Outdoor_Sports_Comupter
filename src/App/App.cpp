@@ -53,6 +53,10 @@ void App_Init()
    
     //Accounts_Init();
     DataProc_Init();
+    ACCOUNT_SEND_NOTIFY_CMD(Storage, STORAGE_CMD_LOAD);
+    PM_LOG_INFO( "notify storage" );
+    ACCOUNT_SEND_NOTIFY_CMD(SysConfig, SYSCONFIG_CMD_LOAD);
+    PM_LOG_INFO( "notify sysconfig" );
     //Resource.Init();
     lv_obj_t* scr = lv_scr_act();
     lv_obj_remove_style_all(scr);
@@ -80,9 +84,7 @@ void App_Init()
     manager.Push("Pages/Startup");
     PM_LOG_DEBUG_LN("Push startup");
     
-    ACCOUNT_SEND_NOTIFY_CMD(Storage, STORAGE_CMD_LOAD);
-    ACCOUNT_SEND_NOTIFY_CMD(SysConfig, SYSCONFIG_CMD_LOAD);
-    PM_LOG_DEBUG_LN( "send done" );
+
     INIT_DONE();
 }
 

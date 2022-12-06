@@ -14,8 +14,8 @@
 #define CONFIG_WEIGHT_DEFAULT                 65 // kg
 
 #define CONFIG_GPS_REFR_PERIOD                1000 // ms
-#define CONFIG_GPS_LONGITUDE_DEFAULT                116.391332
-#define CONFIG_GPS_LATITUDE_DEFAULT                39.907415
+#define CONFIG_GPS_LONGITUDE_DEFAULT          -83.7161   //Ann Arbor duder
+#define CONFIG_GPS_LATITUDE_DEFAULT           42.2905
 
 #define CONFIG_MAP_DOUBLE_CLICKED_DELAY       700
 #define CONFIG_MAP_LONG_PRESSED_TIME          1000

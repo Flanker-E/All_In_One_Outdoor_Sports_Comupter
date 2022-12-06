@@ -2,6 +2,7 @@
 #include "HAL/HAL.h"
 #include "../../Utils/StorageService/StorageService.h"
 #include "../../Utils/MapConv/MapConv.h"
+#include "../../Utils/DataCenter/DataCenterLog.h"
 #include "../../Configs/Config.h"
 #include <stdlib.h>
 
@@ -19,14 +20,15 @@ static bool MapConvGetRange(const char* dirName, int16_t* min, int16_t* max)
 
     if (lv_fs_dir_open(&dir, dirName) == LV_FS_RES_OK)
     {
-        LV_LOG_USER("%s open success", dirName);
-
+        // DC_LOG_USER("%s open success", dirName);
+        DC_LOG_USER("%s open success", dirName);
         int16_t levelMin = MAP_LEVEL_MAX;
         int16_t levelMax = MAP_LEVEL_MIN;
 
         char name[128];
         while (1)
-        {
+        {   
+            DC_LOG_USER("while dir read");
             lv_fs_res_t res = lv_fs_dir_read(&dir, name);
 
             if (name[0] == '\0' || res != LV_FS_RES_OK)
@@ -41,7 +43,7 @@ static bool MapConvGetRange(const char* dirName, int16_t* min, int16_t* max)
 
                 if (level < MAP_LEVEL_MIN || level > MAP_LEVEL_MAX)
                 {
-                    LV_LOG_ERROR("Error level = %d", level);
+                    DC_LOG_ERROR("Error level = %d", level);
                     retval = false;
                     break;
                 }
@@ -68,7 +70,7 @@ static bool MapConvGetRange(const char* dirName, int16_t* min, int16_t* max)
     }
     else
     {
-        LV_LOG_ERROR("%s open faild", dirName);
+        DC_LOG_ERROR("%s open faild", dirName);
     }
     return retval;
 }
@@ -79,13 +81,13 @@ static bool onLoad(Account* account)
 
     if (!success)
     {
-        LV_LOG_WARN("Load " CONFIG_SYSTEM_SAVE_FILE_PATH " error");
+        DC_LOG_WARN("Load " CONFIG_SYSTEM_SAVE_FILE_PATH " error");
     }
 
     SysConfig_Info_t sysConfig;
     if (account->Pull("SysConfig", &sysConfig, sizeof(sysConfig)) != Account::RES_OK)
     {
-        LV_LOG_ERROR("Pull SysConfig failed!");
+        DC_LOG_ERROR("Pull SysConfig failed!");
         return false;
     }
 
@@ -100,19 +102,19 @@ static bool onLoad(Account* account)
     }
     else
     {
-        LV_LOG_ERROR("Get map level range failed!");
+        DC_LOG_ERROR("Get map level range failed!");
     }
 
-    LV_LOG_USER(
+    DC_LOG_USER(
         "Map path: %s, WGS84: %d, level min = %d, max = %d",
         sysConfig.mapDirPath,
         sysConfig.mapWGS84,
         MapConv::GetLevelMin(),
         MapConv::GetLevelMax()
     );
-    LV_LOG_USER("Map ext name: *.%s", sysConfig.mapExtName);
+    DC_LOG_USER("Map ext name: *.%s", sysConfig.mapExtName);
 #if CONFIG_MAP_PNG_DECODE_ENABLE
-    LV_LOG_USER("Map PNG decoder enable");
+    DC_LOG_USER("Map PNG decoder enable");
 #endif
 
     return success;
@@ -131,7 +133,7 @@ static void onNotify(Account* account, Storage_Info_t* info)
         storageService.SaveFile();
         if (isLoadSuccess)
         {
-            LV_LOG_USER("Saving backup file: " CONFIG_SYSTEM_SAVE_FILE_BACKUP_PATH);
+            DC_LOG_USER("Saving backup file: " CONFIG_SYSTEM_SAVE_FILE_BACKUP_PATH);
             storageService.SaveFile(CONFIG_SYSTEM_SAVE_FILE_BACKUP_PATH);
         }
         break;

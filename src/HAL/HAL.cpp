@@ -68,7 +68,7 @@ void HAL::HAL_Init()
     Touch_Init();
     // Move the malloc process to Init() to make sure that the largest heap can be used for this buffer.
     // lv_disp_buf_p = static_cast<lv_color_t*>(malloc(DISP_BUF_SIZE * sizeof(lv_color_t)));
-    
+    SD_Init();
     Buzz_init();
     Audio_Init();
     GPS_Init();
@@ -85,6 +85,7 @@ void HAL::HAL_Update()
     MAG_Update();
 
     Encoder_Update();
+    __IntervalExecute(HAL::SD_Update(), 500);
 }
 #endif
 

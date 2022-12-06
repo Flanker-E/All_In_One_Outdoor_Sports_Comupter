@@ -102,7 +102,7 @@ int MapConv::ConvertMapPath(int32_t x, int32_t y, char* path, uint32_t len)
     int32_t tileY = y / priv.tileSize;
     int ret = snprintf(
                   path, len,
-                  "%s/%d/%d/%d.%s",
+                  "%s/%d/%d/%d/tile.%s",
                   dirPath,
                   priv.level,
                   tileX,

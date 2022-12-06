@@ -32,9 +32,12 @@
 #  define DC_LOG_WARN(format, ...)  _DC_LOG("[Warn] "format, ##__VA_ARGS__)
 #  define DC_LOG_ERROR(format, ...) _DC_LOG("[Error] "format, ##__VA_ARGS__)
 #else
-#  define DC_LOG_INFO(...)
-#  define DC_LOG_WARN(...)
-#  define DC_LOG_ERROR(...)
+#include "Arduino.h"
+#  define DC_LOG_INFO(format, ...) //Serial.printf("\r\nDC INFO: "),Serial.printf(format, ##__VA_ARGS__)
+#  define DC_LOG_WARN(format, ...) Serial.printf("\r\nDC WARN: "),Serial.printf(format, ##__VA_ARGS__)
+#  define DC_LOG_ERROR(format, ...) Serial.printf("\r\nDC ERROR: "),Serial.printf(format, ##__VA_ARGS__)
+#  define DC_LOG_USER(format, ...) Serial.printf("\r\nDC USER: "),Serial.printf(format, ##__VA_ARGS__)
+
 #endif
 
 #endif
