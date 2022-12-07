@@ -35,7 +35,7 @@ void HAL::Clock_GetInfo(Clock_Info_t* info)
     info->month = gps.date.month();
     info->day = gps.date.day();
     info->week = 1;
-    info->hour = gps.time.hour()+timeZoneOffset;
+    info->hour = (gps.time.hour()+24+timeZoneOffset)%24;
     info->minute = gps.time.minute();
     info->second = gps.time.second();
     info->millisecond = 0;
@@ -55,7 +55,7 @@ void HAL::Clock_SetInfo(const Clock_Info_t* info)
     //     info->year,
     //     info->month,
     //     info->day,
-        timeZoneOffset=info->hour-gps.time.hour();
+        // timeZoneOffset=info->hour-gps.time.hour();
     //     info->minute,
     //     info->second
     // );

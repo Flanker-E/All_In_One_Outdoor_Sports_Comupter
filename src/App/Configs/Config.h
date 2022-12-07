@@ -16,6 +16,8 @@
 #define CONFIG_GPS_REFR_PERIOD                1000 // ms
 #define CONFIG_GPS_LONGITUDE_DEFAULT          -83.7161   //Ann Arbor duder
 #define CONFIG_GPS_LATITUDE_DEFAULT           42.2905
+#define CONFIG_GPS_LONGTITUDE_OFFSET          -0.041925
+#define CONFIG_GPS_LATITUDE_OFFSET            0.002818
 
 #define CONFIG_MAP_DOUBLE_CLICKED_DELAY       700
 #define CONFIG_MAP_LONG_PRESSED_TIME          1000
