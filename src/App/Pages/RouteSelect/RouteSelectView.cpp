@@ -26,15 +26,18 @@ void RouteSelectView::Create(lv_obj_t* root)
 
     Style_Init();
     int16_t numRoute=routes.GetRouteNum();
-    std::vector<std::string>* routeName=routes.GetRouteNamePtr();
-    for(auto name:*routeName){
+    std::vector<std::string>* availableRoutes=routes.GetRouteNamePtr();
+    std::string selected=routes.GetRouteChooseName();
+    // PM_LOG_DEBUG("selected is %s",selected);
+    
+    for(auto name:*availableRoutes){
         PM_LOG_DEBUG("create one route item");
         Item_Create(
-            // &ui.sport,
             root,
             "Route",
             "route",
-            name.c_str()
+            name,
+            selected
         );
     }
         /* Item back */
@@ -155,7 +158,8 @@ void RouteSelectView::Item_Create(
     lv_obj_t* par,
     const char* name,
     const char* img_src,
-    const char* infos
+    std::string infos,
+    std::string selected
 )
 {
     lv_obj_t* cont = lv_obj_create(par);
@@ -192,7 +196,12 @@ void RouteSelectView::Item_Create(
 
     /* infos */
     label = lv_label_create(cont);
-    lv_label_set_text(label, infos);
+    PM_LOG_DEBUG("selected is %s",selected.c_str());
+    PM_LOG_DEBUG("info is %s",infos.c_str());
+    if(selected==infos)
+        lv_label_set_text_fmt(label, "[Selected]%s",infos.c_str());
+    else
+        lv_label_set_text(label, infos.c_str());
     lv_obj_add_style(label, &style.info, 0);
     lv_obj_align(label, LV_ALIGN_LEFT_MID, 75, 0);
     // item->labelInfo = label;

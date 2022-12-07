@@ -111,7 +111,7 @@ void RouteSelect::onEvent(lv_event_t* event)
         else{
             for(int i=0;i<instance->View.ui.icons.size();i++){
                 if(obj == instance->View.ui.icons[i]){
-                    instance->View.routes.ChooseRouteNameByIdx(i);
+                    instance->View.routes.ChooseRouteByIdx(i);
                     PM_LOG_INFO("choose num %d route",i);
                     instance->Manager->Pop();
                 }

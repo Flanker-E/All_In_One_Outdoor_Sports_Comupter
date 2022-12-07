@@ -159,7 +159,8 @@ static bool onLoad(Account* account)
     else{
         DC_LOG_ERROR("Found %d route in %s", numRoute, "/Route");
         Routes::SetRouteNum(numRoute);
-        Routes::SetRouteName(routeFound);
+        Routes::ChooseRouteByName("");
+        Routes::SetAvailableRoutes(routeFound);
         // for(auto route:routeFound){
         //     DC_LOG_ERROR("route name %s", route);
         // }

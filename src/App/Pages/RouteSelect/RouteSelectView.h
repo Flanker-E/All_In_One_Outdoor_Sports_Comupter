@@ -24,17 +24,6 @@ public:
         lv_obj_t* labelData;
     } item_t;
 
-    // struct
-    // {
-    //     item_t sport;
-    //     item_t gps;
-    //     item_t mag;
-    //     item_t imu;
-    //     item_t rtc;
-    //     item_t battery;
-    //     item_t storage;
-    //     item_t system;
-    // } ui;
     struct
     {
         std::vector<lv_obj_t*> icons;
@@ -61,11 +50,11 @@ private:
     void Style_Init();
     void Style_Reset();
     void Item_Create(
-        // item_t* item,
         lv_obj_t* par,
         const char* name,
         const char* img_src,
-        const char* infos
+        std::string infos,
+        std::string selected
     );
     void Item_Create(
         item_t* item,
