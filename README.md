@@ -15,6 +15,9 @@
 20221127 adding settings page  
 20221128 design settings items' icon  
 20221202 fix encoder click logic  
+20221205 poster stuff, tf card and map load  
+20221206 time issure, positioning offset, route recording enable  
+20221207 available route read and selection UI  
 
 ## Credit to 
 Based on [X-Track](https://github.com/FASTSHIFT/X-TRACK), [Peak](https://github.com/peng-zhihui/Peak) and [Peak-T2](https://gitee.com/forairaaaaa/peak-t2/tree/master/1.Hardware#https://gitee.com/link?target=https%3A%2F%2Foshwhub.com%2Feedadada%2Ffed36bbc19da4527b237982f9cd09f99)
