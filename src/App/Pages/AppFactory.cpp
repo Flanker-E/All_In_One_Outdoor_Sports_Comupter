@@ -27,6 +27,7 @@
 #include "Settings/Settings.h"
 #include "MapSettings/MapSettings.h"
 #include "SystemInfos/SystemInfos.h"
+#include "RouteSelect/RouteSelect.h"
 #include "Startup/Startup.h"
 
 #define APP_CLASS_MATCH(className)\
@@ -44,6 +45,7 @@ PageBase* AppFactory::CreatePage(const char* name)
     APP_CLASS_MATCH(Dialplate);
     APP_CLASS_MATCH(Settings);
     APP_CLASS_MATCH(MapSettings);
+    APP_CLASS_MATCH(RouteSelect);
     APP_CLASS_MATCH(SystemInfos);
     APP_CLASS_MATCH(Startup);
 

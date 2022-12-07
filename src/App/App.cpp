@@ -77,6 +77,7 @@ void App_Init()
     manager.Install("Settings",   "Pages/Settings");
     manager.Install("MapSettings",   "Pages/MapSettings");
     manager.Install("SystemInfos", "Pages/SystemInfos");
+    manager.Install("RouteSelect",   "Pages/RouteSelect");
     manager.Install("Startup",     "Pages/Startup");
 
     //Serial.println( "pages load" );

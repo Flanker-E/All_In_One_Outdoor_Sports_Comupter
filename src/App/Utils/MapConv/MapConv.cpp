@@ -23,7 +23,7 @@
 #include "MapConv.h"
 #include <stdio.h>
 #include "GPS_Transform/GPS_Transform.h"
-#include "App/Configs/Config.h"
+#include "../../Configs/Config.h"
 
 using namespace::Microsoft_MapPoint;
 

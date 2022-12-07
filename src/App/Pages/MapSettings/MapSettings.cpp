@@ -121,6 +121,14 @@ void MapSettings::onEvent(lv_event_t* event){
     //    instance->onBtnClicked(obj);
     //}
     // if()
+    //if (obj == instance->View.ui.info.icon)
+    //    PM_LOG_DEBUG_LN("is info icon");
+    //if (obj == instance->View.ui.info.labelInfo)
+    //    PM_LOG_DEBUG_LN("is info");
+    //if (obj == instance->View.ui.info.button)
+    //    PM_LOG_DEBUG_LN("is button");
+    //if (obj == instance->View.ui.back.icon)
+    //    PM_LOG_DEBUG_LN("is back icon");
     if (obj == instance->View.ui.liveMap.icon)
     {
         if (code == LV_EVENT_SHORT_CLICKED)
@@ -130,21 +138,20 @@ void MapSettings::onEvent(lv_event_t* event){
             PM_LOG_DEBUG_LN("LiveMap");
         }
     }
-    //if (obj == instance->View.ui.info.icon)
-    //    PM_LOG_DEBUG_LN("is info icon");
-    //if (obj == instance->View.ui.info.labelInfo)
-    //    PM_LOG_DEBUG_LN("is info");
-    //if (obj == instance->View.ui.info.button)
-    //    PM_LOG_DEBUG_LN("is button");
-    //if (obj == instance->View.ui.back.icon)
-    //    PM_LOG_DEBUG_LN("is back icon");
-    if (obj == instance->View.ui.back.icon)
+    else if (obj == instance->View.ui.availableRoute.icon){
+        if (code == LV_EVENT_SHORT_CLICKED)
+        {
+            // instance->Manager->Pop();
+            instance->Manager->Push("Pages/RouteSelect");
+            PM_LOG_INFO("RouteSelect");
+        }
+    }
+    else if (obj == instance->View.ui.back.icon)
     {
         if (code == LV_EVENT_SHORT_CLICKED)
         {
             instance->Manager->Pop();
             // instance->Manager->Push("Pages/SystemInfos");
-            PM_LOG_DEBUG_LN("go back");
             PM_LOG_INFO("go back");
         }
     }

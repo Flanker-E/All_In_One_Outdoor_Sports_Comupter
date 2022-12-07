@@ -104,6 +104,9 @@
     <ClInclude Include="..\..\src\App\Pages\MapSettings\MapSettingsModel.h" />
     <ClInclude Include="..\..\src\App\Pages\MapSettings\MapSettingsView.h" />
     <ClInclude Include="..\..\src\App\Pages\Page.h" />
+    <ClInclude Include="..\..\src\App\Pages\RouteSelect\RouteSelect.h" />
+    <ClInclude Include="..\..\src\App\Pages\RouteSelect\RouteSelectModel.h" />
+    <ClInclude Include="..\..\src\App\Pages\RouteSelect\RouteSelectView.h" />
     <ClInclude Include="..\..\src\App\Pages\Settings\Settings.h" />
     <ClInclude Include="..\..\src\App\Pages\Settings\SettingsModel.h" />
     <ClInclude Include="..\..\src\App\Pages\Settings\SettingsView.h" />
@@ -154,6 +157,7 @@
     <ClInclude Include="..\..\src\App\Utils\PageManager\PM_Log.h" />
     <ClInclude Include="..\..\src\App\Utils\PointContainer\PointContainer.h" />
     <ClInclude Include="..\..\src\App\Utils\ResourceManager\ResourceManager.h" />
+    <ClInclude Include="..\..\src\App\Utils\Routes\Routes.h" />
     <ClInclude Include="..\..\src\App\Utils\StorageService\StorageService.h" />
     <ClInclude Include="..\..\src\App\Utils\TileConv\TileConv.h" />
     <ClInclude Include="..\..\src\App\Utils\Time\Time.h" />
@@ -319,6 +323,9 @@
     <ClCompile Include="..\..\src\App\Pages\MapSettings\MapSettings.cpp" />
     <ClCompile Include="..\..\src\App\Pages\MapSettings\MapSettingsModel.cpp" />
     <ClCompile Include="..\..\src\App\Pages\MapSettings\MapSettingsView.cpp" />
+    <ClCompile Include="..\..\src\App\Pages\RouteSelect\RouteSelect.cpp" />
+    <ClCompile Include="..\..\src\App\Pages\RouteSelect\RouteSelectModel.cpp" />
+    <ClCompile Include="..\..\src\App\Pages\RouteSelect\RouteSelectView.cpp" />
     <ClCompile Include="..\..\src\App\Pages\Settings\Settings.cpp" />
     <ClCompile Include="..\..\src\App\Pages\Settings\SettingsModel.cpp" />
     <ClCompile Include="..\..\src\App\Pages\Settings\SettingsView.cpp" />
@@ -401,6 +408,7 @@
     <ClCompile Include="..\..\src\App\Utils\PageManager\PM_Anim.cpp" />
     <ClCompile Include="..\..\src\App\Utils\PointContainer\PointContainer.cpp" />
     <ClCompile Include="..\..\src\App\Utils\ResourceManager\ResourceManager.cpp" />
+    <ClCompile Include="..\..\src\App\Utils\Routes\Routes.cpp" />
     <ClCompile Include="..\..\src\App\Utils\StorageService\StorageService.cpp" />
     <ClCompile Include="..\..\src\App\Utils\TileConv\TileConv.cpp" />
     <ClCompile Include="..\..\src\App\Utils\Time\DateStrings.cpp" />

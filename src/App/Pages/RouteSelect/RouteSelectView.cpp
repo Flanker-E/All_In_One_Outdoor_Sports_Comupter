@@ -1,13 +1,15 @@
-#include "MapSettingsView.h"
+#include "RouteSelectView.h"
 #include "../../Utils/PageManager/PM_Log.h"
 #include "../../Configs/Config.h"
+#include <string>
 
 using namespace Page;
 
 #define ITEM_HEIGHT_MIN   100
 #define ITEM_PAD          ((LV_VER_RES - ITEM_HEIGHT_MIN) / 2)
 
-void MapSettingsView::Create(lv_obj_t* root){
+void RouteSelectView::Create(lv_obj_t* root)
+{
     lv_obj_remove_style_all(root);
     lv_obj_set_size(root, LV_HOR_RES, LV_VER_RES);
     lv_obj_set_style_bg_color(root, COLOR_BACKGROUND, 0);
@@ -23,73 +25,65 @@ void MapSettingsView::Create(lv_obj_t* root){
     );
 
     Style_Init();
-
-    /* Item Info */
-    Item_Create(
-        &ui.liveMap,
-        root,
-        "liveMap",
-        "map_location",
-
-        "Live Map"
-    );
-
-    /* Item back */
-    Item_Create(
-        &ui.availableRoute,
-        root,
-        "Available Routes",
-        "route",
-
-        "Choose routes"
-    );
-
-
-    /* Item back */
+    int16_t numRoute=routes.GetRouteNum();
+    std::vector<std::string>* routeName=routes.GetRouteNamePtr();
+    for(auto name:*routeName){
+        PM_LOG_DEBUG("create one route item");
+        Item_Create(
+            // &ui.sport,
+            root,
+            "Route",
+            "route",
+            name.c_str()
+        );
+    }
+        /* Item back */
     Item_Create(
         &ui.back,
         root,
         "Back",
         "back",
 
-        "Back to sport"
+        "Back to Map Settings"
     );
 
-    
-}
-void MapSettingsView::Delete(){
-    lv_group_set_focus_cb(lv_group_get_default(), nullptr);
-    Style_Reset();
+    Group_Init();
 }
 
-void MapSettingsView::Group_Init()
+void RouteSelectView::Group_Init()
 {
     lv_group_t* group = lv_group_get_default();
     lv_group_set_wrap(group, true);
-    // PM_LOG_DEBUG("set group focus cb");
-    // lv_group_set_focus_cb(lv_group_get_default(), onFocus);
+    // lv_group_set_focus_cb(group, onFocus);
     if(group->focus_cb==nullptr){
         PM_LOG_DEBUG("set group focus cb");
         lv_group_set_focus_cb(group, onFocus);}
-
     lv_group_add_obj(group, ui.back.icon);
-    // lv_group_add_obj(group, ui.wifi.icon);
-    lv_group_add_obj(group, ui.availableRoute.icon);
-    lv_group_add_obj(group, ui.liveMap.icon);
-    
-    
-    
-    // lv_group_add_obj(group, ui.rtc.icon);
-    // lv_group_add_obj(group, ui.imu.icon);
-    // lv_group_add_obj(group, ui.mag.icon);
-    // lv_group_add_obj(group, ui.gps.icon);
-    // lv_group_add_obj(group, ui.sport.icon);
-    // PM_LOG_INFO("focus");
-    // lv_group_focus_obj(ui.info.icon);
-    // PM_LOG_INFO("focus");
+    PM_LOG_DEBUG("iterate icons");
+    auto rit = ui.icons.rbegin();
+    for (; rit!= ui.icons.rend(); ++rit){
+        PM_LOG_DEBUG("add one route item into group");
+        lv_group_add_obj(group, *rit);}
+    // for(auto icon:ui.icons){
+    //     lv_group_add_obj(group, icon);
+    // }
+    PM_LOG_DEBUG("focus on sth");
+    if(ui.icons.size()){
+        lv_group_focus_obj((ui.icons)[0]);
+    }
+    else
+        lv_group_focus_obj(ui.back.icon);
 }
 
-void MapSettingsView::SetScrollToY(lv_obj_t* obj, lv_coord_t y, lv_anim_enable_t en)
+void RouteSelectView::Delete()
+{   
+    //should not use. It will make onFocus function unattachable(even set focus cb again won't help)
+    // lv_group_set_focus_cb(lv_group_get_default(), nullptr);
+    Style_Reset();
+    ui.icons.clear();
+}
+
+void RouteSelectView::SetScrollToY(lv_obj_t* obj, lv_coord_t y, lv_anim_enable_t en)
 {
     lv_coord_t scroll_y = lv_obj_get_scroll_y(obj);
     lv_coord_t diff = -y + scroll_y;
@@ -97,7 +91,16 @@ void MapSettingsView::SetScrollToY(lv_obj_t* obj, lv_coord_t y, lv_anim_enable_t
     lv_obj_scroll_by(obj, 0, diff, en);
 }
 
-void MapSettingsView::Style_Init()
+void RouteSelectView::onFocus(lv_group_t* g)
+{
+    lv_obj_t* icon = lv_group_get_focused(g);
+    lv_obj_t* cont = lv_obj_get_parent(icon);
+    lv_coord_t y = lv_obj_get_y(cont);
+    PM_LOG_INFO("scroll to %d",y);
+    lv_obj_scroll_to_y(lv_obj_get_parent(cont), y, LV_ANIM_ON);
+}
+
+void RouteSelectView::Style_Init()
 {
     lv_style_init(&style.icon);
     lv_style_set_width(&style.icon, 220);
@@ -139,16 +142,73 @@ void MapSettingsView::Style_Init()
     lv_style_set_text_color(&style.data, COLOR_TEXT);
 }
 
-void MapSettingsView::onFocus(lv_group_t* g)
+void RouteSelectView::Style_Reset()
 {
-    lv_obj_t* icon = lv_group_get_focused(g);
-    lv_obj_t* cont = lv_obj_get_parent(icon);
-    lv_coord_t y = lv_obj_get_y(cont);
-    PM_LOG_INFO("scroll to %d",y);
-    lv_obj_scroll_to_y(lv_obj_get_parent(cont), y, LV_ANIM_ON);
+    lv_style_reset(&style.icon);
+    lv_style_reset(&style.info);
+    lv_style_reset(&style.data);
+    lv_style_reset(&style.focus);
 }
 
-void MapSettingsView::Item_Create(
+void RouteSelectView::Item_Create(
+    // item_t* item,
+    lv_obj_t* par,
+    const char* name,
+    const char* img_src,
+    const char* infos
+)
+{
+    lv_obj_t* cont = lv_obj_create(par);
+    lv_obj_remove_style_all(cont);
+    lv_obj_set_width(cont, 220);
+
+    lv_obj_clear_flag(cont, LV_OBJ_FLAG_SCROLLABLE);
+    // item->cont = cont;
+
+    /* icon */
+    lv_obj_t* icon = lv_obj_create(cont);
+    lv_obj_remove_style_all(icon);
+    lv_obj_clear_flag(icon, LV_OBJ_FLAG_SCROLLABLE);
+
+    lv_obj_add_style(icon, &style.icon, 0);
+    lv_obj_add_style(icon, &style.focus, LV_STATE_FOCUSED);
+    lv_obj_set_style_align(icon, LV_ALIGN_LEFT_MID, 0);
+
+    lv_obj_set_flex_flow(icon, LV_FLEX_FLOW_COLUMN);
+    lv_obj_set_flex_align(
+        icon,
+        LV_FLEX_ALIGN_SPACE_AROUND,
+        LV_FLEX_ALIGN_CENTER,
+        LV_FLEX_ALIGN_CENTER
+    );
+
+    lv_obj_t* img = lv_img_create(icon);
+    lv_img_set_src(img, ResourcePool::GetImage(img_src));
+
+    lv_obj_t* label = lv_label_create(icon);
+    lv_label_set_text(label, name);
+    ui.icons.push_back(icon);
+    // item->icon = icon;
+
+    /* infos */
+    label = lv_label_create(cont);
+    lv_label_set_text(label, infos);
+    lv_obj_add_style(label, &style.info, 0);
+    lv_obj_align(label, LV_ALIGN_LEFT_MID, 75, 0);
+    // item->labelInfo = label;
+
+
+    lv_obj_move_foreground(icon);
+
+    /* get real max height */
+    lv_obj_update_layout(label);
+    lv_coord_t height = lv_obj_get_height(label);
+    height = LV_MAX(height, ITEM_HEIGHT_MIN);
+    lv_obj_set_height(cont, height);
+    lv_obj_set_height(icon, height);
+}
+
+void RouteSelectView::Item_Create(
     item_t* item,
     lv_obj_t* par,
     const char* name,
@@ -194,12 +254,6 @@ void MapSettingsView::Item_Create(
     lv_obj_align(label, LV_ALIGN_LEFT_MID, 75, 0);
     item->labelInfo = label;
 
-    /* datas */
-    // label = lv_label_create(cont);
-    // lv_label_set_text(label, "button");
-    // lv_obj_add_style(label, &style.data, 0);
-    // lv_obj_align(label, LV_ALIGN_CENTER, 60, 0);
-    // item->button = label;
 
     lv_obj_move_foreground(icon);
 
@@ -209,12 +263,4 @@ void MapSettingsView::Item_Create(
     height = LV_MAX(height, ITEM_HEIGHT_MIN);
     lv_obj_set_height(cont, height);
     lv_obj_set_height(icon, height);
-}
-
-void MapSettingsView::Style_Reset()
-{
-    lv_style_reset(&style.icon);
-    lv_style_reset(&style.info);
-    lv_style_reset(&style.data);
-    lv_style_reset(&style.focus);
 }

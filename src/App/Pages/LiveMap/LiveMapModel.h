@@ -3,6 +3,7 @@
 
 #include "lvgl.h"
 #include "../../Utils/MapConv/MapConv.h"
+#include "../../Utils/Routes/Routes.h"
 #include "../../Utils/TileConv/TileConv.h"
 #include "../../Utils/TrackFilter/TrackFilter.h"
 #include "../../Common/DataProc/DataProc.h"
@@ -25,6 +26,7 @@ public:
     void SetStatusBarStyle(DataProc::StatusBar_Style_t style);
 
 public:
+    Routes routes;
     MapConv mapConv;
     TileConv tileConv;
     TrackPointFilter pointFilter;

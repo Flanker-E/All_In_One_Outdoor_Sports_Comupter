@@ -27,10 +27,11 @@
 
 #if !defined(ARDUINO) && DATA_CENTER_USE_LOG
 #include <stdio.h>
-#  define _DC_LOG(format, ...)      printf("[DC]"format"\r\n", ##__VA_ARGS__)
-#  define DC_LOG_INFO(format, ...)  //_DC_LOG("[Info] "format, ##__VA_ARGS__)
-#  define DC_LOG_WARN(format, ...)  _DC_LOG("[Warn] "format, ##__VA_ARGS__)
-#  define DC_LOG_ERROR(format, ...) _DC_LOG("[Error] "format, ##__VA_ARGS__)
+// #  define _DC_LOG(format, ...)      printf("\r\n[DC]"format, ##__VA_ARGS__)
+#  define DC_LOG_INFO(format, ...)  printf("\r\n[DC INFO] "),printf(format, ##__VA_ARGS__)
+#  define DC_LOG_WARN(format, ...)  printf("\r\n[DC WARN] "),printf(format, ##__VA_ARGS__)
+#  define DC_LOG_ERROR(format, ...) printf("\r\n[DC ERROR] "),printf(format, ##__VA_ARGS__)
+#  define DC_LOG_USER(format, ...) printf("\r\n[DC User] "),printf(format, ##__VA_ARGS__)
 #else
 #include "Arduino.h"
 #  define DC_LOG_INFO(format, ...) //Serial.printf("\r\nDC INFO: "),Serial.printf(format, ##__VA_ARGS__)

@@ -2,9 +2,14 @@
 #include "HAL/HAL.h"
 #include "../../Utils/StorageService/StorageService.h"
 #include "../../Utils/MapConv/MapConv.h"
+#include "../../Utils/Routes/Routes.h"
 #include "../../Utils/DataCenter/DataCenterLog.h"
 #include "../../Configs/Config.h"
 #include <stdlib.h>
+#include <string>
+#ifdef WIN32
+#include <vector>
+#endif
 
 using namespace DataProc;
 
@@ -12,6 +17,48 @@ using namespace DataProc;
 #define MAP_LEVEL_MAX    19
 
 static StorageService storageService(CONFIG_SYSTEM_SAVE_FILE_PATH, 4096);
+
+static int16_t RouteGetRange(const char* dirName, std::vector<std::string>* found){
+    int16_t retval =0;
+    lv_fs_dir_t dir;
+    if (lv_fs_dir_open(&dir, dirName) == LV_FS_RES_OK)
+    {
+        // DC_LOG_USER("%s open success", dirName);
+        DC_LOG_USER("%s open success", dirName);
+        // int16_t levelMin = MAP_LEVEL_MAX;
+        // int16_t levelMax = MAP_LEVEL_MIN;
+
+        char name[128];
+        while (1)
+        {   
+            DC_LOG_USER("while dir read");
+            lv_fs_res_t res = lv_fs_dir_read(&dir, name);
+
+            if (name[0] == '\0' || res != LV_FS_RES_OK)
+            {
+                break;
+            }
+            std::string temp(name);
+            DC_LOG_USER("file name %s", temp);
+            if (name[0] == 'R' && name[1] == 'T' && name[2] == 'E')
+            {
+                retval ++;
+                
+                found->push_back(temp);
+
+            }
+        }
+
+
+        lv_fs_dir_close(&dir);
+    }
+    else
+    {
+        DC_LOG_ERROR("%s open faild", dirName);
+    }
+    return retval;
+}
+
 
 static bool MapConvGetRange(const char* dirName, int16_t* min, int16_t* max)
 {
@@ -103,6 +150,19 @@ static bool onLoad(Account* account)
     else
     {
         DC_LOG_ERROR("Get map level range failed!");
+    }
+    std::vector<std::string> routeFound; 
+    int16_t numRoute = RouteGetRange("/Route",&routeFound);
+    if(numRoute==0){
+        DC_LOG_ERROR("No route found!");
+    }
+    else{
+        DC_LOG_ERROR("Found %d route in %s", numRoute, "/Route");
+        Routes::SetRouteNum(numRoute);
+        Routes::SetRouteName(routeFound);
+        // for(auto route:routeFound){
+        //     DC_LOG_ERROR("route name %s", route);
+        // }
     }
 
     DC_LOG_USER(

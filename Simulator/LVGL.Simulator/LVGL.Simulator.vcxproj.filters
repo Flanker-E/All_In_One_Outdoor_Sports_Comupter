@@ -421,6 +421,12 @@
     <Filter Include="App\Pages\MapSettings">
       <UniqueIdentifier>{ff3af312-8e00-453c-9723-300637d0acd9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="App\Pages\RouteSelect">
+      <UniqueIdentifier>{899eb2ee-8dd1-413c-b751-030f7f4944a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App\Utils\Routes">
+      <UniqueIdentifier>{5e9ba7f4-feb4-4afa-be42-4a1e4153abf4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lvgl\examples\get_started\lv_example_get_started.h">
@@ -1052,6 +1058,18 @@
     </ClInclude>
     <ClInclude Include="..\..\src\App\Pages\MapSettings\MapSettingsView.h">
       <Filter>App\Pages\MapSettings</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\App\Pages\RouteSelect\RouteSelect.h">
+      <Filter>App\Pages\RouteSelect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\App\Pages\RouteSelect\RouteSelectModel.h">
+      <Filter>App\Pages\RouteSelect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\App\Pages\RouteSelect\RouteSelectView.h">
+      <Filter>App\Pages\RouteSelect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\App\Utils\Routes\Routes.h">
+      <Filter>App\Utils\Routes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -2155,6 +2173,18 @@
     </ClCompile>
     <ClCompile Include="..\..\src\App\Resource\Image\img_src_route.c">
       <Filter>App\Resource\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\App\Pages\RouteSelect\RouteSelect.cpp">
+      <Filter>App\Pages\RouteSelect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\App\Pages\RouteSelect\RouteSelectModel.cpp">
+      <Filter>App\Pages\RouteSelect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\App\Pages\RouteSelect\RouteSelectView.cpp">
+      <Filter>App\Pages\RouteSelect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\App\Utils\Routes\Routes.cpp">
+      <Filter>App\Utils\Routes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
