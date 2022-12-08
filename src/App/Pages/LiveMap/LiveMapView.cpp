@@ -2,11 +2,7 @@
 #include "../../Configs/Config.h"
 #include <stdarg.h>
 #include <stdio.h>
-extern lv_obj_t* scr_lcd;
-extern lv_obj_t* scr_eink;
 
-extern lv_disp_t* disp_lcd;
-extern lv_disp_t* disp_eink;
 using namespace Page;
 
 #if CONFIG_MAP_IMG_PNG_ENABLE
@@ -21,33 +17,45 @@ void LiveMapView::Eink_info_init(void)
 {
     lv_disp_set_default(disp_eink);
     eink_ui.cont=scr_eink;
-    Eink_Item_Create(
-        eink_ui.northInfo.Info_North,
-        eink_ui.northInfo.Data_North,
-        "North:",
-        27,
-        53
-    );
-    Eink_Item_Create(
-        eink_ui.eastInfo.Info_East,
-        eink_ui.eastInfo.Data_East,
-        "East:",
-        27,
-        88
-    );
-    Eink_Item_Create(
-        eink_ui.destInfo.Info_Dest,
-        eink_ui.destInfo.Data_Dest,
-        "Dest:",
-        27,
-        123
-    );
+    //route for eink
+    Eink_Route_Create(eink_ui.cont);
+
+    //arrow
+    lv_obj_t* img = lv_img_create(eink_ui.cont);
+    lv_img_set_src(img, ResourcePool::GetImage("gps_arrow_dark"));
+    
+    lv_img_t* imgOri = (lv_img_t*)img;
+    lv_obj_set_pos(img, 100, 110);
+    eink_ui.imgArrow = img;
+    // lv_obj_set_pos(img, x, y);
+
+    // Eink_Item_Create(
+    //     eink_ui.northInfo.Info_North,
+    //     eink_ui.northInfo.Data_North,
+    //     "North:",
+    //     27,
+    //     53
+    // );
+    // Eink_Item_Create(
+    //     eink_ui.eastInfo.Info_East,
+    //     eink_ui.eastInfo.Data_East,
+    //     "East:",
+    //     27,
+    //     88
+    // );
+    // Eink_Item_Create(
+    //     eink_ui.destInfo.Info_Dest,
+    //     eink_ui.destInfo.Data_Dest,
+    //     "Dest:",
+    //     27,
+    //     123
+    // );
 
     Eink_Item_Create(
         eink_ui.battInfo.Info_Batt,
         eink_ui.battInfo.Data_Batt,
         "Batt:",
-        15,
+        10,
         9,
         false
     );
@@ -55,7 +63,7 @@ void LiveMapView::Eink_info_init(void)
         eink_ui.gpsInfo.Info_GPS,
         eink_ui.gpsInfo.Data_GPS,
         "GPS:",
-        115,
+        105,
         9,
         false
     );
@@ -87,7 +95,7 @@ void LiveMapView::Eink_Item_Create(
         }
     else{
         lv_obj_set_style_text_font(Info, ResourcePool::GetFont("barlow_semiconre_17"), 0);
-        lv_obj_align(data, LV_ALIGN_TOP_LEFT, x_bias+60, y_bias);
+        lv_obj_align(data, LV_ALIGN_TOP_LEFT, x_bias+40, y_bias);
         }
     lv_label_set_text(data, "-");
     
@@ -173,6 +181,8 @@ void LiveMapView::Delete()
         delete ui.route.lineRoute;
         ui.route.lineRoute = nullptr;
         ui.route.routePoints.clear();
+        // delete eink_ui.route.lineRoute;
+        // eink_ui.route.lineRoute=nullptr;
     }
 
     if (ui.map.imgTiles)
@@ -183,7 +193,8 @@ void LiveMapView::Delete()
 
     lv_style_reset(&ui.styleCont);
     lv_style_reset(&ui.styleLabel);
-    lv_style_reset(&ui.styleLine);
+    lv_style_reset(&ui.styleLineTrack);
+    lv_style_reset(&ui.styleLineRoute);
 }
 
 void LiveMapView::Style_Create()
@@ -199,11 +210,17 @@ void LiveMapView::Style_Create()
     lv_style_set_text_font(&ui.styleLabel, ResourcePool::GetFont("bahnschrift_17"));
     lv_style_set_text_color(&ui.styleLabel, COLOR_TEXT);
 
-    lv_style_init(&ui.styleLine);
-    lv_style_set_line_color(&ui.styleLine, COLOR_FOCUS);
-    lv_style_set_line_width(&ui.styleLine, 5);
-    lv_style_set_line_opa(&ui.styleLine, LV_OPA_COVER);
-    lv_style_set_line_rounded(&ui.styleLine, true);
+    lv_style_init(&ui.styleLineTrack);
+    lv_style_set_line_color(&ui.styleLineTrack, COLOR_FOCUS);
+    lv_style_set_line_width(&ui.styleLineTrack, 5);
+    lv_style_set_line_opa(&ui.styleLineTrack, LV_OPA_COVER);
+    lv_style_set_line_rounded(&ui.styleLineTrack, true);
+
+    lv_style_init(&ui.styleLineRoute);
+    lv_style_set_line_color(&ui.styleLineRoute, COLOR_BACKGROUND);
+    lv_style_set_line_width(&ui.styleLineRoute, 5);
+    lv_style_set_line_opa(&ui.styleLineRoute, LV_OPA_COVER);
+    lv_style_set_line_rounded(&ui.styleLineRoute, true);
 }
 
 // create empty map image and track
@@ -212,8 +229,8 @@ void LiveMapView::Map_Create(lv_obj_t* par, uint32_t tileNum)
     lv_obj_t* cont = lv_obj_create(par);
     lv_obj_remove_style_all(cont);
 #if CONFIG_LIVE_MAP_DEBUG_ENABLE
-    lv_obj_set_style_outline_color(cont, lv_palette_main(LV_PALETTE_BLUE), 0);
     lv_obj_set_style_outline_width(cont, 2, 0);
+    lv_obj_set_style_outline_color(cont, lv_palette_main(LV_PALETTE_BLUE), 0);
 #endif
     ui.map.cont = cont;
 
@@ -227,8 +244,8 @@ void LiveMapView::Map_Create(lv_obj_t* par, uint32_t tileNum)
         ui.map.imgTiles[i] = img;
     }
 
-    Track_Create(cont);
     Route_Create(cont);
+    Track_Create(cont);
 
     lv_obj_t* img = lv_img_create(cont);
     lv_img_set_src(img, ResourcePool::GetImage("gps_arrow_dark"));
@@ -387,11 +404,11 @@ void LiveMapView::Track_Create(lv_obj_t* par)
 
     ui.track.lineTrack = new lv_poly_line(cont);
     
-    ui.track.lineTrack->set_style(&ui.styleLine);
+    ui.track.lineTrack->set_style(&ui.styleLineTrack);
 
     lv_obj_t* line = lv_line_create(cont);
     lv_obj_remove_style_all(line);
-    lv_obj_add_style(line, &ui.styleLine, 0);
+    lv_obj_add_style(line, &ui.styleLineTrack, 0);
 #if CONFIG_LIVE_MAP_DEBUG_ENABLE
     lv_obj_set_style_line_color(line, lv_palette_main(LV_PALETTE_BLUE), 0);
 #endif
@@ -400,11 +417,7 @@ void LiveMapView::Track_Create(lv_obj_t* par)
 
 void LiveMapView::Route_Create(lv_obj_t* par)
 {
-    // std::string FilePath=routes.GetRouteChooseName();
-    // if(FilePath=="")
-    //     return;
-    
-    // FileWrapper file(FilePath.c_str(), LV_FS_MODE_RD);
+
 
     lv_obj_t* cont = lv_obj_create(par);
     lv_obj_remove_style_all(cont);
@@ -412,18 +425,39 @@ void LiveMapView::Route_Create(lv_obj_t* par)
     ui.route.cont = cont;
 
     ui.route.lineRoute = new lv_poly_line(cont);
-    lv_style_set_line_color(&ui.styleLine, COLOR_BACKGROUND);
-    ui.route.lineRoute->set_style(&ui.styleLine);
+    // lv_style_set_line_color(&ui.styleLineTrack, COLOR_BACKGROUND);
+    ui.route.lineRoute->set_style(&ui.styleLineRoute);
 
     lv_obj_t* line = lv_line_create(cont);
     lv_obj_remove_style_all(line);
-    lv_obj_add_style(line, &ui.styleLine, 0);
-    lv_obj_set_style_line_color(line, COLOR_BACKGROUND, 0);
+    lv_obj_add_style(line, &ui.styleLineRoute, 0);
+    // lv_obj_set_style_line_color(line, COLOR_BACKGROUND, 0);
 #if CONFIG_LIVE_MAP_DEBUG_ENABLE
     lv_obj_set_style_line_color(line, lv_palette_main(LV_PALETTE_BLUE), 0);
 #endif
     ui.route.lineActive = line;
 
-    //load route from file
-    // ui.route.lineRoute->append()
+}
+void LiveMapView::Eink_Route_Create(lv_obj_t* par)
+{
+
+
+    lv_obj_t* cont = lv_obj_create(par);
+    lv_obj_remove_style_all(cont);
+    lv_obj_set_size(cont, LV_PCT(100), LV_PCT(100));
+    eink_ui.route.cont = cont;
+
+    eink_ui.route.lineRoute = new lv_poly_line(cont);
+    // lv_style_set_line_color(&ui.styleLineTrack, COLOR_BACKGROUND);
+    eink_ui.route.lineRoute->set_style(&ui.styleLineRoute);
+
+    lv_obj_t* line = lv_line_create(cont);
+    lv_obj_remove_style_all(line);
+    lv_obj_add_style(line, &ui.styleLineRoute, 0);
+    // lv_obj_set_style_line_color(line, COLOR_BACKGROUND, 0);
+#if CONFIG_LIVE_MAP_DEBUG_ENABLE
+    lv_obj_set_style_line_color(line, lv_palette_main(LV_PALETTE_BLUE), 0);
+#endif
+    eink_ui.route.lineActive = line;
+
 }

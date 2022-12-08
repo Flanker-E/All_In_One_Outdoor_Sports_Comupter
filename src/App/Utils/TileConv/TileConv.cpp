@@ -85,7 +85,7 @@ void TileConv::GetTilePos(uint32_t index, Point_t* pos)
     pos->x = priv.pointTileCont[0].x + priv.tileSize * (index % widthIndexMax);
     pos->y = priv.pointTileCont[0].y + priv.tileSize * (index / widthIndexMax);
 }
-
+// get offset bwtween focus point and picture origin
 void TileConv::GetFocusOffset(Point_t* offset)
 {
     GetOffset(offset, &priv.pointFocus);
@@ -109,7 +109,7 @@ int32_t TileConv::FixTile(int32_t x, bool up)
 
     return ret;
 }
-
+// get the offset between point and picture origin
 void TileConv::GetOffset(Point_t* offset, const Point_t* point)
 {
     offset->x = point->x - priv.pointTileCont[0].x;

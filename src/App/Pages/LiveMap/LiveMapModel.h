@@ -24,6 +24,7 @@ public:
     void Deinit();
     // bool InitRouteFile(std::string FilePath);
     void GetGPS_Info(HAL::GPS_Info_t* info);
+    void GetPower_Info(HAL::Power_Info_t *info);
     void GetArrowTheme(char* buf, uint32_t size);
     bool GetTrackFilterActive();
     void TrackReload(TrackPointFilter::Callback_t callback, void* userData);

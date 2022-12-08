@@ -50,6 +50,7 @@ private:
     void Update();
     void UpdateDelay(uint32_t ms);
     void CheckPosition();
+    void Eink_Update();
 
     /* SportInfo */
     void SportInfoUpdate();
@@ -66,9 +67,9 @@ private:
     void TrackLineAppendToEnd(int32_t x, int32_t y);
     static void onTrackLineEvent(TrackLineFilter* filter, TrackLineFilter::Event_t* event);
     /* RouteLine */
-    void RouteLineReload(const Area_t* area, int32_t x, int32_t y);
-    void RouteLineAppend(int32_t x, int32_t y);
-    void RouteLineAppendToEnd(int32_t x, int32_t y);
+    void RouteLineReload();
+    void RouteLineAppend(lv_poly_line* target,int32_t x, int32_t y);
+    void RouteLineAppendToEnd(lv_poly_line* target,int32_t x, int32_t y);
     void AttachEvent(lv_obj_t* obj);
     static void onEvent(lv_event_t* event);
     void onBtnClicked(lv_obj_t* btn);

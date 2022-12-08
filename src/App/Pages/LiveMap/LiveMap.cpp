@@ -75,23 +75,13 @@ void LiveMap::onViewLoad()
                     latitude=std::stod(curNum);
                     PM_LOG_INFO("latitude %f, longitude %f",latitude,longitude);
                     View.ui.route.routePoints.push_back({longitude,latitude});
-                    // Model.mapConv.ConvertMapCoordinate(
-                    //     longitude, latitude,
-                    //     &mapX, &mapY
-                    // );
-                    // RouteLineAppend(mapX,mapY);
-                    // RouteLineAppendToEnd(mapX,mapY);
+
                     curNum="";
                 }
                 else if(cur==0){
                     latitude=std::stod(curNum);
                     View.ui.route.routePoints.push_back({longitude,latitude});
-                    // Model.mapConv.ConvertMapCoordinate(
-                    //     longitude, latitude,
-                    //     &mapX, &mapY
-                    // );
-                    // // RouteLineAppend(mapX,mapY);
-                    // RouteLineAppendToEnd(mapX,mapY);
+
                     curNum="";
                     PM_LOG_INFO("route file read end");
                     priv.isRouteActive=true;
@@ -226,6 +216,7 @@ void LiveMap::Update()
     if (lv_tick_elaps(priv.lastMapUpdateTime) >= CONFIG_GPS_REFR_PERIOD)
     {
         // static bool lcdSwitchInfo=false;
+        // mode switching stuff
         static bool lastIsNormalMode=true;
         if (isNormalMode){
             PM_LOG_INFO("normal mode");
@@ -270,13 +261,14 @@ void LiveMap::Update()
                     To_LCD_Port();
                     #endif
                     einkInfoInited=true;
+                    
                 }
                 if(einkNeedUpdate){
                     PM_LOG_INFO("update eink");
                     #ifndef WIN32
                     To_Eink_Port();
                     #endif            
-                    View.Eink_Update();
+                    Eink_Update();
                     #ifndef WIN32
                     To_LCD_Port();
                     #endif
@@ -305,7 +297,73 @@ void LiveMap::UpdateDelay(uint32_t ms)
 {
     priv.lastMapUpdateTime = lv_tick_get() - 1000 + ms;
 }
+void LiveMap::Eink_Update(){
+    // static int count=0;
+    // count++;
+    
+    lv_disp_set_default(disp_eink);
+    // GPS valid
+    HAL::GPS_Info_t gpsInfo;
+    Model.GetGPS_Info(&gpsInfo);
+    if(gpsInfo.isVaild){
+        lv_label_set_text_fmt(View.eink_ui.gpsInfo.Data_GPS,"Valid");
+    }
+    else{
+        lv_label_set_text_fmt(View.eink_ui.gpsInfo.Data_GPS,"NotVal");
+    }
+    PM_LOG_INFO("update GPS");
+    // battery
+    HAL::Power_Info_t power;
+    Model.GetPower_Info(&power);
+    lv_label_set_text_fmt(View.eink_ui.battInfo.Data_Batt, "%d%%", power.usage);
+    PM_LOG_INFO("update Power");
+    //set arrow angle
+    lv_img_set_angle(View.eink_ui.imgArrow, int16_t(gpsInfo.course * 10));
+    PM_LOG_INFO("update arrow course");
+    //get focus/offset, which is the position of arrow in a picture
+    //use this to minus line position, can get line point relative pos.
+    TileConv::Point_t offset;
+    Model.tileConv.GetFocusOffset(&offset);
 
+    if(priv.isRouteActive==true){
+        // if(View.eink_ui.route.lineRoute!=nullptr)
+        //     delete View.eink_ui.route.lineRoute;
+        View.eink_ui.route.lineRoute->reset();
+        View.eink_ui.route.lineRoute->start();
+        PM_LOG_INFO("eink line route start");
+        int32_t mapX, mapY;
+        for(int i=0;i<View.ui.route.routePoints.size()-1;i++){
+            Model.mapConv.ConvertMapCoordinate(
+                View.ui.route.routePoints[i].first, View.ui.route.routePoints[i].second,
+                &mapX, &mapY
+            );
+            // RouteLineAppend(mapX,mapY);
+            RouteLineAppend(View.eink_ui.route.lineRoute, mapX-offset.x+100, mapY-offset.y+110);
+        }
+        View.eink_ui.route.lineRoute->stop();
+        Model.mapConv.ConvertMapCoordinate(
+            View.ui.route.routePoints[View.ui.route.routePoints.size()-1].first, View.ui.route.routePoints[View.ui.route.routePoints.size()-1].second,
+            &mapX, &mapY
+        );
+        RouteLineAppendToEnd(View.eink_ui.route.lineRoute, mapX-offset.x+100, mapY-offset.y+110);
+    
+
+    }
+    else{
+        View.eink_ui.route.lineRoute->reset();
+    }
+    // lv_label_set_text_fmt(
+    //     View.eink_ui.northInfo.Data_North,
+    //     "%dm\n",
+    //     count
+    // );
+    // lv_label_set_text_fmt(
+    //     View.eink_ui.eastInfo.Data_East,
+    //     "%dm\n",
+    //     count
+    // );
+    lv_disp_set_default(disp_lcd);
+}
 void LiveMap::SportInfoUpdate()
 {
     lv_label_set_text_fmt(
@@ -396,7 +454,7 @@ void LiveMap::onMapTileContRefresh(const Area_t* area, int32_t x, int32_t y)
     if (priv.isRouteActive)
     {
         PM_LOG_INFO("reload route line");
-        RouteLineReload(area, x, y);
+        RouteLineReload();
     }
 }
 
@@ -467,7 +525,7 @@ void LiveMap::TrackLineReload(const Area_t* area, int32_t x, int32_t y)
     Model.lineFilter.PushEnd();
 }
 
-void LiveMap::RouteLineReload(const Area_t* area, int32_t x, int32_t y)
+void LiveMap::RouteLineReload()
 {
     View.ui.route.lineRoute->reset();
     View.ui.route.lineRoute->start();
@@ -478,31 +536,14 @@ void LiveMap::RouteLineReload(const Area_t* area, int32_t x, int32_t y)
             &mapX, &mapY
         );
         // RouteLineAppend(mapX,mapY);
-        RouteLineAppend(mapX,mapY);
+        RouteLineAppend(View.ui.route.lineRoute, mapX, mapY);
     }
     View.ui.route.lineRoute->stop();
     Model.mapConv.ConvertMapCoordinate(
         View.ui.route.routePoints[View.ui.route.routePoints.size()-1].first, View.ui.route.routePoints[View.ui.route.routePoints.size()-1].second,
         &mapX, &mapY
     );
-    RouteLineAppendToEnd(mapX,mapY);
-    // for(auto point:View.ui.route.routePoints){
-    //     Model.mapConv.ConvertMapCoordinate(
-    //         point.first, point.second,
-    //         &mapX, &mapY
-    //     );
-    //     // RouteLineAppend(mapX,mapY);
-    //     RouteLineAppendToEnd(mapX,mapY);
-    // }
-    // Model.lineFilter.SetClipArea(area);
-    // Model.lineFilter.Reset();
-    // Model.TrackReload([](TrackPointFilter * filter, const TrackPointFilter::Point_t* point)
-    // {
-    //     LiveMap* instance = (LiveMap*)filter->userData;
-    //     instance->Model.lineFilter.PushPoint((int32_t)point->x, (int32_t)point->y);
-    // }, this);
-    // Model.lineFilter.PushPoint(x, y);
-    // Model.lineFilter.PushEnd();
+    RouteLineAppendToEnd(View.ui.route.lineRoute, mapX, mapY);
 }
 
 void LiveMap::TrackLineAppend(int32_t x, int32_t y)
@@ -524,23 +565,25 @@ void LiveMap::TrackLineAppendToEnd(int32_t x, int32_t y)
     PM_LOG_INFO("Track append to end offset x %d, y %d",x,y);
     View.ui.track.lineTrack->append_to_end((lv_coord_t)offset.x, (lv_coord_t)offset.y);
 }
-void LiveMap::RouteLineAppend(int32_t x, int32_t y)
+void LiveMap::RouteLineAppend(lv_poly_line* target,int32_t x, int32_t y)
 {
     TileConv::Point_t offset;
     TileConv::Point_t curPoint = { x, y };
     PM_LOG_INFO("Route append x %d, y %d",x,y);
     Model.tileConv.GetOffset(&offset, &curPoint);
     PM_LOG_INFO("Route append x offset %d, y %d",offset.x,offset.y);
-    View.ui.route.lineRoute->append((lv_coord_t)offset.x, (lv_coord_t)offset.y);
+    target->append((lv_coord_t)offset.x, (lv_coord_t)offset.y);
+    // View.ui.route.lineRoute->append((lv_coord_t)offset.x, (lv_coord_t)offset.y);
 }
-void LiveMap::RouteLineAppendToEnd(int32_t x, int32_t y)
+void LiveMap::RouteLineAppendToEnd(lv_poly_line* target,int32_t x, int32_t y)
 {
     TileConv::Point_t offset;
     TileConv::Point_t curPoint = { x, y };
     PM_LOG_INFO("Route append to end x %d, y %d",x,y);
     Model.tileConv.GetOffset(&offset, &curPoint);
     PM_LOG_INFO("Route append to end x offset %d, y %d",offset.x,offset.y);
-    View.ui.route.lineRoute->append_to_end((lv_coord_t)offset.x, (lv_coord_t)offset.y);
+    target->append_to_end((lv_coord_t)offset.x, (lv_coord_t)offset.y);
+    // View.ui.route.lineRoute->append_to_end((lv_coord_t)offset.x, (lv_coord_t)offset.y);
 }
 
 void LiveMap::onTrackLineEvent(TrackLineFilter* filter, TrackLineFilter::Event_t* event)

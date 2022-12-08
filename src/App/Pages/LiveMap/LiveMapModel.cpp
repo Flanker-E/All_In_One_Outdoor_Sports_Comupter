@@ -18,6 +18,7 @@ void LiveMapModel::Init()
     account->Subscribe("TrackFilter");
     account->Subscribe("SysConfig");
     account->Subscribe("StatusBar");
+    account->Subscribe("Power");
     account->SetEventCallback(onEvent);
     
 }
@@ -82,6 +83,15 @@ bool LiveMapModel::GetTrackFilterActive()
     }
 
     return info.isActive;
+}
+
+void LiveMapModel::GetPower_Info(HAL::Power_Info_t *info)
+{
+    memset(info, 0, sizeof(HAL::Power_Info_t));
+    if(account->Pull("Power", info, sizeof(HAL::Power_Info_t)) != Account::RES_OK)
+    {
+        return;
+    }
 }
 
 int LiveMapModel::onEvent(Account* account, Account::EventParam_t* param)

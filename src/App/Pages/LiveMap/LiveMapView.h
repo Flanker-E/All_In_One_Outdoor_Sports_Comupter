@@ -6,6 +6,11 @@
 #include <string>
 #include "../../Utils/lv_poly_line/lv_poly_line.h"
 #include "../../Utils/Routes/Routes.h"
+extern lv_obj_t* scr_lcd;
+extern lv_obj_t* scr_eink;
+
+extern lv_disp_t* disp_lcd;
+extern lv_disp_t* disp_eink;
 
 namespace Page
 {
@@ -24,7 +29,8 @@ public:
 
         lv_style_t styleCont;
         lv_style_t styleLabel;
-        lv_style_t styleLine;
+        lv_style_t styleLineTrack;
+        lv_style_t styleLineRoute;
 
         struct
         {
@@ -98,6 +104,16 @@ public:
             lv_obj_t* Info_Batt; //already in lcd
             lv_obj_t* Data_Batt;
         }battInfo;
+
+        struct
+        {
+            lv_obj_t* cont;
+            lv_poly_line* lineRoute;
+            lv_obj_t* lineActive;
+            lv_point_t pointActive[2];
+            // std::vector<std::pair<double,double>> routePoints;
+        } route;
+        lv_obj_t* imgArrow;
         lv_obj_t* cont;
 
     } eink_ui;
@@ -133,6 +149,7 @@ private:
     lv_obj_t* ImgLabel_Create(lv_obj_t* par, const void* img_src, lv_coord_t x_ofs, lv_coord_t y_ofs);
     void Track_Create(lv_obj_t* par);
     void Route_Create(lv_obj_t* par);
+    void Eink_Route_Create(lv_obj_t* par);
     // static StorageService storageService;
 };
 
