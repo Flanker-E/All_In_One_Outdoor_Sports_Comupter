@@ -168,6 +168,13 @@ void LiveMapView::Delete()
         ui.track.lineTrack = nullptr;
     }
 
+    if (ui.route.lineRoute)
+    {
+        delete ui.route.lineRoute;
+        ui.route.lineRoute = nullptr;
+        ui.route.routePoints.clear();
+    }
+
     if (ui.map.imgTiles)
     {
         lv_mem_free(ui.map.imgTiles);
@@ -221,6 +228,7 @@ void LiveMapView::Map_Create(lv_obj_t* par, uint32_t tileNum)
     }
 
     Track_Create(cont);
+    Route_Create(cont);
 
     lv_obj_t* img = lv_img_create(cont);
     lv_img_set_src(img, ResourcePool::GetImage("gps_arrow_dark"));
@@ -378,7 +386,7 @@ void LiveMapView::Track_Create(lv_obj_t* par)
     ui.track.cont = cont;
 
     ui.track.lineTrack = new lv_poly_line(cont);
-
+    
     ui.track.lineTrack->set_style(&ui.styleLine);
 
     lv_obj_t* line = lv_line_create(cont);
@@ -388,4 +396,34 @@ void LiveMapView::Track_Create(lv_obj_t* par)
     lv_obj_set_style_line_color(line, lv_palette_main(LV_PALETTE_BLUE), 0);
 #endif
     ui.track.lineActive = line;
+}
+
+void LiveMapView::Route_Create(lv_obj_t* par)
+{
+    // std::string FilePath=routes.GetRouteChooseName();
+    // if(FilePath=="")
+    //     return;
+    
+    // FileWrapper file(FilePath.c_str(), LV_FS_MODE_RD);
+
+    lv_obj_t* cont = lv_obj_create(par);
+    lv_obj_remove_style_all(cont);
+    lv_obj_set_size(cont, LV_PCT(100), LV_PCT(100));
+    ui.route.cont = cont;
+
+    ui.route.lineRoute = new lv_poly_line(cont);
+    lv_style_set_line_color(&ui.styleLine, COLOR_BACKGROUND);
+    ui.route.lineRoute->set_style(&ui.styleLine);
+
+    lv_obj_t* line = lv_line_create(cont);
+    lv_obj_remove_style_all(line);
+    lv_obj_add_style(line, &ui.styleLine, 0);
+    lv_obj_set_style_line_color(line, COLOR_BACKGROUND, 0);
+#if CONFIG_LIVE_MAP_DEBUG_ENABLE
+    lv_obj_set_style_line_color(line, lv_palette_main(LV_PALETTE_BLUE), 0);
+#endif
+    ui.route.lineActive = line;
+
+    //load route from file
+    // ui.route.lineRoute->append()
 }

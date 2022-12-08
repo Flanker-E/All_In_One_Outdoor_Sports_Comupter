@@ -31,7 +31,7 @@ void RouteSelectView::Create(lv_obj_t* root)
     // PM_LOG_DEBUG("selected is %s",selected);
     
     for(auto name:*availableRoutes){
-        PM_LOG_DEBUG("create one route item");
+        // PM_LOG_DEBUG("create one route item");
         Item_Create(
             root,
             "Route",
@@ -65,7 +65,7 @@ void RouteSelectView::Group_Init()
     PM_LOG_DEBUG("iterate icons");
     auto rit = ui.icons.rbegin();
     for (; rit!= ui.icons.rend(); ++rit){
-        PM_LOG_DEBUG("add one route item into group");
+        // PM_LOG_DEBUG("add one route item into group");
         lv_group_add_obj(group, *rit);}
     // for(auto icon:ui.icons){
     //     lv_group_add_obj(group, icon);
@@ -196,8 +196,8 @@ void RouteSelectView::Item_Create(
 
     /* infos */
     label = lv_label_create(cont);
-    PM_LOG_DEBUG("selected is %s",selected.c_str());
-    PM_LOG_DEBUG("info is %s",infos.c_str());
+    // PM_LOG_DEBUG("selected is %s",selected.c_str());
+    // PM_LOG_DEBUG("info is %s",infos.c_str());
     if(selected==infos)
         lv_label_set_text_fmt(label, "[Selected]%s",infos.c_str());
     else

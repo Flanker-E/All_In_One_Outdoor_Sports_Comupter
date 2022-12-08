@@ -21,6 +21,7 @@ public:
     {
         return numRoute ;
     }
+    //return the chosen file name in std::string
     static std::string GetRouteChooseName(){
         return routeChoose;
     }

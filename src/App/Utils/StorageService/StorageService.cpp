@@ -21,10 +21,7 @@
  * SOFTWARE.
  */
 #include "StorageService.h"
-#include "ArduinoJson.h"
-#include "lvgl.h"
-#include <algorithm>
-#include "../DataCenter/DataCenterLog.h"
+
 
 #define USE_STATIC_JSON_DOC        1
 #if USE_STATIC_JSON_DOC
@@ -46,60 +43,12 @@ do{\
     memcpy(iter->value, &value, size);\
 }while(0)
 
-class FileWrapper
+
+
+StorageService::StorageService()
 {
-public:
-    FileWrapper(const char* path, lv_fs_mode_t mode)
-    {
-        memset(&file, 0, sizeof(file));
-        fs_res = lv_fs_open(&file, path, mode);
-    }
-
-    ~FileWrapper()
-    {
-        lv_fs_close(&file);
-    }
-
-    uint8_t read()
-    {
-        uint8_t data = 0;
-        readBytes(&data, 1);
-        return data;
-    }
-
-    size_t readBytes(void* buffer, size_t length)
-    {
-        uint32_t br = 0;
-        lv_fs_read(&file, buffer, (uint32_t)length, &br);
-        return br;
-    }
-
-    size_t write(uint8_t c)
-    {
-        return write(&c, 1);
-    }
-
-    size_t write(const uint8_t* s, size_t n)
-    {
-        uint32_t bw = 0;
-        lv_fs_write(&file, s, (uint32_t)n, &bw);
-        return bw;
-    }
-
-    operator bool()
-    {
-        return fs_res == LV_FS_RES_OK;
-    };
-
-private:
-    lv_fs_res_t fs_res;
-    lv_fs_file_t file;
-};
-
-StorageService::StorageService(const char* filePath, uint32_t bufferSize)
-{
-    FilePath = filePath;
-    BufferSize = bufferSize;
+    // FilePath = filePath;
+    // BufferSize = bufferSize;
 }
 
 StorageService::~StorageService()
@@ -148,7 +97,7 @@ bool StorageService::Remove(const char* key)
     return true;
 }
 
-bool StorageService::LoadFile()
+bool StorageService::LoadFile(const char *FilePath)
 {
     FileWrapper file(FilePath, LV_FS_MODE_RD);
     bool retval = true;
@@ -282,7 +231,38 @@ bool StorageService::SaveFile(const char* backupPath)
 
     return true;
 }
+bool StorageService::LoadFile(uint32_t bufferSize)
+{
+    FileWrapper file(FilePath, LV_FS_MODE_RD);
+    bool retval = true;
 
+    if (!file)
+    {
+        DC_LOG_ERROR("Failed to open file: %s", FilePath);
+        return false;
+    }
+    int i=0;
+    while(i<10000){
+        // static char lastTemp=' ';
+        char temp = file.read();
+        i++;
+        if(temp==0){
+            break;
+        }
+        // lastTemp=temp;
+        // Serial.printf("%d ",temp);
+    }
+    DC_LOG_USER("has %d bytes of data",i);
+    // char* route = new char[bufferSize]
+
+    return retval;
+}
+
+void StorageService::Analyze(){
+    // analyze the route and print
+    DC_LOG_USER("route analyze");
+
+}
 StorageService::Node_t* StorageService::SearchNode(const char* key)
 {
     for (auto iter : NodePool)

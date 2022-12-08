@@ -25,6 +25,8 @@
 #define CONFIG_TRACK_FILTER_OFFSET_THRESHOLD  2 // pixel
 #define CONFIG_TRACK_RECORD_FILE_DIR_NAME     "Track"
 
+#define CONFIG_ROUTE_FILE_DIR_NAME            "/Route"
+
 #define CONFIG_MAP_USE_WGS84_DEFAULT          false
 
 //#define CONFIG_MAP_DIR_PATH                   {'/','M','A','P'}//"/MAP"

@@ -16,7 +16,9 @@ using namespace DataProc;
 #define MAP_LEVEL_MIN    0
 #define MAP_LEVEL_MAX    19
 
-static StorageService storageService(CONFIG_SYSTEM_SAVE_FILE_PATH, 4096);
+static StorageService storageService;
+//(CONFIG_SYSTEM_SAVE_FILE_PATH, 4096);
+// static StorageService storageServiceRoute("/Route/RTE_20221206_2.txt", 4096);
 
 static int16_t RouteGetRange(const char* dirName, std::vector<std::string>* found){
     int16_t retval =0;
@@ -124,7 +126,8 @@ static bool MapConvGetRange(const char* dirName, int16_t* min, int16_t* max)
 
 static bool onLoad(Account* account)
 {
-    bool success = storageService.LoadFile();
+    bool success = storageService.LoadFile(CONFIG_SYSTEM_SAVE_FILE_PATH);
+    // bool test=storageServiceRoute.LoadFile(4096);
 
     if (!success)
     {

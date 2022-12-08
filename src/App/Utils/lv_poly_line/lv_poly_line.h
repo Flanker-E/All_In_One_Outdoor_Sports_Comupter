@@ -3,6 +3,7 @@
 
 #include "lvgl.h"
 #include <vector>
+#include "../PageManager/PM_Log.h"
 
 class lv_poly_line
 {
@@ -16,12 +17,14 @@ public:
     }
 
     void start();
+    //append the point to current line.
     void append(const lv_point_t* point);
     void append(lv_coord_t x, lv_coord_t y)
     {
         lv_point_t point = { x, y };
         append(&point);
     }
+    //append the point to last line and update the line with points
     void append_to_end(const lv_point_t* point);
     void append_to_end(lv_coord_t x, lv_coord_t y)
     {

@@ -1,6 +1,7 @@
 #include "LiveMapModel.h"
-#include "../../Configs/Config.h"
+
 #include "../../Utils/PointContainer/PointContainer.h"
+
 
 using namespace Page;
 
@@ -18,8 +19,19 @@ void LiveMapModel::Init()
     account->Subscribe("SysConfig");
     account->Subscribe("StatusBar");
     account->SetEventCallback(onEvent);
+    
 }
-
+// bool LiveMapModel::InitRouteFile(std::string FilePath){
+//     routeFile_.reset(new FileWrapper(FilePath.c_str(),LV_FS_MODE_RD));
+//     FileWrapper routeFile(FilePath.c_str(),LV_FS_MODE_RD);
+//     if (!routeFile)
+//     {
+//         PM_LOG_ERROR("Failed to open file: %s", FilePath);
+//         return false;
+//     }
+//     return true;
+        
+// }
 void LiveMapModel::Deinit()
 {
     if (account)

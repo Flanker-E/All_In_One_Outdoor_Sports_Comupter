@@ -254,7 +254,7 @@ void TrackPointFilter::DumpLine(const char* name, const Line_t* line)
         -line->a / line->b, -line->c / line->b
     );
 }
-
+// print point value
 void TrackPointFilter::DumpPoint(const char* name, const Point_t* point)
 {
     LOG_PRINT("%s : (%lf, %lf)", name, point->x, point->y);

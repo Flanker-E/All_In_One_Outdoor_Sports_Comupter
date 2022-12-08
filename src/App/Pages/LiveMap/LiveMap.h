@@ -3,7 +3,7 @@
 
 #include "LiveMapView.h"
 #include "LiveMapModel.h"
-
+#define ROUTE_DIR_PATH_MAX 30
 namespace Page
 {
 
@@ -26,6 +26,8 @@ private:
     LiveMapView View;
     LiveMapModel Model;
 
+    static char routeDirPath[ROUTE_DIR_PATH_MAX];
+    
     struct
     {
         uint32_t lastMapUpdateTime;
@@ -35,7 +37,8 @@ private:
         bool clickedBefore;
         lv_timer_t* timer;
         TileConv::Point_t lastTileContOriPoint;
-        bool isTrackAvtive;
+        bool isTrackActive;
+        bool isRouteActive;
     } priv;
 
     static uint16_t mapLevelCurrent;
@@ -62,7 +65,10 @@ private:
     void TrackLineAppend(int32_t x, int32_t y);
     void TrackLineAppendToEnd(int32_t x, int32_t y);
     static void onTrackLineEvent(TrackLineFilter* filter, TrackLineFilter::Event_t* event);
-    
+    /* RouteLine */
+    void RouteLineReload(const Area_t* area, int32_t x, int32_t y);
+    void RouteLineAppend(int32_t x, int32_t y);
+    void RouteLineAppendToEnd(int32_t x, int32_t y);
     void AttachEvent(lv_obj_t* obj);
     static void onEvent(lv_event_t* event);
     void onBtnClicked(lv_obj_t* btn);

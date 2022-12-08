@@ -3,7 +3,9 @@
 
 #include "../Page.h"
 #include <vector>
+#include <string>
 #include "../../Utils/lv_poly_line/lv_poly_line.h"
+#include "../../Utils/Routes/Routes.h"
 
 namespace Page
 {
@@ -39,6 +41,15 @@ public:
             lv_obj_t* lineActive;
             lv_point_t pointActive[2];
         } track;
+
+        struct
+        {
+            lv_obj_t* cont;
+            lv_poly_line* lineRoute;
+            lv_obj_t* lineActive;
+            lv_point_t pointActive[2];
+            std::vector<std::pair<double,double>> routePoints;
+        } route;
 
         struct
         {
@@ -121,6 +132,8 @@ private:
     void SportInfo_Create(lv_obj_t* par);
     lv_obj_t* ImgLabel_Create(lv_obj_t* par, const void* img_src, lv_coord_t x_ofs, lv_coord_t y_ofs);
     void Track_Create(lv_obj_t* par);
+    void Route_Create(lv_obj_t* par);
+    // static StorageService storageService;
 };
 
 }
