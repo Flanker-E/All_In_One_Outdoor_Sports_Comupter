@@ -115,12 +115,9 @@ void Settings::onEvent(lv_event_t* event){
 
     lv_obj_t* obj = lv_event_get_current_target(event);
     lv_event_code_t code = lv_event_get_code(event);
-    //if (code == LV_EVENT_SHORT_CLICKED)
-    //{
-    //    PM_LOG_DEBUG_LN("shortclick");
-    //    instance->onBtnClicked(obj);
-    //}
-    // if()
+    if (code ==LV_EVENT_LONG_PRESSED){
+        instance->Manager->Pop();
+    }
     if (obj == instance->View.ui.info.icon)
     {
         if (code == LV_EVENT_SHORT_CLICKED)
