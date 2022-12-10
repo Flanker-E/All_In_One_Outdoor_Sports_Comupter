@@ -35,11 +35,11 @@
 #else
 #include "Arduino.h"
 // #  define PM_LOG_INFO(format, ...) Serial.printf("\r\nPM INFO: "),Serial.printf(format, ##__VA_ARGS__)
-#  define PM_LOG_INFO(format, ...) Serial.printf("\r\nPM INFO: "),Serial.printf(format, ##__VA_ARGS__)
+#  define PM_LOG_INFO(format, ...) //Serial.printf("\r\nPM INFO: "),Serial.printf(format, ##__VA_ARGS__)
 #  define PM_LOG_WARN(format, ...) Serial.printf("\r\nPM WARN: "),Serial.printf(format, ##__VA_ARGS__)
 #  define PM_LOG_ERROR(format, ...) Serial.printf("\r\nPM ERROR: "),Serial.printf(format, ##__VA_ARGS__)
-#  define PM_LOG_DEBUG(format, ...) Serial.printf("\r\nPM DEBUG: "),Serial.printf(format, ##__VA_ARGS__)
-#  define PM_LOG_DEBUG_LN(format) Serial.printf("\r\nPM DEBUG: "),Serial.printf(format)
+#  define PM_LOG_DEBUG(format, ...) //Serial.printf("\r\nPM DEBUG: "),Serial.printf(format, ##__VA_ARGS__)
+#  define PM_LOG_DEBUG_LN(format) //Serial.printf("\r\nPM DEBUG: "),Serial.printf(format)
 #endif
 
 #endif

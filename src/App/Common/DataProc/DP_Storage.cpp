@@ -78,6 +78,7 @@ static bool MapConvGetRange(const char* dirName, int16_t* min, int16_t* max)
         while (1)
         {   
             DC_LOG_USER("while dir read");
+            Serial.printf("\r\nwhile dir read");
             lv_fs_res_t res = lv_fs_dir_read(&dir, name);
 
             if (name[0] == '\0' || res != LV_FS_RES_OK)
@@ -160,7 +161,7 @@ static bool onLoad(Account* account)
         DC_LOG_ERROR("No route found!");
     }
     else{
-        DC_LOG_ERROR("Found %d route in %s", numRoute, "/Route");
+        DC_LOG_INFO("Found %d route in %s", numRoute, "/Route");
         Routes::SetRouteNum(numRoute);
         Routes::ChooseRouteByName("");
         Routes::SetAvailableRoutes(routeFound);
