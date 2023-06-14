@@ -206,6 +206,11 @@ Import fonts, label images
 
 ![Alt text](.assets/overall%20render.png)
 
++ inner rendering
+![](.assets/front%20inner.png =250x)
+![Alt text](.assets/back%20inner.png)
+![Alt text](.assets/back%20outer.png)
+
 + PCB rendering and photo
 ![Alt text](.assets/pcb%20render.png)
 ![Alt text](.assets/pcb%20front.png)
