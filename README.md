@@ -127,15 +127,15 @@ readidx=0 or 1. After read, set avai to 0.
 Write: can not be the same with read. Write to another slot and set its availability to 1.  
 
 #### App
-AppFactory: public inherited from PageFactory  
+**AppFactory:** public inherited from PageFactory  
 Provide createpage check function. Check whether “create a page named xx” is legal. Then return the page object  
 
-PageManager: manage pages. Install, register, push&pop of page stack, page switch and the other stuff.  
+**PageManager:** manage pages. Install, register, push&pop of page stack, page switch and the other stuff.  
 Organized the page-switching logic!  
 Install of page: init page, assign some information of this page.  
 Register of page: assign PM’s this pointer, assign page name to itself (?), pushback in pagepool  
 
-Page stack and page pool:  
+**Page stack and page pool:**  
 Page stack is used to store the sequence of appearance of pages. Page pool is used to check whether a page is registered or not.  
 
 The app will show after it is pushed into the stack by calling “SwitchTo”  
@@ -144,20 +144,26 @@ Switch to: detect and copy stash into the target page.
 The PM will raise StateUpdate to check the state and call corresponding functions in pages (state machine)  
 
 
-App使用MVC框架  
-[基本概念参考:](https://www.zhihu.com/question/27897315)  
-[详细细节以及 IOS viewcontroler：](https://www.jianshu.com/p/caaa173071f3)  
-[跟MVP的区别？](http://c.biancheng.net/view/7743.html) 然后会发现mvc的定义出现了分歧  
+**App uses the MVC framework:**  
+[Basic concept reference](https://www.zhihu.com/question/27897315)  
+[For detailed information and iOS ViewController: ](https://www.jianshu.com/p/caaa173071f3)  
+[Difference from MVP: ](http://c.biancheng.net/view/7743.html) Then you will notice that there are differences in the definition of MVC.
 
 
-实现了页面调度（生命周期）的功能  
-移植 通过push添加页面进池，pop弹出当前页面回到上一个页面  
-确认硬件没有初始化导致systeminfo会引用空指针  
-添加其他页面  
+Implemented functionality for page scheduling (lifecycle).
 
-Page：接口功能，包括创建，显示，加载等  
-PageView：功能实现，如创建，建组等  
-PageModel：数据交互功能，如读取数据更新等  
+Porting: Add pages to the pool using "push" and go back to the previous page using "pop".
+
+Ensure that the hardware is initialized to prevent SystemInfo from referencing a null pointer.
+
+**Add other pages:**
+
+Page: Interface functionality, including creation, display, loading, etc.
+
+PageView: Implementation of functionalities such as creation, grouping, etc.
+
+PageModel: Functionality for data interaction, such as reading data and updating.
+
 
 onBtnClicked called by onEvent. onEvent is a callback function, which is attached to events by lv_obj_add_event_cb In onEvent
 
@@ -197,9 +203,11 @@ Import fonts, label images
 ![Alt text](.assets/map%20route.png)
 
 + Front view
+  
 ![Alt text](.assets/front.png)
 
 + Back view
+  
 ![Alt text](.assets/back.png)
 
 + Overall assembly rendering.
@@ -207,14 +215,17 @@ Import fonts, label images
 ![Alt text](.assets/overall%20render.png)
 
 + inner rendering
-![](.assets/front%20inner.png =250x)
+  
+![](.assets/front%20inner.png)
 ![Alt text](.assets/back%20inner.png)
 ![Alt text](.assets/back%20outer.png)
 
 + PCB rendering and photo
+  
 ![Alt text](.assets/pcb%20render.png)
 ![Alt text](.assets/pcb%20front.png)
 ![Alt text](.assets/pcb%20back.png)
+
 ## 📫 Contact
 
 + Zhewei Ye, Email: yezhewei@umich.edu
