@@ -1,28 +1,23 @@
 # All-in-one Outdoor Sports Comupter
-## changelog
-20220617 demo widges, run in FreeRTOS, with semaphor. Record before adding X-track page management and display port.  
-20220624 touchpad on peak pages.  
-20220626 sysinfo works. battery label update error.  
-20220629 X-track pages, simulator, touchpad problem.  
-20220928 sync using new machine.  
-20221004 update hardware design.  
-20221102 PCB v2.7 =>Fab  
-20221110 case 3D modeling v1.3  
-20221116 driver switch between LCD and EINK  
-20221120 case 3D modeling v1.4, revision for PCB v2.7  
-20221122 incorporate encoder and touch screen  
-20221123 solved the switch between LCD and Eink  
-20221127 adding settings page  
-20221128 design settings items' icon  
-20221202 fix encoder click logic  
-20221205 poster stuff, tf card and map load  
-20221206 time issure, positioning offset, route recording enable  
-20221207 available route read and selection UI  
 
-## Credit to 
-Based on [X-Track](https://github.com/FASTSHIFT/X-TRACK), [Peak](https://github.com/peng-zhihui/Peak) and [Peak-T2](https://gitee.com/forairaaaaa/peak-t2/tree/master/1.Hardware#https://gitee.com/link?target=https%3A%2F%2Foshwhub.com%2Feedadada%2Ffed36bbc19da4527b237982f9cd09f99)
+![EECS473](https://img.shields.io/badge/EECS473-Team15-orange)
+![Primary language](https://img.shields.io/github/languages/top/Flanker-E/All_In_One_Outdoor_Sports_Comupter)
+![build passing](https://img.shields.io/badge/build-passing-brightgreen)
+![License](https://img.shields.io/badge/license-MIT-green)
+This is Team 15's final project git repository for EECS 473: Advanced Embedded Systems. 
 
-## Firmware compile using PIO
+The title of our project is **All-in-one Outdoor Sports Comupter**
+
+The team members include: Zhewei Ye, Zheyuan Wu, Yuantao Bai, Yifan Yang, Yidong Zhen, Yuxin Wang.
+
+
+## 🏅 Acknowledgement
+Thanks for the great work: 
++ [**X-Track**](https://github.com/FASTSHIFT/X-TRACK)
++ [**Peak**](https://github.com/peng-zhihui/Peak)
++ [**Peak-T2**](https://gitee.com/forairaaaaa/peak-t2/tree/master/1.Hardware#https://gitee.com/link?target=https%3A%2F%2Foshwhub.com%2Feedadada%2Ffed36bbc19da4527b237982f9cd09f99)
+
+## ⚙️ Firmware compile using PIO
 Open project with Vscode, wait for PlatformIO to configure the project.  
 
 ### configure lvgl/lv_conf.h  
@@ -182,6 +177,32 @@ Using lv_poly_line to record track line
 Observation: the map will exit when button is pressed(before release)
 #### Resource Pool
 Import fonts, label images
+## 📫 Contact
 
-
++ Zhewei Ye, Email: yezhewei@umich.edu
++ Zheyuan Wu, Email: wuzy@umich.edu
++ Yuantao Bai, Email: yuantaob@umich.edu
++ Yifan Yang, Email: yifanyan@umich.edu
++ Yidong Zhen, Email: ydzhen@umich.edu
++ Yuxin Wang, Email: yuxinece@umich.edu
+  
+## 📌 Project Changelog
+20220617 demo widges, run in FreeRTOS, with semaphor. Record before adding X-track page management and display port.  
+20220624 touchpad on peak pages.  
+20220626 sysinfo works. battery label update error.  
+20220629 X-track pages, simulator, touchpad problem.  
+20220928 sync using new machine.  
+20221004 update hardware design.  
+20221102 PCB v2.7 =>Fab  
+20221110 case 3D modeling v1.3  
+20221116 driver switch between LCD and EINK  
+20221120 case 3D modeling v1.4, revision for PCB v2.7  
+20221122 incorporate encoder and touch screen  
+20221123 solved the switch between LCD and Eink  
+20221127 adding settings page  
+20221128 design settings items' icon  
+20221202 fix encoder click logic  
+20221205 poster stuff, tf card and map load  
+20221206 time issure, positioning offset, route recording enable  
+20221207 available route read and selection UI  
 
