@@ -12,6 +12,11 @@ The title of our project is **All-in-one Outdoor Sports Comupter**
 
 The team members include: Zhewei Ye, Zheyuan Wu, Yuantao Bai, Yifan Yang, Yidong Zhen, Yuxin Wang.
 
+## 🌟 Expo
+Poster of the project
+
+![Alt text](.assets/15_bike_poster.jpg)
+
 
 ## 🏅 Acknowledgement
 Thanks for the great work: 
