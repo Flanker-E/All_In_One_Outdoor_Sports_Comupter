@@ -1,5 +1,6 @@
 # All-in-one Outdoor Sports Comupter
 ![Alt text](.assets/demo.gif)
+
 ![EECS473](https://img.shields.io/badge/EECS473-Team15-orange)
 ![Primary language](https://img.shields.io/github/languages/top/Flanker-E/All_In_One_Outdoor_Sports_Comupter)
 ![build passing](https://img.shields.io/badge/build-passing-brightgreen)
@@ -57,6 +58,7 @@ uncomment line 205-210 and 223
 
 ## How to get simulator work on Windows
 ![Alt text](.assets/simulation.png)
+
 Clone project.  
 Open project with Vscode, wait for PlatformIO to configure the project.  
 Download Visual Studio 2019.(can't work with 2022)  
@@ -71,6 +73,7 @@ some basic function don't work under Mac c++ env.
 
 ## Software Part Understanding
 ![Alt text](.assets/software%20structure.png)
+
 ### Software Init Pipeline
 Setup:  
 * HAL_init;  
