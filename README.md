@@ -188,6 +188,28 @@ Using lv_poly_line to record track line
 Observation: the map will exit when button is pressed(before release)
 #### Resource Pool
 Import fonts, label images
+## 🎬 Pictures and Documentation
++ Project Document: [**[PDF]**](https://github.com/Flanker-E/All_In_One_Outdoor_Sports_Comupter/blob/main/.assets/Team15_473F22_report.docx.pdf)
+
+
++ Route recording and navigation: Yellow is recorded route and blue is navigation route.
+
+![Alt text](.assets/map%20route.png)
+
++ Front view
+![Alt text](.assets/front.png)
+
++ Back view
+![Alt text](.assets/back.png)
+
++ Overall assembly rendering.
+
+![Alt text](.assets/overall%20render.png)
+
++ PCB rendering and photo
+![Alt text](.assets/pcb%20render.png)
+![Alt text](.assets/pcb%20front.png)
+![Alt text](.assets/pcb%20back.png)
 ## 📫 Contact
 
 + Zhewei Ye, Email: yezhewei@umich.edu
